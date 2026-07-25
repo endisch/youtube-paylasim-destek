@@ -590,7 +590,7 @@
         <div class="logo-badge">YT DESTEK</div>
         <div>
           <h1 class="logo-title">YouTube Paylaşım Destek</h1>
-          <span class="logo-sub">thendisch.com/youtube • 2026 Müzik & İçerik SEO Motoru</span>
+          <span class="logo-sub">thendisch.com/youtube • Sizden Gelenler Güvenlik Mimarisi</span>
         </div>
       </a>
 
@@ -602,6 +602,7 @@
         
         <button class="btn btn-sm" onclick="openChannelModal()">+ Kanal Ekle</button>
         <button class="btn btn-sm" style="border-color:var(--accent-gold); color:var(--accent-gold);" onclick="openSafetyModal()">🛡️ Güvenlik & Hafıza</button>
+        <button class="btn btn-sm" id="authBtn" onclick="openAuthModal()">🔑 Yönetici Girişi</button>
         <button class="btn btn-sm" onclick="openSettingsModal()">⚙️ API Ayarları</button>
       </div>
     </div>
@@ -642,7 +643,7 @@
 
       <!-- YouTube Official Guidelines Badge -->
       <div class="yt-rules-badge">
-        <span>🎬 <strong>YouTube Creator Akademi Standartları:</strong> Mobilde 3 kelime kuralı, yüksek kontrastlı renk çiftleri, 16:9 odak noktası ve 3 farklı A/B testi optimizasyonu aktif.</span>
+        <span>🎬 <strong>Sizden Gelenler Güvenlik Standartları:</strong> JWT Yetkilendirme, Helmet Koruması, Rolling Snapshot ve Otomatik Sunucu Diski Yedekleme Aktif.</span>
       </div>
 
       <!-- Generator Input Card -->
@@ -759,13 +760,38 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast">Kopyalandı!</div>
 
+  <!-- Modal: Admin Auth (Sizden Gelenler Standard) -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🔑 Yönetici / Staff Girişi</h3>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">
+        Sizden Gelenler altyapısı sahibi (thendisch) veya yetkili yöneticiler için JWT yetkilendirme modülü.
+      </p>
+      
+      <div class="form-group">
+        <label>Kullanıcı Adı</label>
+        <input type="text" id="authUsername" class="form-control" placeholder="thendisch" value="thendisch" />
+      </div>
+
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="authPassword" class="form-control" placeholder="••••••••" />
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button class="btn" onclick="closeAuthModal()">İptal</button>
+        <button class="btn btn-primary" onclick="performLogin()">Giriş Yap</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal: Safety & Memory Module (Güvenlik & Hafıza) -->
   <div id="safetyModal" class="modal-overlay">
     <div class="modal-content">
-      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🛡️ Güvenlik & Hafıza Modülü</h3>
+      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🛡️ Güvenlik & Hafıza Modülü (Sizden Gelenler)</h3>
       
       <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
-        Verilerinizi kaybetmemeniz için otomatik anlık durum yedeklemesi, geri alma (undo/rollback) ve sunucu/JSON veri senkronizasyonu.
+        Geri alma (rollback), otomatik rolling sunucu snapshot'ları ve JSON yedek senkronizasyonu.
       </p>
 
       <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
@@ -782,8 +808,8 @@
         <!-- Railway Server Sync -->
         <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <strong style="color:var(--text-primary); font-size:0.9rem;">☁️ Sunucu Yedeği (Railway Storage)</strong>
-            <div style="font-size:0.78rem; color:var(--text-muted);">Tüm kanalları ve geçmişi sunucuya kaydet veya sunucudan yükle.</div>
+            <strong style="color:var(--text-primary); font-size:0.9rem;">☁️ Sunucu Yedeği & Rolling Snapshot</strong>
+            <div style="font-size:0.78rem; color:var(--text-muted);">Tüm kanalları sunucuya kaydet veya sunucudaki snapshot'tan yükle.</div>
           </div>
           <div style="display:flex; gap:6px;">
             <button class="btn btn-sm" onclick="saveServerBackup()">Sunucuya Kaydet</button>
@@ -909,6 +935,7 @@
     let currentGenerationData = null;
     let editingChannelId = null;
     let snapshotStack = [];
+    let authToken = storage.get("jwt_token") || null;
 
     // Sample Default Channels for Onboarding
     const SAMPLE_CHANNELS = [
@@ -948,8 +975,84 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadChannels();
       loadApiKey();
+      verifyAuth();
       pushSnapshot("İlk Yükleme");
     });
+
+    // Authentication (Sizden Gelenler Standard)
+    function openAuthModal() {
+      document.getElementById("authModal").style.display = "flex";
+    }
+
+    function closeAuthModal() {
+      document.getElementById("authModal").style.display = "none";
+    }
+
+    async function performLogin() {
+      const username = document.getElementById("authUsername").value.trim();
+      const password = document.getElementById("authPassword").value.trim();
+
+      if (!username || !password) {
+        alert("Lütfen kullanıcı adı ve şifre girin!");
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (data.success) {
+          authToken = data.token;
+          storage.set("jwt_token", authToken);
+          updateAuthUI(true, data.username);
+          showToast(`Hoş geldiniz ${data.username}! Yetki doğrulandı.`);
+          closeAuthModal();
+        } else {
+          alert("Giriş başarısız: " + (data.error || 'Hatalı bilgiler'));
+        }
+      } catch (err) {
+        alert("Giriş sırasında hata oluştu.");
+      }
+    }
+
+    async function verifyAuth() {
+      if (!authToken) {
+        updateAuthUI(false);
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/verify", {
+          headers: { "Authorization": `Bearer ${authToken}` }
+        });
+        const data = await res.json();
+        if (data.authenticated) {
+          updateAuthUI(true, data.user.username);
+        } else {
+          authToken = null;
+          storage.remove("jwt_token");
+          updateAuthUI(false);
+        }
+      } catch (e) {
+        updateAuthUI(false);
+      }
+    }
+
+    function updateAuthUI(isLoggedIn, username = "") {
+      const btn = document.getElementById("authBtn");
+      if (isLoggedIn) {
+        btn.textContent = `👑 ${username} (Aktif)`;
+        btn.style.borderColor = "var(--success-color)";
+        btn.style.color = "var(--success-color)";
+      } else {
+        btn.textContent = `🔑 Yönetici Girişi`;
+        btn.style.borderColor = "var(--border-color)";
+        btn.style.color = "var(--text-primary)";
+      }
+    }
 
     // Safety Snapshot Engine
     function pushSnapshot(reason = "İşlem") {
@@ -976,7 +1079,7 @@
         return;
       }
 
-      snapshotStack.pop(); // Remove current
+      snapshotStack.pop();
       const prev = snapshotStack[snapshotStack.length - 1];
 
       channels = prev.channels;
@@ -1010,14 +1113,17 @@
       };
 
       try {
+        const headers = { "Content-Type": "application/json" };
+        if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
+
         const res = await fetch("/api/backup", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: headers,
           body: JSON.stringify(backupPayload)
         });
         const data = await res.json();
         if (data.success) {
-          showToast("☁️ Sunucu yedeği başarıyla oluşturuldu!");
+          showToast("☁️ Sunucu yedeği & rolling snapshot oluşturuldu!");
         } else {
           alert("Sunucuya kaydedilemedi: " + (data.error || data.message));
         }
@@ -1067,7 +1173,7 @@
       });
 
       const backupObj = {
-        version: "1.0",
+        version: "1.1-sizden-gelenler-security",
         exportDate: new Date().toISOString(),
         channels: channels,
         histories: allHistories
