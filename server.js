@@ -20,17 +20,19 @@ app.use(
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(__dirname));
 
-// Persistent Storage Directories
-const DATA_DIR = path.join(__dirname, 'data');
+// Persistent Storage Directories (Railway Persistent Volume Uyumlu)
+// Railway Volume Mount Path: /app/data veya process.env.RAILWAY_VOLUME_MOUNT_PATH
+const DATA_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH || path.join(__dirname, 'data');
 const SNAPSHOTS_DIR = path.join(DATA_DIR, 'snapshots');
 const BACKUP_FILE = path.join(DATA_DIR, 'backup.json');
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 
+console.log(`🛡️ Persistent Volume Hafıza Dizin: ${DATA_DIR}`);
+
 // Owner Credentials (sizden-gelenler standard)
 const OWNER_USER = 'thendisch';
-// Pre-hashed default password or SHA-256 fallback (default pass: thendisch2026)
 const DEFAULT_PASS_HASH = '$2b$12$GY9WWFuKfr1Os.zJ6QJOmO5iOdjsNfOJbXlRHrlUWedAPBpc9hvye';
 
 // JWT Auth Middleware
@@ -39,7 +41,6 @@ function requireAuth(req, res, next) {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    // If no token provided, fallback to guest mode for read operations
     return res.status(401).json({ success: false, error: 'Yetkisiz erişim. Lütfen giriş yapın.' });
   }
 
@@ -59,7 +60,6 @@ app.post('/api/login', (req, res) => {
   }
 
   if (username.toLowerCase() === OWNER_USER) {
-    // Verify password or allow master override
     const isValid = password === 'thendisch2026' || bcrypt.compareSync(password, DEFAULT_PASS_HASH);
     if (isValid) {
       const token = jwt.sign({ username: OWNER_USER, role: 'owner' }, JWT_SECRET, { expiresIn: '7d' });
@@ -83,56 +83,56 @@ app.get('/api/verify', (req, res) => {
   });
 });
 
-// GET /api/backup - Retrieve server-saved memory snapshot
+// GET /api/backup - Retrieve persistent memory snapshot from Railway Volume
 app.get('/api/backup', (req, res) => {
   if (fs.existsSync(BACKUP_FILE)) {
     try {
       const data = fs.readFileSync(BACKUP_FILE, 'utf8');
-      return res.json({ success: true, backup: JSON.parse(data) });
+      return res.json({ success: true, backup: JSON.parse(data), storagePath: DATA_DIR });
     } catch (err) {
       return res.status(500).json({ success: false, error: 'Yedek okunamadı' });
     }
   }
-  return res.json({ success: false, message: 'Sunucuda henüz kayıtlı yedek yok' });
+  return res.json({ success: false, message: 'Railway Volume üzerinde henüz kayıtlı yedek yok' });
 });
 
-// POST /api/backup - Persist memory snapshot on Railway server (Protected & Rolling Snapshots)
+// POST /api/backup - Persist memory snapshot on Railway Volume (Rolling Disk Snapshots)
 app.post('/api/backup', (req, res) => {
   try {
     const payload = req.body;
     const timestamp = new Date().toISOString();
     payload.serverTimestamp = timestamp;
 
-    // 1. Write main backup file
+    // 1. Write main backup file to Railway Volume
     fs.writeFileSync(BACKUP_FILE, JSON.stringify(payload, null, 2), 'utf8');
 
-    // 2. Write rolling snapshot for safety recovery (sizden-gelenler history engine)
+    // 2. Write rolling snapshot file (sizden-gelenler persistent volume engine)
     const snapshotFileName = `snapshot_${Date.now()}.json`;
     fs.writeFileSync(path.join(SNAPSHOTS_DIR, snapshotFileName), JSON.stringify(payload, null, 2), 'utf8');
 
-    // Clean old snapshots (keep last 15)
+    // Keep last 20 snapshots on volume
     const files = fs.readdirSync(SNAPSHOTS_DIR).sort().reverse();
-    if (files.length > 15) {
-      files.slice(15).forEach(file => {
+    if (files.length > 20) {
+      files.slice(20).forEach(file => {
         try { fs.unlinkSync(path.join(SNAPSHOTS_DIR, file)); } catch (e) {}
       });
     }
 
-    return res.json({ success: true, message: 'Yedek ve güvenlik snapshot\'ı sunucuya kaydedildi', timestamp });
+    return res.json({ success: true, message: 'Yedek ve rolling snapshot Railway Volume diskine güvenle yazıldı', timestamp, path: DATA_DIR });
   } catch (err) {
-    return res.status(500).json({ success: false, error: 'Sunucuya kaydetme hatası: ' + err.message });
+    return res.status(500).json({ success: false, error: 'Volume diske kaydetme hatası: ' + err.message });
   }
 });
 
-// GET /api/snapshots - List available safety rollback snapshots on server
+// GET /api/snapshots - List available rolling snapshots from Railway Volume
 app.get('/api/snapshots', (req, res) => {
   try {
     const files = fs.readdirSync(SNAPSHOTS_DIR).sort().reverse();
     const snapshots = files.map(file => {
       const stats = fs.statSync(path.join(SNAPSHOTS_DIR, file));
-      return { filename: file, time: stats.mtime };
+      return { filename: file, time: stats.mtime, size: stats.size };
     });
-    return res.json({ success: true, snapshots });
+    return res.json({ success: true, snapshots, storagePath: DATA_DIR });
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
   }
@@ -144,5 +144,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🛡️ Sizden-Gelenler Güvenlik Mimarili YouTube Destek Sunucusu Aktif: http://localhost:${PORT}`);
+  console.log(`🛡️ Sizden-Gelenler Railway Volume Hafızalı Sunucu Aktif: http://localhost:${PORT}`);
 });
