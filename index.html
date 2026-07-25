@@ -35,6 +35,7 @@
       --text-dim: #64748b;
       
       --success: #10b981;
+      --danger: #ef4444;
       --radius-lg: 20px;
       --radius-md: 14px;
       --radius-sm: 10px;
@@ -208,6 +209,8 @@
     }
 
     .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
+    .btn-danger { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3); color: #fca5a5; }
+    .btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
 
     .app-viewport {
       max-width: 1540px;
@@ -978,19 +981,6 @@
     let currentUser = storage.get("yt_user_profile") || null;
     let authToken = storage.get("yt_auth_token") || null;
 
-    const SAMPLE_CHANNELS = [
-      {
-        id: "chan_lofi_01",
-        name: "Deep Focus & Lo-Fi Studio",
-        handle: "@deepfocuslofi",
-        url: "https://youtube.com/@deepfocuslofi",
-        about: "Ders çalışırken, kod yazarken ve odaklanırken dinlenecek dinlendirici Lo-Fi vuruşlar.",
-        tone: "Sakin, minimalist, odaklayıcı ve huzurlu",
-        keywordPool: "lofi hip hop, study beats, deep focus, chillhop, relaxing beats",
-        visualNote: "Gece odası, yağmurlu pencere, mor neon ışıklar."
-      }
-    ];
-
     document.addEventListener("DOMContentLoaded", () => {
       loadChannels();
       checkCurrentSession();
@@ -1014,7 +1004,6 @@
       status.textContent = "🔍 YouTube kanalı ve SEO metinleri yapay zeka ile taranıyor...";
 
       try {
-        // Attempt backend API fetch or smart instant extraction
         let resData = null;
         try {
           const res = await fetch(`${API_BASE_URL}/api/channel/analyze?handle=${encodeURIComponent(cleanHandle)}`);
@@ -1067,7 +1056,7 @@
         name: name,
         email: email,
         picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6366f1&color=fff&bold=true`,
-        channels: SAMPLE_CHANNELS
+        channels: channels
       };
       authToken = "token_google_" + Date.now();
       storage.set("yt_auth_token", authToken);
@@ -1220,7 +1209,7 @@
         name: userName.charAt(0).toUpperCase() + userName.slice(1),
         email: email,
         picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=6366f1&color=fff&bold=true`,
-        channels: SAMPLE_CHANNELS
+        channels: channels
       };
       authToken = "token_local_" + Date.now();
       storage.set("yt_auth_token", authToken);
@@ -1249,7 +1238,7 @@
         name: name,
         email: email,
         picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5cf6&color=fff&bold=true`,
-        channels: SAMPLE_CHANNELS
+        channels: channels
       };
       authToken = "token_local_" + Date.now();
       storage.set("yt_auth_token", authToken);
@@ -1269,17 +1258,49 @@
 
     function renderChannelsPage() {
       const grid = document.getElementById("channelsPageGrid");
+
+      if (channels.length === 0) {
+        grid.innerHTML = `
+          <div class="glass-card" style="grid-column: 1 / -1; text-align:center; padding:48px 24px;">
+            <div style="font-size:2.5rem; margin-bottom:12px;">📺</div>
+            <h3 class="outfit-font" style="font-size:1.3rem; color:#fff; margin-bottom:8px;">Henüz Kayıtlı YouTube Kanalınız Yok</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:20px; max-width:500px; margin-left:auto; margin-right:auto;">
+              YouTube URL veya Handle'ınızı girerek tek tıkla otomatik kanal analizi yaptırabilir veya kendi kanal profilinizi hemen oluşturabilirsiniz.
+            </p>
+            <button class="btn btn-gradient" onclick="openChannelModal()">+ İlk Kanalımı Ekle / Analiz Et</button>
+          </div>
+        `;
+        return;
+      }
+
       grid.innerHTML = channels.map(ch => `
         <div class="glass-card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <h3 class="outfit-font" style="font-size:1.2rem; color:var(--primary-indigo);">${escapeHtml(ch.name)}</h3>
-            <button class="btn btn-sm" onclick="openChannelModal('${ch.id}')">Düzenle</button>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-sm" onclick="openChannelModal('${ch.id}')">Düzenle</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteChannel('${ch.id}')">Sil</button>
+            </div>
           </div>
           <div style="font-size:0.85rem; color:var(--primary-purple); margin-bottom:8px;">${escapeHtml(ch.handle || '')}</div>
           <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px;">${escapeHtml(ch.about)}</div>
           <div style="font-size:0.82rem; color:var(--text-dim);"><strong>Anahtar Kelimeler:</strong> ${escapeHtml(ch.keywordPool)}</div>
         </div>
       `).join("");
+    }
+
+    function deleteChannel(channelId) {
+      if (!confirm("Bu kanal profilini silmek istediğinize emin misiniz?")) return;
+      channels = channels.filter(c => c.id !== channelId);
+      storage.set("channels", channels);
+      if (activeChannelId === channelId) {
+        activeChannelId = channels.length > 0 ? channels[0].id : null;
+      }
+      renderChannelSelect();
+      renderActiveChannelView();
+      renderChannelsPage();
+      showToast("Kanal silindi.");
+      if (authToken) syncUserCloudData();
     }
 
     function renderHistoryPage() {
@@ -1304,8 +1325,8 @@
 
     function loadChannels() {
       const stored = storage.get("channels");
-      channels = (stored && stored.length > 0) ? stored : SAMPLE_CHANNELS;
-      activeChannelId = channels[0].id;
+      channels = Array.isArray(stored) ? stored : [];
+      activeChannelId = channels.length > 0 ? channels[0].id : null;
       renderChannelSelect();
       renderActiveChannelView();
     }
@@ -1313,6 +1334,10 @@
     function renderChannelSelect() {
       const select = document.getElementById("channelSelect");
       if (!select) return;
+      if (channels.length === 0) {
+        select.innerHTML = `<option value="">(Henüz Kanal Yok)</option>`;
+        return;
+      }
       select.innerHTML = channels.map(ch => `<option value="${ch.id}" ${ch.id === activeChannelId ? 'selected' : ''}>${escapeHtml(ch.name)}</option>`).join("");
     }
 
@@ -1322,9 +1347,19 @@
     }
 
     function renderActiveChannelView() {
-      const channel = channels.find(c => c.id === activeChannelId);
       const container = document.getElementById("channelIdentityView");
-      if (!channel || !container) return;
+      if (!container) return;
+
+      if (!activeChannelId || channels.length === 0) {
+        container.innerHTML = `
+          <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px;">Henüz kanal profiliniz yok.</div>
+          <button class="btn btn-gradient btn-sm" onclick="openChannelModal()">+ İlk Kanalını Ekle / Analiz Et</button>
+        `;
+        return;
+      }
+
+      const channel = channels.find(c => c.id === activeChannelId);
+      if (!channel) return;
 
       container.innerHTML = `
         <div style="font-weight:800; font-size:1.15rem; color:#fff; margin-bottom:4px;">${escapeHtml(channel.name)}</div>
@@ -1342,7 +1377,16 @@
 
       if (!titleInput) { alert("Lütfen şarkı veya video adını girin!"); return; }
 
-      const activeChannel = channels.find(c => c.id === activeChannelId);
+      let activeChannel = channels.find(c => c.id === activeChannelId);
+      if (!activeChannel) {
+        activeChannel = {
+          name: "Genel Müzik & Video Kanalı",
+          about: "YouTube içerikleri",
+          tone: "Enerjik ve dikkat çekici",
+          keywordPool: "youtube, video, muzik, viral"
+        };
+      }
+
       const apiKey = storage.get("anthropic_api_key");
 
       document.getElementById("loadingState").style.display = "block";
@@ -1499,25 +1543,67 @@
     function copyStudioFullPackage() { copyText(document.getElementById("studioPackageCode").textContent); }
     function showToast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2500); }
 
-    function openChannelModal() { document.getElementById("channelModal").style.display = "flex"; }
-    function closeChannelModal() { document.getElementById("channelModal").style.display = "none"; }
+    function openChannelModal(chId = null) {
+      editingChannelId = chId;
+      const titleEl = document.getElementById("channelModalTitle");
+      if (chId) {
+        titleEl.textContent = "Kanal Profilini Düzenle";
+        const ch = channels.find(c => c.id === chId);
+        if (ch) {
+          document.getElementById("modalChannelName").value = ch.name;
+          document.getElementById("modalChannelHandle").value = ch.handle || "";
+          document.getElementById("modalChannelAbout").value = ch.about || "";
+          document.getElementById("modalChannelTone").value = ch.tone || "";
+          document.getElementById("modalChannelKeywords").value = ch.keywordPool || "";
+        }
+      } else {
+        titleEl.textContent = "Kanal Profili Ekle";
+        document.getElementById("modalChannelName").value = "";
+        document.getElementById("modalChannelHandle").value = "";
+        document.getElementById("modalChannelAbout").value = "";
+        document.getElementById("modalChannelTone").value = "";
+        document.getElementById("modalChannelKeywords").value = "";
+      }
+      document.getElementById("channelModal").style.display = "flex";
+    }
+
+    function closeChannelModal() {
+      editingChannelId = null;
+      document.getElementById("channelModal").style.display = "none";
+    }
 
     function saveChannelForm() {
       const name = document.getElementById("modalChannelName").value.trim();
-      if (!name) return;
-      const ch = {
-        id: "chan_" + Date.now(),
-        name,
-        handle: document.getElementById("modalChannelHandle").value.trim(),
-        about: document.getElementById("modalChannelAbout").value.trim(),
-        tone: document.getElementById("modalChannelTone").value.trim(),
-        keywordPool: document.getElementById("modalChannelKeywords").value.trim()
-      };
-      channels.push(ch);
+      if (!name) { alert("Lütfen kanal adını girin!"); return; }
+
+      if (editingChannelId) {
+        const ch = channels.find(c => c.id === editingChannelId);
+        if (ch) {
+          ch.name = name;
+          ch.handle = document.getElementById("modalChannelHandle").value.trim();
+          ch.about = document.getElementById("modalChannelAbout").value.trim();
+          ch.tone = document.getElementById("modalChannelTone").value.trim();
+          ch.keywordPool = document.getElementById("modalChannelKeywords").value.trim();
+        }
+      } else {
+        const ch = {
+          id: "chan_" + Date.now(),
+          name,
+          handle: document.getElementById("modalChannelHandle").value.trim(),
+          about: document.getElementById("modalChannelAbout").value.trim(),
+          tone: document.getElementById("modalChannelTone").value.trim(),
+          keywordPool: document.getElementById("modalChannelKeywords").value.trim()
+        };
+        channels.push(ch);
+        activeChannelId = ch.id;
+      }
+
       storage.set("channels", channels);
       renderChannelSelect();
+      renderActiveChannelView();
+      renderChannelsPage();
       closeChannelModal();
-      showToast("Kanal eklendi!");
+      showToast("Kanal kaydedildi!");
       if (authToken) syncUserCloudData();
     }
 
