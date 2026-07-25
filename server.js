@@ -13,6 +13,15 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '1048291829102-mockclie
 
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
+// Prevent Browser & Proxy Caching for Instant Live UI Updates
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  res.set('Surrogate-Control', 'no-store');
+  next();
+});
+
 // Security Headers (Sizden Gelenler Standard)
 app.use(
   helmet({
@@ -22,7 +31,7 @@ app.use(
 );
 
 app.use(express.json({ limit: '10mb' }));
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, { etag: false, maxAge: 0 }));
 
 // Persistent Storage Directories (Railway Persistent Volume Uyumlu)
 const DATA_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH || path.join(__dirname, 'data');
@@ -160,7 +169,6 @@ app.post('/api/auth/google', async (req, res) => {
         picture = payload.picture;
         googleId = payload.sub;
       } catch (err) {
-        // Fallback for decoded payload if client-side verified
         const decoded = jwt.decode(credential);
         if (decoded && decoded.email) {
           email = decoded.email;
@@ -261,7 +269,6 @@ app.post('/api/user/sync', requireAuth, (req, res) => {
 
   saveUsersDB(users);
 
-  // Write rolling snapshot
   const snapshotFile = path.join(SNAPSHOTS_DIR, `usr_snapshot_${user.id}_${Date.now()}.json`);
   try {
     fs.writeFileSync(snapshotFile, JSON.stringify({ userId: user.id, channels, histories }, null, 2));
