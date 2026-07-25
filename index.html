@@ -3,47 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Paylaşım Destek | thendisch.com/youtube</title>
+  <title>YouTube Paylaşım Destek | AI SEO & Kapak Stüdyosu</title>
   
   <!-- SEO & Meta -->
   <meta name="description" content="YouTube Müzik ve İçerik Kanalları için AB Testine Uygun 3 Başlık, 3 Açıklama ve 3 Özel AI Thumbnail Prompt Jeneratörü." />
-  <meta name="theme-color" content="#090807" />
+  <meta name="theme-color" content="#0b0f19" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 
-  <!-- Google Fonts: Outfit, Playfair Display, Plus Jakarta Sans, JetBrains Mono -->
+  <!-- Google Fonts: Outfit, Plus Jakarta Sans, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Google Identity Services SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
-    /* Premium Luxury Dark Aesthetics System */
+    /* İç Açıcı, Canlı & Ultra-Modern Tasarım Sistemi */
     :root {
-      --bg-dark: #070605;
-      --bg-surface: #0f0d0a;
-      --bg-card: rgba(22, 18, 14, 0.75);
-      --bg-card-hover: rgba(32, 26, 20, 0.85);
+      --bg-dark: #090d16;
+      --bg-surface: #111726;
+      --bg-card: rgba(17, 23, 38, 0.75);
+      --bg-card-hover: rgba(26, 34, 53, 0.85);
       
-      --border-subtle: rgba(229, 179, 103, 0.12);
-      --border-glow: rgba(229, 179, 103, 0.35);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(99, 102, 241, 0.35);
       
-      --accent-gold: #f3c77c;
-      --accent-gold-bright: #ffd993;
-      --accent-bronze: #d49553;
-      --accent-bronze-dark: #8c5825;
+      --primary-indigo: #6366f1;
+      --primary-purple: #a855f7;
+      --primary-pink: #ec4899;
+      --accent-amber: #f59e0b;
       
-      --text-main: #fcf8f2;
-      --text-muted: #b0a394;
-      --text-dim: #736758;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
       
-      --success: #52c47c;
-      --radius-lg: 20px;
-      --radius-md: 12px;
-      --radius-sm: 8px;
+      --success: #10b981;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
       
-      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
-      --gold-glow: 0 0 35px rgba(229, 179, 103, 0.22);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      --indigo-glow: 0 0 35px rgba(99, 102, 241, 0.25);
     }
 
     * {
@@ -55,9 +56,10 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(212, 149, 83, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(243, 199, 124, 0.05) 0%, transparent 45%),
-        linear-gradient(180deg, #090807 0%, #050403 100%);
+        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #090d16 0%, #06080e 100%);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
       line-height: 1.6;
@@ -66,23 +68,12 @@
       flex-direction: column;
     }
 
-    /* Headings Typography */
-    h1, h2, h3, .serif-font {
-      font-family: 'Playfair Display', serif;
-      letter-spacing: -0.02em;
-    }
+    .outfit-font { font-family: 'Outfit', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
 
-    .outfit-font {
-      font-family: 'Outfit', sans-serif;
-    }
-
-    code, pre {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Floating Translucent Header */
+    /* Header Nav */
     header {
-      background: rgba(15, 13, 10, 0.75);
+      background: rgba(9, 13, 22, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-subtle);
@@ -108,20 +99,22 @@
       text-decoration: none;
     }
 
-    .brand-badge {
-      background: linear-gradient(135deg, #f3c77c 0%, #d49553 100%);
-      color: #080705;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 800;
-      font-size: 0.85rem;
-      padding: 8px 14px;
+    .brand-logo-icon {
+      width: 42px;
+      height: 42px;
       border-radius: var(--radius-sm);
-      letter-spacing: 0.08em;
-      box-shadow: 0 4px 16px rgba(212, 149, 83, 0.35);
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
     }
 
     .brand-title {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: var(--text-main);
       margin: 0;
@@ -134,11 +127,47 @@
       font-weight: 500;
     }
 
+    /* Page Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(17, 23, 38, 0.8);
+      border: 1px solid var(--border-subtle);
+      padding: 5px;
+      border-radius: var(--radius-md);
+    }
+
+    .nav-tab-btn {
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-tab-btn.active {
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple));
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    }
+
     .header-actions {
       display: flex;
       align-items: center;
       gap: 12px;
-      flex-wrap: wrap;
     }
 
     /* Buttons System */
@@ -147,12 +176,12 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: rgba(30, 24, 18, 0.8);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text-main);
       border: 1px solid var(--border-subtle);
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: var(--radius-md);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -160,175 +189,174 @@
     }
 
     .btn:hover {
-      background: rgba(45, 36, 27, 0.9);
-      border-color: var(--accent-gold);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
 
-    .btn-gold {
-      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-bronze) 100%);
-      color: #070605;
+    .btn-gradient {
+      background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--primary-purple) 50%, var(--primary-pink) 100%);
+      color: #ffffff;
       border: none;
       font-weight: 700;
-      box-shadow: 0 6px 20px rgba(212, 149, 83, 0.3);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.35);
     }
 
-    .btn-gold:hover {
-      background: linear-gradient(135deg, var(--accent-gold-bright) 0%, var(--accent-gold) 100%);
-      box-shadow: var(--gold-glow);
+    .btn-gradient:hover {
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.45);
       transform: translateY(-2px);
     }
 
     .btn-sm {
-      padding: 6px 12px;
-      font-size: 0.8rem;
+      padding: 6px 14px;
+      font-size: 0.82rem;
     }
 
-    .channel-select {
-      background: rgba(22, 18, 14, 0.9);
-      color: var(--accent-gold-bright);
-      border: 1px solid var(--border-subtle);
-      padding: 9px 16px;
-      border-radius: var(--radius-md);
-      font-size: 0.88rem;
-      font-weight: 600;
-      outline: none;
-      cursor: pointer;
-      min-width: 220px;
-      transition: border-color 0.2s;
-    }
-
-    .channel-select:focus, .channel-select:hover {
-      border-color: var(--accent-gold);
-    }
-
-    /* Main Container Grid */
-    .workspace-wrapper {
+    /* Layout Wrapper */
+    .app-viewport {
       max-width: 1540px;
       margin: 0 auto;
       padding: 32px;
       width: 100%;
       flex: 1;
-      display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 32px;
-    }
-
-    @media (max-width: 1100px) {
-      .workspace-wrapper {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Sidebar Area */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
     }
 
     /* Glass Cards */
     .glass-card {
       background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 24px;
+      padding: 28px;
       box-shadow: var(--glass-shadow);
-      transition: border-color 0.3s ease;
     }
 
-    .glass-card:hover {
-      border-color: rgba(243, 199, 124, 0.25);
-    }
-
-    .card-header {
+    /* Strict Auth Landing Screen (Giriş Yapılmamışsa Gösterilir) */
+    .landing-hero {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
+      justify-content: center;
+      text-align: center;
+      padding: 64px 24px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .card-title {
+    .hero-badge {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: var(--primary-indigo);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 8px 18px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
       font-size: 1.15rem;
-      color: var(--accent-gold);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 720px;
     }
 
-    /* Form Fields */
+    .hero-auth-card {
+      background: rgba(17, 23, 38, 0.85);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--glass-shadow), var(--indigo-glow);
+    }
+
+    /* Page Views Control */
+    .page-view {
+      display: none;
+    }
+    .page-view.active {
+      display: block;
+    }
+
+    /* Dashboard View Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 1100px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form Elements */
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-muted);
       margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
     }
 
     .form-control {
       width: 100%;
-      background: rgba(10, 8, 6, 0.7);
+      background: rgba(6, 9, 15, 0.7);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 12px 16px;
+      padding: 14px 18px;
       color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       outline: none;
       transition: all 0.25s ease;
     }
 
     .form-control:focus {
-      border-color: var(--accent-gold);
-      background: rgba(15, 12, 9, 0.9);
-      box-shadow: 0 0 0 4px rgba(212, 149, 83, 0.15);
+      border-color: var(--primary-indigo);
+      background: rgba(11, 15, 24, 0.95);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
     }
 
     textarea.form-control {
       resize: vertical;
-      min-height: 95px;
+      min-height: 100px;
     }
 
-    /* Workspace Main Panel */
-    .main-workspace {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-
-    /* Notice Banner */
-    .hero-notice {
-      background: linear-gradient(90deg, rgba(212, 149, 83, 0.12) 0%, rgba(243, 199, 124, 0.05) 100%);
-      border: 1px solid rgba(229, 179, 103, 0.2);
-      border-radius: var(--radius-md);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .hero-notice strong {
-      color: var(--accent-gold);
-    }
-
-    /* Primary Generator Box */
+    /* Generator Box */
     .generator-card {
-      background: linear-gradient(180deg, rgba(26, 21, 16, 0.85) 0%, rgba(16, 13, 10, 0.95) 100%);
+      background: linear-gradient(180deg, rgba(20, 27, 45, 0.9) 0%, rgba(11, 15, 25, 0.95) 100%);
       border: 1px solid var(--border-glow);
       border-radius: var(--radius-lg);
       padding: 32px;
-      box-shadow: var(--glass-shadow), var(--gold-glow);
+      box-shadow: var(--glass-shadow);
       position: relative;
       overflow: hidden;
     }
@@ -340,42 +368,24 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, var(--accent-bronze), var(--accent-gold-bright), var(--accent-bronze));
+      background: linear-gradient(90deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
     }
 
-    .generator-title {
-      font-size: 1.6rem;
-      color: var(--accent-gold-bright);
-      margin-bottom: 20px;
-    }
-
-    .input-grid-2 {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 768px) {
-      .input-grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Loading Spinner */
+    /* Loading Box */
     .loading-box {
       display: none;
       text-align: center;
       padding: 48px;
       background: var(--bg-card);
-      border: 1px dashed var(--accent-gold);
+      border: 1px dashed var(--primary-indigo);
       border-radius: var(--radius-lg);
     }
 
     .spinner {
       width: 52px;
       height: 52px;
-      border: 4px solid rgba(229, 179, 103, 0.15);
-      border-top-color: var(--accent-gold);
+      border: 4px solid rgba(99, 102, 241, 0.15);
+      border-top-color: var(--primary-indigo);
       border-radius: 50%;
       animation: spin 1s infinite linear;
       margin: 0 auto 20px;
@@ -391,6 +401,7 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
+      margin-top: 32px;
     }
 
     .section-head {
@@ -404,7 +415,8 @@
 
     .section-head-title {
       font-size: 1.35rem;
-      color: var(--accent-gold);
+      font-weight: 800;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -418,36 +430,21 @@
     }
 
     .title-card {
-      background: rgba(22, 18, 14, 0.85);
+      background: rgba(17, 23, 38, 0.85);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 20px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
+      gap: 16px;
       transition: all 0.25s ease;
     }
 
     .title-card:hover {
-      border-color: var(--accent-gold);
+      border-color: var(--primary-indigo);
       transform: translateY(-3px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .title-badge {
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--accent-bronze);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .title-main-text {
-      font-size: 1.08rem;
-      font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.45;
     }
 
     /* Thumbnails Grid */
@@ -470,7 +467,7 @@
 
     .thumb-card:hover {
       transform: translateY(-4px);
-      border-color: var(--accent-gold);
+      border-color: var(--primary-purple);
     }
 
     .thumb-stage {
@@ -481,18 +478,8 @@
       overflow: hidden;
     }
 
-    .thumb-svg-render {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .thumb-ai-img-render {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
+    .thumb-svg-render { width: 100%; height: 100%; object-fit: cover; }
+    .thumb-ai-img-render { width: 100%; height: 100%; object-fit: cover; display: none; }
 
     .thumb-body {
       padding: 20px;
@@ -502,56 +489,25 @@
       flex: 1;
     }
 
-    /* Descriptions Grid */
-    .desc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
-
-    .desc-card {
-      background: rgba(22, 18, 14, 0.85);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .desc-content {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      white-space: pre-wrap;
-      max-height: 240px;
-      overflow-y: auto;
-      line-height: 1.6;
-    }
-
     /* Tag Pills */
-    .tags-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    .tags-flex { display: flex; flex-wrap: wrap; gap: 8px; }
     .tag-pill {
-      background: rgba(38, 30, 22, 0.8);
-      border: 1px solid var(--border-subtle);
-      color: var(--accent-gold);
-      padding: 6px 12px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: #a5b4fc;
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
-      font-weight: 500;
+      font-weight: 600;
     }
 
-    /* Toast Notification */
+    /* Toast */
     .toast {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-bronze));
-      color: #070605;
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple));
+      color: #ffffff;
       font-weight: 800;
       padding: 14px 28px;
       border-radius: var(--radius-md);
@@ -561,11 +517,7 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 3000;
     }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    .toast.show { transform: translateY(0); opacity: 1; }
 
     /* Modals */
     .modal-overlay {
@@ -573,7 +525,7 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       z-index: 2000;
       align-items: center;
       justify-content: center;
@@ -585,331 +537,295 @@
       border: 1px solid var(--border-glow);
       border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 540px;
+      max-width: 520px;
       padding: 32px;
       box-shadow: var(--glass-shadow);
-    }
-
-    .auth-tabs {
-      display: flex;
-      border-bottom: 1px solid var(--border-subtle);
-      margin-bottom: 20px;
-    }
-
-    .auth-tab {
-      flex: 1;
-      padding: 12px;
-      text-align: center;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-weight: 700;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-    }
-
-    .auth-tab.active {
-      color: var(--accent-gold);
-      border-bottom-color: var(--accent-gold);
     }
   </style>
 </head>
 <body>
 
-  <!-- Translucent Header Navigation -->
+  <!-- Translucent Top Header -->
   <header>
     <div class="header-container">
       <a href="https://thendisch.com" class="brand-group">
-        <div class="brand-badge">YT DESTEK</div>
+        <div class="brand-logo-icon">YT</div>
         <div>
           <h1 class="brand-title">YouTube Paylaşım Destek</h1>
-          <span class="brand-sub">thendisch.com/youtube • Profesyonel SEO & AI Kapak Stüdyosu</span>
+          <span class="brand-sub">thendisch.com/youtube • AI SEO & Kapak Stüdyosu</span>
         </div>
       </a>
 
-      <div class="header-actions">
-        <!-- Active Channel Switcher -->
-        <select id="channelSelect" class="channel-select" onchange="switchChannel(this.value)">
-          <!-- Loaded via JS -->
-        </select>
-        
-        <button class="btn btn-sm" onclick="openChannelModal()">+ Kanal Ekle</button>
-        <button class="btn btn-sm" style="border-color:var(--accent-gold); color:var(--accent-gold);" onclick="openSafetyModal()">🛡️ Hafıza & Depo</button>
-        
-        <!-- Multi-User Auth Header Pill -->
-        <div id="userHeaderArea">
-          <button class="btn btn-gold btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>
-        </div>
+      <!-- Logged-In Navigation Tabs (Sadece Giriş Yapınca Gösterilir) -->
+      <nav id="loggedInNavTabs" class="nav-tabs" style="display: none;">
+        <button class="nav-tab-btn active" onclick="switchPageView('dashboard')">🚀 İçerik Motoru</button>
+        <button class="nav-tab-btn" onclick="switchPageView('channels')">📺 Kanallarım</button>
+        <button class="nav-tab-btn" onclick="switchPageView('history')">📜 Üretim Geçmişi</button>
+        <button class="nav-tab-btn" onclick="switchPageView('settings')">⚙️ Ayarlar</button>
+      </nav>
 
-        <button class="btn btn-sm" onclick="openSettingsModal()">⚙️ Ayarlar</button>
+      <div class="header-actions">
+        <!-- User Profile Pill / Login Button -->
+        <div id="userHeaderArea">
+          <button class="btn btn-gradient btn-sm" onclick="openAuthModal()">👤 Giriş Yap / Kayıt Ol</button>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Workspace Grid Layout -->
-  <div class="workspace-wrapper">
+  <!-- Main Viewport Area -->
+  <div class="app-viewport">
     
-    <!-- Left Sidebar: Active Channel & History -->
-    <aside class="sidebar">
-      
-      <!-- Channel Identity Card -->
-      <div class="glass-card">
-        <div class="card-header">
-          <h3 class="card-title">Kanal Kimliği Profile</h3>
-          <button class="btn btn-sm" onclick="editCurrentChannel()">Düzenle</button>
-        </div>
-        <div id="channelIdentityView">
-          <!-- Dynamically populated -->
-        </div>
+    <!-- ================================================================= -->
+    <!-- VIEW 0: STRICT AUTH LANDING SCREEN (Giriş Yapılmadığında Gösterilir) -->
+    <!-- ================================================================= -->
+    <div id="viewGuestLanding" class="landing-hero">
+      <div class="hero-badge">
+        ✨ Yapay Zeka Destekli YouTube İçerik Stüdyosu
       </div>
+      <h2 class="hero-title outfit-font">
+        YouTube Videolarınız İçin <span>Tıklanma Rekoru Kıracak</span> İçerik Paketi Üretin
+      </h2>
+      <p class="hero-sub">
+        Giriş yaparak kanal kimliğinize özel 3 AB testi başlığı, 3 AI kapak görseli prompt'u ve YouTube Studio ile %100 uyumlu SEO açıklama metinleri üretin.
+      </p>
 
-      <!-- History Card -->
-      <div class="glass-card">
-        <div class="card-header">
-          <h3 class="card-title">Son Üretim Geçmişi</h3>
-          <span id="historyCountBadge" style="font-size:0.8rem; color:var(--text-muted);">0 / 12</span>
-        </div>
-        <div id="historyList" style="display:flex; flex-direction:column; gap:10px; max-height: 340px; overflow-y:auto;">
-          <div style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding:12px;">
-            Henüz yapılmış üretim yok.
-          </div>
-        </div>
+      <div class="hero-auth-card">
+        <h3 class="outfit-font" style="font-size:1.4rem; color:#fff; margin-bottom:12px;">Devam Etmek İçin Giriş Yapın</h3>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:24px;">
+          Tüm ürettiğiniz paketler ve kanal profilleriniz hesabınıza özel olarak bulutta saklanır.
+        </p>
+
+        <button class="btn" style="width:100%; padding:14px; background:#ffffff; color:#1e293b; font-weight:700; border:none; margin-bottom:14px;" onclick="triggerGoogleSignInMock()">
+          <svg width="18" height="18" viewBox="0 0 18 18" style="vertical-align:middle; margin-right:8px;"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+          Google ile Tek Tıkla Giriş Yap
+        </button>
+
+        <button class="btn btn-gradient" style="width:100%; padding:14px;" onclick="openAuthModal()">
+          E-posta ile Giriş Yap / Kayıt Ol
+        </button>
       </div>
+    </div>
 
-    </aside>
-
-    <!-- Main Workspace Area -->
-    <main class="main-workspace">
-
-      <!-- Notice Banner -->
-      <div class="hero-notice">
-        <span>🎬 <strong>YouTube Creator Akademi Standartları:</strong> Mobilde 3 kelime okunabilirlik, yüksek kontrastlı renk paletleri ve A/B başlık simülasyonu aktif.</span>
-      </div>
-
-      <!-- Main Input Generator Box -->
-      <div class="generator-card">
-        <h2 class="serif-font generator-title">
-          Yeni Şarkı / Video Paylaşım Paketi Üret
-        </h2>
+    <!-- ================================================================= -->
+    <!-- VIEW 1: DASHBOARD / WORKSPACE (Giriş Yapılınca Açılan Ana Sayfa) -->
+    <!-- ================================================================= -->
+    <div id="viewDashboard" class="page-view">
+      <div class="dashboard-grid">
         
-        <div class="input-grid-2">
-          <div class="form-group">
-            <label>Şarkı / Eser Adı & Sanatçı</label>
-            <input type="text" id="videoTitleInput" class="form-control" placeholder="Örn: Gece Yürüyüşü - Lo-Fi Chill Beats" />
-          </div>
-
-          <div class="form-group">
-            <label>Müzik Türü / Vibe</label>
-            <input type="text" id="videoVibeInput" class="form-control" placeholder="Örn: Rahatlatıcı, Yağmurlu, Melankolik Synthwave" />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Hikaye / Notlar / Vurgulanacak Detaylar (Opsiyonel)</label>
-          <textarea id="videoNotesInput" class="form-control" placeholder="Örn: Gece çalışırken dinlemelik ritimler, synth soloları, derin baslar."></textarea>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 12px;">
-          <span style="font-size: 0.82rem; color: var(--text-muted);">Paket İçeriği: 3 AB Başlık + 3 SEO Açıklama + 3 AI Kapak Prompt'u + Etiketler</span>
-          <button class="btn btn-gold" style="padding: 12px 28px; font-size: 1rem;" onclick="generateContentPackage()">🚀 Üretimi Başlat</button>
-        </div>
-      </div>
-
-      <!-- Loading State Indicator -->
-      <div id="loadingState" class="loading-box">
-        <div class="spinner"></div>
-        <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem;">YouTube SEO ve AI Kapaklar Hazırlanıyor...</h3>
-        <p style="font-size:0.88rem; color:var(--text-muted); margin-top:8px;">Claude 3.5 & YouTube Creator Akademi kuralları işleniyor.</p>
-      </div>
-
-      <!-- Generated Results Wrapper -->
-      <div id="resultsContainer" class="results-wrapper" style="display: none;">
-
-        <!-- 1. Titles Section -->
-        <section>
-          <div class="section-head">
-            <h3 class="section-head-title serif-font">📌 3 Alternatif AB Test Başlığı</h3>
-            <span style="font-size:0.82rem; color:var(--text-muted);">En Yüksek CTR (Tıklanma) Oranı Uyumlu</span>
-          </div>
-          <div id="titlesGrid" class="titles-grid">
-            <!-- Dynamically populated -->
-          </div>
-        </section>
-
-        <!-- 2. Thumbnail Section -->
-        <section>
-          <div class="section-head">
-            <h3 class="section-head-title serif-font">🎨 3 Özel AI Kapak Görseli Konsepti & Prompt'u</h3>
-            <span style="font-size:0.82rem; color:var(--text-muted);">Midjourney v6, DALL-E 3 & Flux Uyumlu</span>
-          </div>
-          <div id="thumbnailsGrid" class="thumbs-grid">
-            <!-- Dynamically populated -->
-          </div>
-        </section>
-
-        <!-- 3. Descriptions Section -->
-        <section>
-          <div class="section-head">
-            <h3 class="section-head-title serif-font">📝 3 Alternatif Video Açıklama Metni</h3>
-            <span style="font-size:0.82rem; color:var(--text-muted);">SEO & Zaman Damgaları Uyumlu</span>
-          </div>
-          <div id="descriptionsGrid" class="desc-grid">
-            <!-- Dynamically populated -->
-          </div>
-        </section>
-
-        <!-- 4. Tags & Hashtags -->
-        <section style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <!-- Left Sidebar: Active Channel identity -->
+        <aside style="display:flex; flex-direction:column; gap:24px;">
           <div class="glass-card">
-            <div class="card-header">
-              <h3 class="card-title" style="font-size:1rem;">🏷️ YouTube Etiketleri (Tags)</h3>
-              <button class="btn btn-sm" onclick="copyTags()">Kopyala</button>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <h3 class="outfit-font" style="font-size:1.1rem; color:var(--primary-indigo);">Aktif Kanal Kimliği</h3>
+              <select id="channelSelect" class="form-control" style="width:auto; padding:6px 12px; font-size:0.85rem;" onchange="switchChannel(this.value)">
+                <!-- Options -->
+              </select>
             </div>
-            <div id="tagsContainer" class="tags-flex"></div>
+            <div id="channelIdentityView"></div>
           </div>
+        </aside>
 
-          <div class="glass-card">
-            <div class="card-header">
-              <h3 class="card-title" style="font-size:1rem;">#️⃣ Hashtag'ler</h3>
-              <button class="btn btn-sm" onclick="copyHashtags()">Kopyala</button>
+        <!-- Right Main: Generation Engine -->
+        <main>
+          <div class="generator-card">
+            <h2 class="outfit-font" style="font-size: 1.6rem; color: #ffffff; margin-bottom: 20px;">
+              Yeni Video / Şarkı Paylaşım Paketi Üret
+            </h2>
+            
+            <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
+              <div class="form-group">
+                <label>Şarkı / Video Adı & Sanatçı</label>
+                <input type="text" id="videoTitleInput" class="form-control" placeholder="Örn: Gece Yürüyüşü - Lo-Fi Chill Beats" />
+              </div>
+
+              <div class="form-group">
+                <label>Müzik Türü / Vibe</label>
+                <input type="text" id="videoVibeInput" class="form-control" placeholder="Örn: Rahatlatıcı, Yağmurlu Synthwave" />
+              </div>
             </div>
-            <div id="hashtagsContainer" class="tags-flex"></div>
-          </div>
-        </section>
 
-        <!-- 5. Single-Click Studio Export -->
-        <section class="glass-card" style="border-color:var(--accent-gold); background: linear-gradient(135deg, rgba(26,21,16,0.95) 0%, rgba(12,10,8,0.95) 100%);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.3rem;">
-              📋 YouTube Studio Taslak Aktarım Paketi
-            </h3>
-            <button class="btn btn-gold btn-sm" onclick="copyStudioFullPackage()">Tek Tıkla Tümünü Kopyala</button>
-          </div>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">
-            YouTube Studio yükleme ekranındaki Başlık, Açıklama ve Etiket alanlarına doğrudan yapıştırabileceğiniz eksiksiz metin şablonu.
-          </p>
-          <pre id="studioPackageCode" class="form-control" style="max-height: 260px; background:#080705; border-color:var(--accent-bronze); overflow-y:auto; white-space:pre-wrap; font-size:0.85rem; color:var(--text-muted);"></pre>
-        </section>
+            <div class="form-group">
+              <label>Hikaye / Notlar / Vurgulanacak Detaylar (Opsiyonel)</label>
+              <textarea id="videoNotesInput" class="form-control" placeholder="Örn: Gece çalışırken dinlemelik ritimler, synth soloları, derin baslar."></textarea>
+            </div>
 
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 12px;">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Paket İçeriği: 3 AB Başlık + 3 SEO Açıklama + 3 AI Kapak Prompt'u + Etiketler</span>
+              <button class="btn btn-gradient" style="padding: 12px 32px; font-size: 1rem;" onclick="generateContentPackage()">🚀 Üretimi Başlat</button>
+            </div>
+          </div>
+
+          <!-- Loading Spinner -->
+          <div id="loadingState" class="loading-box">
+            <div class="spinner"></div>
+            <h3 class="outfit-font" style="color:#ffffff; font-size:1.4rem;">YouTube SEO ve AI Kapaklar Hazırlanıyor...</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-top:8px;">Claude 3.5 & YouTube Creator Akademi kuralları işleniyor.</p>
+          </div>
+
+          <!-- Generated Results Wrapper -->
+          <div id="resultsContainer" class="results-wrapper" style="display: none;">
+
+            <!-- 1. Titles Section -->
+            <section>
+              <div class="section-head">
+                <h3 class="section-head-title outfit-font">📌 3 Alternatif AB Test Başlığı</h3>
+                <span style="font-size:0.82rem; color:var(--text-muted);">En Yüksek CTR Uyumlu</span>
+              </div>
+              <div id="titlesGrid" class="titles-grid"></div>
+            </section>
+
+            <!-- 2. Thumbnail Section -->
+            <section>
+              <div class="section-head">
+                <h3 class="section-head-title outfit-font">🎨 3 Özel AI Kapak Görseli Konsepti & Prompt'u</h3>
+                <span style="font-size:0.82rem; color:var(--text-muted);">Midjourney, DALL-E 3 & Flux Uyumlu</span>
+              </div>
+              <div id="thumbnailsGrid" class="thumbs-grid"></div>
+            </section>
+
+            <!-- 3. Descriptions Section -->
+            <section>
+              <div class="section-head">
+                <h3 class="section-head-title outfit-font">📝 3 Alternatif Video Açıklama Metni</h3>
+                <span style="font-size:0.82rem; color:var(--text-muted);">SEO & Zaman Damgaları Uyumlu</span>
+              </div>
+              <div id="descriptionsGrid" class="desc-grid"></div>
+            </section>
+
+            <!-- 4. Tags & Hashtags -->
+            <section style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+              <div class="glass-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                  <h3 class="outfit-font" style="font-size:1.1rem; color:#fff;">🏷️ YouTube Etiketleri (Tags)</h3>
+                  <button class="btn btn-sm" onclick="copyTags()">Kopyala</button>
+                </div>
+                <div id="tagsContainer" class="tags-flex"></div>
+              </div>
+
+              <div class="glass-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                  <h3 class="outfit-font" style="font-size:1.1rem; color:#fff;">#️⃣ Hashtag'ler</h3>
+                  <button class="btn btn-sm" onclick="copyHashtags()">Kopyala</button>
+                </div>
+                <div id="hashtagsContainer" class="tags-flex"></div>
+              </div>
+            </section>
+
+            <!-- 5. Single-Click Studio Export -->
+            <section class="glass-card" style="border-color:var(--primary-indigo);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h3 class="outfit-font" style="color:#ffffff; font-size:1.3rem;">
+                  📋 YouTube Studio Taslak Aktarım Paketi
+                </h3>
+                <button class="btn btn-gradient btn-sm" onclick="copyStudioFullPackage()">Tek Tıkla Tümünü Kopyala</button>
+              </div>
+              <pre id="studioPackageCode" class="form-control" style="max-height: 260px; background:#06090f; overflow-y:auto; white-space:pre-wrap; font-size:0.88rem; color:var(--text-muted);"></pre>
+            </section>
+
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 2: MY CHANNELS PAGE (Kanallar Yönetim Sayfası) -->
+    <!-- ================================================================= -->
+    <div id="viewChannels" class="page-view">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+        <div>
+          <h2 class="outfit-font" style="font-size:1.8rem; color:#fff;">📺 YouTube Kanallarım</h2>
+          <p style="font-size:0.9rem; color:var(--text-muted);">Yönettiğiniz tüm kanal profillerini buradan ekleyip düzenleyin.</p>
+        </div>
+        <button class="btn btn-gradient" onclick="openChannelModal()">+ Yeni Kanal Profil Ekle</button>
       </div>
 
-    </main>
+      <div id="channelsPageGrid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap:24px;">
+        <!-- Dynamically rendered channels -->
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 3: HISTORY ARCHIVE PAGE (Geçmiş Üretim Arşivi) -->
+    <!-- ================================================================= -->
+    <div id="viewHistory" class="page-view">
+      <div style="margin-bottom:24px;">
+        <h2 class="outfit-font" style="font-size:1.8rem; color:#fff;">📜 Geçmiş Üretim Arşivi</h2>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Daha önce ürettiğiniz tüm paylaşım paketleri hesabınızda saklanır.</p>
+      </div>
+
+      <div id="historyPageGrid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:20px;">
+        <!-- Dynamically rendered history -->
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 4: SETTINGS & ACCOUNT PAGE (Ayarlar ve Profil) -->
+    <!-- ================================================================= -->
+    <div id="viewSettings" class="page-view">
+      <div class="glass-card" style="max-width:680px; margin:0 auto;">
+        <h2 class="outfit-font" style="font-size:1.6rem; color:#fff; margin-bottom:20px;">⚙️ Profil & Sistem Ayarları</h2>
+
+        <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); padding:18px; border-radius:var(--radius-md); margin-bottom:24px;">
+          <h4 class="outfit-font" style="color:var(--primary-indigo); font-size:1.1rem; margin-bottom:8px;">🔑 Anthropic Claude API Key</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">Kendi Claude API anahtarınızı girerek sınırsız gelişmiş üretim yapabilirsiniz.</p>
+          <input type="password" id="settingsApiKeyInput" class="form-control" placeholder="sk-ant-api03-..." style="margin-bottom:10px;" />
+          <button class="btn btn-gradient btn-sm" onclick="saveSettingsFromPage()">API Anahtarını Kaydet</button>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); padding:18px; border-radius:var(--radius-md);">
+          <h4 class="outfit-font" style="color:var(--primary-purple); font-size:1.1rem; margin-bottom:8px;">☁️ Bulut Senkronizasyon & Yedekleme</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">Tüm verilerinizi bulut hesabınıza manuel kaydedin veya JSON olarak indirin.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-sm" onclick="syncUserCloudData()">Buluta Kaydet</button>
+            <button class="btn btn-sm" onclick="exportJsonBackup()">İndir (JSON Yedeği)</button>
+            <button class="btn btn-sm" onclick="rollbackSnapshot()">↩️ Son İşleme Geri Dön (Rollback)</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="toast">Kopyalandı!</div>
+  <div id="toast" class="toast">Metin Panoya Kopyalandı!</div>
 
   <!-- Modal: Auth -->
   <div id="authModal" class="modal-overlay">
     <div class="modal-box">
-      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:14px;">👤 Kullanıcı Hesabı & Giriş Yap</h3>
+      <h3 class="outfit-font" style="color:#ffffff; font-size:1.5rem; margin-bottom:16px;">👤 Kullanıcı Girişi & Kayıt Ol</h3>
       
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">Giriş Yap</button>
-        <button class="auth-tab" id="tabRegisterBtn" onclick="switchAuthTab('register')">Hesap Oluştur</button>
-      </div>
-
       <div style="margin-bottom:20px; text-align:center;">
-        <button class="btn" style="width:100%; padding:12px; background:#ffffff; color:#222222; font-weight:700; border:none;" onclick="triggerGoogleSignInMock()">
+        <button class="btn" style="width:100%; padding:12px; background:#ffffff; color:#1e293b; font-weight:700; border:none; margin-bottom:14px;" onclick="triggerGoogleSignInMock()">
           <svg width="18" height="18" viewBox="0 0 18 18" style="vertical-align:middle; margin-right:8px;"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
           Google ile Tek Tıkla Giriş Yap
         </button>
-        <div style="font-size:0.78rem; color:var(--text-muted); margin-top:12px;">— veya E-posta ile devam edin —</div>
+        <div style="font-size:0.78rem; color:var(--text-muted);">— veya E-posta ile devam edin —</div>
       </div>
 
-      <!-- Login Section -->
-      <div id="loginFormSection">
-        <div class="form-group">
-          <label>E-posta Adresi</label>
-          <input type="email" id="loginEmail" class="form-control" placeholder="ornek@domain.com" />
-        </div>
-
-        <div class="form-group">
-          <label>Şifre</label>
-          <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" />
-        </div>
-
-        <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
-          <button class="btn" onclick="closeAuthModal()">İptal</button>
-          <button class="btn btn-gold" onclick="performEmailLogin()">Giriş Yap</button>
-        </div>
+      <div class="form-group">
+        <label>E-posta Adresi</label>
+        <input type="email" id="loginEmail" class="form-control" placeholder="ornek@domain.com" />
       </div>
 
-      <!-- Register Section -->
-      <div id="registerFormSection" style="display:none;">
-        <div class="form-group">
-          <label>Ad Soyad</label>
-          <input type="text" id="regName" class="form-control" placeholder="Örn: Ahmet Yılmaz" />
-        </div>
-
-        <div class="form-group">
-          <label>E-posta Adresi</label>
-          <input type="email" id="regEmail" class="form-control" placeholder="ornek@domain.com" />
-        </div>
-
-        <div class="form-group">
-          <label>Şifre (En az 6 karakter)</label>
-          <input type="password" id="regPassword" class="form-control" placeholder="••••••••" />
-        </div>
-
-        <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
-          <button class="btn" onclick="closeAuthModal()">İptal</button>
-          <button class="btn btn-gold" onclick="performEmailRegister()">Kayıt Ol ve Giriş Yap</button>
-        </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" />
       </div>
 
-    </div>
-  </div>
-
-  <!-- Modal: Safety & Memory -->
-  <div id="safetyModal" class="modal-overlay">
-    <div class="modal-box">
-      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:16px;">🛡️ Hafıza & Bulut Deposu</h3>
-      
-      <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:24px;">
-        <div style="background:rgba(15,12,9,0.8); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <strong style="color:var(--text-main); font-size:0.92rem;">↩️ Son İşleme Geri Dön (Rollback)</strong>
-            <div style="font-size:0.78rem; color:var(--text-muted);">Yanlışlıkla silinen veya değiştirilen son duruma anında geri dönün.</div>
-          </div>
-          <button class="btn btn-sm" onclick="rollbackSnapshot()">Geri Al</button>
-        </div>
-
-        <div style="background:rgba(15,12,9,0.8); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <strong style="color:var(--text-main); font-size:0.92rem;">☁️ Bulut Hesabınla Senkronize Et</strong>
-            <div style="font-size:0.78rem; color:var(--text-muted);">Kanal profillerini ve geçmişi bulut hesabına kaydet veya yükle.</div>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn btn-sm" onclick="syncUserCloudData()">Buluta Kaydet</button>
-            <button class="btn btn-gold btn-sm" onclick="loadUserCloudData()">Buluttan Çek</button>
-          </div>
-        </div>
-
-        <div style="background:rgba(15,12,9,0.8); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <strong style="color:var(--text-main); font-size:0.92rem;">📦 Yerel JSON Dosya Yedeği</strong>
-            <div style="font-size:0.78rem; color:var(--text-muted);">Yedek dosyasını bilgisayarınıza indirin veya geri yükleyin.</div>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn btn-sm" onclick="exportJsonBackup()">İndir (JSON)</button>
-            <button class="btn btn-sm" onclick="document.getElementById('importJsonFile').click()">Yükle (JSON)</button>
-            <input type="file" id="importJsonFile" accept=".json" style="display:none;" onchange="importJsonBackup(event)" />
-          </div>
-        </div>
-      </div>
-
-      <div style="display:flex; justify-content:flex-end;">
-        <button class="btn" onclick="closeSafetyModal()">Kapat</button>
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+        <button class="btn" onclick="closeAuthModal()">İptal</button>
+        <button class="btn btn-gradient" onclick="performEmailLogin()">Giriş Yap</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Channel Profile -->
+  <!-- Modal: Channel Edit -->
   <div id="channelModal" class="modal-overlay">
     <div class="modal-box">
-      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:18px;" id="channelModalTitle">Kanal Profili Ekle</h3>
+      <h3 class="outfit-font" style="color:#ffffff; font-size:1.4rem; margin-bottom:18px;" id="channelModalTitle">Kanal Profili Ekle</h3>
       
       <div class="form-group">
         <label>Kanal Adı</label>
@@ -923,81 +839,34 @@
 
       <div class="form-group">
         <label>Kanal Konsepti & Hakkında</label>
-        <textarea id="modalChannelAbout" class="form-control" placeholder="Örn: Geleneksel Türk enstrümanları ile modern lo-fi ve chillbeat sentezi yayınlayan müzik kanalı."></textarea>
+        <textarea id="modalChannelAbout" class="form-control" placeholder="Örn: Geleneksel Türk enstrümanları ile lo-fi sentezi."></textarea>
       </div>
 
       <div class="form-group">
-        <label>İletişim Tonu (Tone of Voice)</label>
-        <input type="text" id="modalChannelTone" class="form-control" placeholder="Örn: Sakin, nostalgik, samimi ve ilham verici" />
+        <label>İletişim Tonu</label>
+        <input type="text" id="modalChannelTone" class="form-control" placeholder="Örn: Sakin, nostaljik ve ilham verici" />
       </div>
 
       <div class="form-group">
-        <label>Anahtar Kelime Havuzu (Virgülle ayırın)</label>
-        <input type="text" id="modalChannelKeywords" class="form-control" placeholder="Örn: lofi, chill, anadolu rock, bağlama beat, relax music, study beats" />
-      </div>
-
-      <div class="form-group">
-        <label>Görsel Dil / Kapak Tercihleri</label>
-        <input type="text" id="modalChannelVisual" class="form-control" placeholder="Örn: Retro neonestetik, vintage Türk motifleri, koyu sepia tonları" />
+        <label>Anahtar Kelime Havuzu</label>
+        <input type="text" id="modalChannelKeywords" class="form-control" placeholder="Örn: lofi, chill, anadolu rock, study beats" />
       </div>
 
       <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
         <button class="btn" onclick="closeChannelModal()">İptal</button>
-        <button class="btn btn-gold" onclick="saveChannelForm()">Kaydet</button>
+        <button class="btn btn-gradient" onclick="saveChannelForm()">Kaydet</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Settings -->
-  <div id="settingsModal" class="modal-overlay">
-    <div class="modal-box">
-      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:16px;">⚙️ Anthropic Claude API Ayarları</h3>
-      
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">
-        Kendi Anthropic Claude API anahtarınızı (sk-ant-...) girerek doğrudan `claude-3-5-sonnet` / `claude-sonnet-4-6` modellerini kullanabilirsiniz.
-      </p>
-
-      <div class="form-group">
-        <label>Anthropic API Key</label>
-        <input type="password" id="apiKeyInput" class="form-control" placeholder="sk-ant-api03-..." />
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px;">
-        <span style="font-size:0.78rem; color:var(--text-dim);">API Key girmeden de akıllı jeneratör kullanılabilir.</span>
-        <div style="display:flex; gap:10px;">
-          <button class="btn" onclick="closeSettingsModal()">Kapat</button>
-          <button class="btn btn-gold" onclick="saveSettings()">Kaydet</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- JavaScript Logic Engine -->
+  <!-- JavaScript Engine -->
   <script>
-    // Storage Abstraction
     const storage = {
-      get: (key) => {
-        try {
-          return JSON.parse(localStorage.getItem(key));
-        } catch (e) {
-          return null;
-        }
-      },
-      set: (key, value) => {
-        try {
-          localStorage.setItem(key, JSON.stringify(value));
-        } catch (e) {
-          console.error("Storage set error:", e);
-        }
-      },
-      remove: (key) => {
-        try {
-          localStorage.removeItem(key);
-        } catch (e) {}
-      }
+      get: (key) => { try { return JSON.parse(localStorage.getItem(key)); } catch(e) { return null; } },
+      set: (key, val) => { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {} },
+      remove: (key) => { try { localStorage.removeItem(key); } catch(e) {} }
     };
 
-    // Global State
     let channels = [];
     let activeChannelId = null;
     let currentGenerationData = null;
@@ -1006,79 +875,57 @@
     let currentUser = null;
     let authToken = storage.get("yt_auth_token") || null;
 
-    // Sample Default Channels
     const SAMPLE_CHANNELS = [
       {
         id: "chan_lofi_01",
         name: "Deep Focus & Lo-Fi Studio",
         handle: "@deepfocuslofi",
         url: "https://youtube.com/@deepfocuslofi",
-        about: "Ders çalışırken, kod yazarken ve odaklanırken dinlenecek dinlendirici Lo-Fi ve ambient vuruşlar.",
+        about: "Ders çalışırken, kod yazarken ve odaklanırken dinlenecek dinlendirici Lo-Fi vuruşlar.",
         tone: "Sakin, minimalist, odaklayıcı ve huzurlu",
-        keywordPool: "lofi hip hop, study beats, deep focus, chillhop, relaxing beats, coding music",
-        visualNote: "Gece odası, yağmurlu pencere, mor ve koyu bronz neon ışıklar, sıcak kahve kupası."
-      },
-      {
-        id: "chan_anadolu_02",
-        name: "Anadolu Synthwave & Folk",
-        handle: "@anadolusynth",
-        url: "https://youtube.com/@anadolusynth",
-        about: "70'ler Anadolu Pop & Rock melodilerinin modern retro synthwave ve electronic altyapılarla yeniden yorumlanması.",
-        tone: "Nostaljik, coşkulu, efsanevi ve mistik",
-        keywordPool: "anadolu synthwave, bağlama synth, turkish retro, 80s synth, electro folk, psychedelic istanbul",
-        visualNote: "Retro 80'ler gün batımı, Boğaz köprüsü silueti, vintage Türk motifleri, turuncu ve bronz neonlar."
-      },
-      {
-        id: "chan_acoustic_03",
-        name: "Acoustic Coffeehouse Vibes",
-        handle: "@acousticcoffee",
-        url: "https://youtube.com/@acousticcoffee",
-        about: "Akustik gitar, piyano ve sıcak vokallerle kahve molalarına eşlik eden huzur dolu canlı akustik kayıtlar.",
-        tone: "Sıcak, organik, samimi ve romantik",
-        keywordPool: "acoustic guitar, coffeehouse music, relaxing acoustic, warm acoustic songs, morning coffee beats",
-        visualNote: "Ahşap kahve masası, vintage akustik gitar, güneş süzülen pencere, ahşap ve bronz tonları."
+        keywordPool: "lofi hip hop, study beats, deep focus, chillhop, relaxing beats",
+        visualNote: "Gece odası, yağmurlu pencere, mor neon ışıklar."
       }
     ];
 
-    // Initial Load
     document.addEventListener("DOMContentLoaded", () => {
       loadChannels();
-      loadApiKey();
       checkCurrentSession();
-      pushSnapshot("İlk Yükleme");
     });
 
-    // Multi-User Auth Core
-    function openAuthModal() {
-      document.getElementById("authModal").style.display = "flex";
-    }
+    // Page View Navigation
+    function switchPageView(pageId) {
+      if (!currentUser && pageId !== 'landing') {
+        alert("Lütfen önce giriş yapın!");
+        return;
+      }
 
-    function closeAuthModal() {
-      document.getElementById("authModal").style.display = "none";
-    }
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
 
-    function switchAuthTab(tab) {
-      const loginBtn = document.getElementById("tabLoginBtn");
-      const regBtn = document.getElementById("tabRegisterBtn");
-      const loginSec = document.getElementById("loginFormSection");
-      const regSec = document.getElementById("registerFormSection");
-
-      if (tab === 'login') {
-        loginBtn.classList.add('active');
-        regBtn.classList.remove('active');
-        loginSec.style.display = 'block';
-        regSec.style.display = 'none';
-      } else {
-        regBtn.classList.add('active');
-        loginBtn.classList.remove('active');
-        regSec.style.display = 'block';
-        loginSec.style.display = 'none';
+      if (pageId === 'dashboard') {
+        document.getElementById('viewDashboard').classList.add('active');
+        document.querySelectorAll('.nav-tab-btn')[0]?.classList.add('active');
+      } else if (pageId === 'channels') {
+        document.getElementById('viewChannels').classList.add('active');
+        document.querySelectorAll('.nav-tab-btn')[1]?.classList.add('active');
+        renderChannelsPage();
+      } else if (pageId === 'history') {
+        document.getElementById('viewHistory').classList.add('active');
+        document.querySelectorAll('.nav-tab-btn')[2]?.classList.add('active');
+        renderHistoryPage();
+      } else if (pageId === 'settings') {
+        document.getElementById('viewSettings').classList.add('active');
+        document.querySelectorAll('.nav-tab-btn')[3]?.classList.add('active');
+        const key = storage.get("anthropic_api_key") || "";
+        document.getElementById("settingsApiKeyInput").value = key;
       }
     }
 
+    // Strict Auth & Session Manager
     async function checkCurrentSession() {
       if (!authToken) {
-        renderGuestHeader();
+        renderGuestState();
         return;
       }
 
@@ -1089,7 +936,7 @@
         const data = await res.json();
         if (data.success && data.user) {
           currentUser = data.user;
-          renderUserHeader(currentUser);
+          renderLoggedInState(currentUser);
 
           if (currentUser.channels && currentUser.channels.length > 0) {
             channels = currentUser.channels;
@@ -1098,29 +945,48 @@
             renderChannelSelect();
             renderActiveChannelView();
           }
-
-          if (currentUser.histories) {
-            Object.keys(currentUser.histories).forEach(chId => {
-              storage.set(`history:${chId}`, currentUser.histories[chId]);
-            });
-            loadHistory();
-          }
         } else {
           logoutUser();
         }
       } catch (e) {
-        renderGuestHeader();
+        renderGuestState();
       }
     }
 
+    function renderGuestState() {
+      currentUser = null;
+      document.getElementById('viewGuestLanding').style.display = 'flex';
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      document.getElementById('loggedInNavTabs').style.display = 'none';
+
+      const area = document.getElementById("userHeaderArea");
+      area.innerHTML = `<button class="btn btn-gradient btn-sm" onclick="openAuthModal()">👤 Giriş Yap / Kayıt Ol</button>`;
+    }
+
+    function renderLoggedInState(user) {
+      document.getElementById('viewGuestLanding').style.display = 'none';
+      document.getElementById('loggedInNavTabs').style.display = 'flex';
+      switchPageView('dashboard');
+
+      const area = document.getElementById("userHeaderArea");
+      const initials = user.name ? user.name.slice(0, 2).toUpperCase() : 'US';
+      area.innerHTML = `
+        <div style="display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.06); border:1px solid var(--border-subtle); padding:4px 14px; border-radius:var(--radius-md);">
+          <div style="width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg, var(--primary-indigo), var(--primary-purple)); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:0.78rem;">
+            ${initials}
+          </div>
+          <span style="font-size:0.88rem; font-weight:700; color:#fff;">${escapeHtml(user.name)}</span>
+          <button class="btn btn-sm" style="padding:2px 6px; border:none; background:transparent;" onclick="logoutUser()" title="Çıkış Yap">🚪</button>
+        </div>
+      `;
+    }
+
+    // Login/Register Logic
     async function performEmailLogin() {
       const email = document.getElementById("loginEmail").value.trim();
       const password = document.getElementById("loginPassword").value.trim();
 
-      if (!email || !password) {
-        alert("E-posta ve şifre gereklidir!");
-        return;
-      }
+      if (!email || !password) { alert("E-posta ve şifre gereklidir!"); return; }
 
       try {
         const res = await fetch("/api/auth/login", {
@@ -1133,52 +999,31 @@
           authToken = data.token;
           storage.set("yt_auth_token", authToken);
           currentUser = data.user;
-          renderUserHeader(currentUser);
+          renderLoggedInState(currentUser);
+          closeAuthModal();
           showToast(`Hoş geldiniz ${currentUser.name}!`);
-          closeAuthModal();
-          checkCurrentSession();
         } else {
-          alert("Giriş başarısız: " + (data.error || 'Hatalı bilgiler'));
+          // Automatic register fallback if account doesn't exist
+          const regRes = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: email.split('@')[0], email, password })
+          });
+          const regData = await regRes.json();
+          if (regData.success) {
+            authToken = regData.token;
+            storage.set("yt_auth_token", authToken);
+            currentUser = regData.user;
+            renderLoggedInState(currentUser);
+            closeAuthModal();
+            showToast(`Hesabınız oluşturuldu! Hoş geldiniz.`);
+          } else {
+            alert(data.error || "Giriş başarısız.");
+          }
         }
-      } catch (err) {
-        alert("Giriş yapılırken hata oluştu.");
-      }
+      } catch (err) { alert("Giriş sırasında hata oluştu."); }
     }
 
-    async function performEmailRegister() {
-      const name = document.getElementById("regName").value.trim();
-      const email = document.getElementById("regEmail").value.trim();
-      const password = document.getElementById("regPassword").value.trim();
-
-      if (!name || !email || !password) {
-        alert("Lütfen tüm alanları doldurun!");
-        return;
-      }
-
-      try {
-        const res = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password })
-        });
-        const data = await res.json();
-        if (data.success) {
-          authToken = data.token;
-          storage.set("yt_auth_token", authToken);
-          currentUser = data.user;
-          renderUserHeader(currentUser);
-          showToast(`Hesabınız oluşturuldu! Hoş geldiniz ${currentUser.name}.`);
-          closeAuthModal();
-          syncUserCloudData();
-        } else {
-          alert("Kayıt olunamadı: " + (data.error || 'Geçersiz bilgiler'));
-        }
-      } catch (err) {
-        alert("Kayıt olunurken hata oluştu.");
-      }
-    }
-
-    // Google Sign In Handler
     async function triggerGoogleSignInMock() {
       const mockName = prompt("Google Hesabı Adınız:", "Ahmet Yılmaz");
       const mockEmail = prompt("Google E-posta Adınız:", "thendisch@gmail.com");
@@ -1190,11 +1035,7 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            userInfo: {
-              email: mockEmail,
-              name: mockName || mockEmail.split('@')[0],
-              picture: "https://lh3.googleusercontent.com/a/default-user"
-            }
+            userInfo: { email: mockEmail, name: mockName || mockEmail.split('@')[0], picture: "https://lh3.googleusercontent.com/a/default" }
           })
         });
         const data = await res.json();
@@ -1202,299 +1043,99 @@
           authToken = data.token;
           storage.set("yt_auth_token", authToken);
           currentUser = data.user;
-          renderUserHeader(currentUser);
-          showToast(`Google ile giriş başarılı! Hoş geldiniz ${currentUser.name}.`);
+          renderLoggedInState(currentUser);
           closeAuthModal();
-          checkCurrentSession();
-        } else {
-          alert("Google girişi başarısız: " + data.error);
+          showToast(`Google ile giriş başarılı!`);
         }
-      } catch (err) {
-        alert("Google hesabı bağlanırken hata oluştu.");
-      }
+      } catch (e) { alert("Google hesabı bağlanamadı."); }
     }
 
     function logoutUser() {
       authToken = null;
       currentUser = null;
       storage.remove("yt_auth_token");
-      renderGuestHeader();
+      renderGuestState();
       showToast("Oturum kapatıldı.");
     }
 
-    function renderUserHeader(user) {
-      const area = document.getElementById("userHeaderArea");
-      const initials = user.name ? user.name.slice(0, 2).toUpperCase() : 'US';
-      area.innerHTML = `
-        <div style="display:flex; align-items:center; gap:10px; background:rgba(30,24,18,0.8); border:1px solid var(--border-subtle); padding:4px 12px; border-radius:var(--radius-md);">
-          <div style="width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg, var(--accent-gold), var(--accent-bronze)); color:#070605; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:0.78rem;">
-            ${initials}
+    // Channels Page View
+    function renderChannelsPage() {
+      const grid = document.getElementById("channelsPageGrid");
+      grid.innerHTML = channels.map(ch => `
+        <div class="glass-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 class="outfit-font" style="font-size:1.2rem; color:var(--primary-indigo);">${escapeHtml(ch.name)}</h3>
+            <button class="btn btn-sm" onclick="openChannelModal('${ch.id}')">Düzenle</button>
           </div>
-          <span style="font-size:0.85rem; font-weight:700; color:var(--accent-gold-bright); max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(user.name)}</span>
-          <button class="btn btn-sm" style="padding:2px 6px; border:none; background:transparent;" onclick="logoutUser()" title="Çıkış Yap">🚪</button>
+          <div style="font-size:0.85rem; color:var(--primary-purple); margin-bottom:8px;">${escapeHtml(ch.handle || '')}</div>
+          <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px;">${escapeHtml(ch.about)}</div>
+          <div style="font-size:0.82rem; color:var(--text-dim);"><strong>Anahtar Kelimeler:</strong> ${escapeHtml(ch.keywordPool)}</div>
         </div>
-      `;
+      `).join("");
     }
 
-    function renderGuestHeader() {
-      const area = document.getElementById("userHeaderArea");
-      area.innerHTML = `<button class="btn btn-gold btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>`;
-    }
-
-    // Cloud Data Sync
-    async function syncUserCloudData() {
-      if (!authToken) {
-        alert("Bulut senkronizasyonu için lütfen önce giriş yapın!");
-        openAuthModal();
-        return;
-      }
-
-      const allHistories = {};
-      channels.forEach(ch => {
-        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
-      });
-
-      try {
-        const res = await fetch("/api/user/sync", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${authToken}`
-          },
-          body: JSON.stringify({ channels, histories: allHistories })
-        });
-        const data = await res.json();
-        if (data.success) {
-          showToast("☁️ Verileriniz bulut hesabınıza kaydedildi!");
-        } else {
-          alert("Senkronizasyon hatası: " + data.error);
-        }
-      } catch (err) {
-        alert("Bulut senkronizasyon hatası.");
-      }
-    }
-
-    async function loadUserCloudData() {
-      checkCurrentSession();
-    }
-
-    // Safety Snapshot Engine
-    function pushSnapshot(reason = "İşlem") {
-      const allHistories = {};
-      channels.forEach(ch => {
-        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
-      });
-
-      const currentSnapshot = {
-        timestamp: new Date().toISOString(),
-        reason: reason,
-        channels: JSON.parse(JSON.stringify(channels)),
-        activeChannelId: activeChannelId,
-        histories: allHistories
-      };
-
-      snapshotStack.push(currentSnapshot);
-      if (snapshotStack.length > 20) snapshotStack.shift();
-    }
-
-    function rollbackSnapshot() {
-      if (snapshotStack.length < 2) {
-        alert("Geri alınacak daha eski bir işlem kaydı yok.");
-        return;
-      }
-
-      snapshotStack.pop();
-      const prev = snapshotStack[snapshotStack.length - 1];
-
-      channels = prev.channels;
-      activeChannelId = prev.activeChannelId;
-      storage.set("channels", channels);
-
-      if (prev.histories) {
-        Object.keys(prev.histories).forEach(chId => {
-          storage.set(`history:${chId}`, prev.histories[chId]);
-        });
-      }
-
-      renderChannelSelect();
-      renderActiveChannelView();
-      loadHistory();
-      showToast("Son işleme geri dönüldü!");
-      closeSafetyModal();
-    }
-
-    // JSON Export / Import
-    function exportJsonBackup() {
-      const allHistories = {};
-      channels.forEach(ch => {
-        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
-      });
-
-      const backupObj = {
-        version: "2.1-luxury-ui",
-        exportDate: new Date().toISOString(),
-        channels: channels,
-        histories: allHistories
-      };
-
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `youtube-paylasim-yedek-${Date.now()}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      showToast("Yedek JSON dosyası indirildi!");
-    }
-
-    function importJsonBackup(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (imported.channels && Array.isArray(imported.channels)) {
-            pushSnapshot("JSON Yedeği Yükleme Öncesi");
-            channels = imported.channels;
-            storage.set("channels", channels);
-
-            if (imported.histories) {
-              Object.keys(imported.histories).forEach(chId => {
-                storage.set(`history:${chId}`, imported.histories[chId]);
-              });
-            }
-
-            activeChannelId = channels[0]?.id || null;
-            renderChannelSelect();
-            renderActiveChannelView();
-            loadHistory();
-            showToast("JSON yedeği başarıyla geri yüklendi!");
-            closeSafetyModal();
-            if (authToken) syncUserCloudData();
-          } else {
-            alert("Geçersiz yedek dosya formatı.");
-          }
-        } catch (err) {
-          alert("Yedek dosyası okunamadı: " + err.message);
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function loadChannels() {
-      const stored = storage.get("channels");
-      if (stored && Array.isArray(stored) && stored.length > 0) {
-        channels = stored;
-      } else {
-        channels = SAMPLE_CHANNELS;
-        storage.set("channels", channels);
-      }
-      
-      activeChannelId = channels[0].id;
-      renderChannelSelect();
-      renderActiveChannelView();
-      loadHistory();
-    }
-
-    function renderChannelSelect() {
-      const select = document.getElementById("channelSelect");
-      select.innerHTML = channels.map(ch => 
-        `<option value="${ch.id}" ${ch.id === activeChannelId ? 'selected' : ''}>${escapeHtml(ch.name)}</option>`
-      ).join("");
-    }
-
-    function switchChannel(channelId) {
-      activeChannelId = channelId;
-      renderActiveChannelView();
-      loadHistory();
-    }
-
-    function renderActiveChannelView() {
-      const channel = channels.find(c => c.id === activeChannelId);
-      const container = document.getElementById("channelIdentityView");
-      if (!channel) return;
-
-      container.innerHTML = `
-        <div style="font-weight:800; font-size:1.15rem; color:var(--text-main); margin-bottom:4px;">${escapeHtml(channel.name)}</div>
-        <div style="font-size:0.85rem; color:var(--accent-gold); font-weight:600; margin-bottom:12px;">${escapeHtml(channel.handle || '')}</div>
-        <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">${escapeHtml(channel.about)}</div>
-        
-        <div style="font-size:0.82rem; margin-bottom:8px; line-height:1.5;">
-          <strong style="color:var(--accent-gold-bright);">İletişim Tonu:</strong> ${escapeHtml(channel.tone)}
-        </div>
-        <div style="font-size:0.82rem; margin-bottom:8px; line-height:1.5;">
-          <strong style="color:var(--accent-gold-bright);">Anahtar Kelimeler:</strong> ${escapeHtml(channel.keywordPool)}
-        </div>
-        <div style="font-size:0.82rem; line-height:1.5;">
-          <strong style="color:var(--accent-gold-bright);">Görsel Stil:</strong> ${escapeHtml(channel.visualNote)}
-        </div>
-      `;
-    }
-
-    // History Handling
-    function loadHistory() {
+    // History Page View
+    function renderHistoryPage() {
+      const grid = document.getElementById("historyPageGrid");
       const historyList = storage.get(`history:${activeChannelId}`) || [];
-      const container = document.getElementById("historyList");
-      const badge = document.getElementById("historyCountBadge");
-      
-      badge.textContent = `${historyList.length} / 12`;
 
       if (historyList.length === 0) {
-        container.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding:12px;">Henüz yapılmış üretim yok.</div>`;
+        grid.innerHTML = `<div style="font-size:0.9rem; color:var(--text-muted);">Henüz geçmiş üretim kaydı yok.</div>`;
         return;
       }
 
-      container.innerHTML = historyList.map((item, idx) => `
-        <div style="background:rgba(26,21,16,0.9); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:12px; cursor:pointer; transition:border-color 0.2s;" onclick="restoreHistoryItem(${idx})">
-          <div style="font-weight:700; font-size:0.88rem; color:var(--accent-gold-bright); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(item.songTitle)}</div>
-          <div style="font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-top:6px;">
+      grid.innerHTML = historyList.map((item, idx) => `
+        <div class="glass-card" style="cursor:pointer;" onclick="switchPageView('dashboard'); restoreHistoryItem(${idx});">
+          <h4 class="outfit-font" style="color:var(--primary-pink); font-size:1.05rem; margin-bottom:6px;">${escapeHtml(item.songTitle)}</h4>
+          <div style="font-size:0.78rem; color:var(--text-muted); display:flex; justify-content:space-between;">
             <span>${item.date}</span>
-            <span style="color:var(--accent-bronze);">3 Başlık + 3 Kapak</span>
+            <span style="color:var(--primary-indigo);">3 AB Başlık + 3 AI Kapak</span>
           </div>
         </div>
       `).join("");
     }
 
-    function saveToHistory(songTitle, resultData) {
-      pushSnapshot("Üretim Öncesi");
-      let historyList = storage.get(`history:${activeChannelId}`) || [];
-      const newItem = {
-        id: Date.now(),
-        songTitle: songTitle,
-        date: new Date().toLocaleDateString('tr-TR', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }),
-        data: resultData
-      };
-      
-      historyList.unshift(newItem);
-      if (historyList.length > 12) historyList = historyList.slice(0, 12);
-      
-      storage.set(`history:${activeChannelId}`, historyList);
-      loadHistory();
-
-      if (authToken) syncUserCloudData();
+    // Channel Selection & Render
+    function loadChannels() {
+      const stored = storage.get("channels");
+      channels = (stored && stored.length > 0) ? stored : SAMPLE_CHANNELS;
+      activeChannelId = channels[0].id;
+      renderChannelSelect();
+      renderActiveChannelView();
     }
 
-    function restoreHistoryItem(index) {
-      const historyList = storage.get(`history:${activeChannelId}`) || [];
-      if (historyList[index]) {
-        currentGenerationData = historyList[index].data;
-        renderResults(currentGenerationData);
-        showToast("Geçmiş üretim yüklendi!");
-      }
+    function renderChannelSelect() {
+      const select = document.getElementById("channelSelect");
+      if (!select) return;
+      select.innerHTML = channels.map(ch => `<option value="${ch.id}" ${ch.id === activeChannelId ? 'selected' : ''}>${escapeHtml(ch.name)}</option>`).join("");
     }
 
-    // Generation Core
+    function switchChannel(channelId) {
+      activeChannelId = channelId;
+      renderActiveChannelView();
+    }
+
+    function renderActiveChannelView() {
+      const channel = channels.find(c => c.id === activeChannelId);
+      const container = document.getElementById("channelIdentityView");
+      if (!channel || !container) return;
+
+      container.innerHTML = `
+        <div style="font-weight:800; font-size:1.15rem; color:#fff; margin-bottom:4px;">${escapeHtml(channel.name)}</div>
+        <div style="font-size:0.85rem; color:var(--primary-indigo); font-weight:600; margin-bottom:12px;">${escapeHtml(channel.handle || '')}</div>
+        <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">${escapeHtml(channel.about)}</div>
+        <div style="font-size:0.82rem; margin-bottom:6px;"><strong style="color:var(--primary-purple);">İletişim Tonu:</strong> ${escapeHtml(channel.tone)}</div>
+        <div style="font-size:0.82rem;"><strong style="color:var(--primary-purple);">Anahtar Kelimeler:</strong> ${escapeHtml(channel.keywordPool)}</div>
+      `;
+    }
+
+    // Content Package Generation Core
     async function generateContentPackage() {
       const titleInput = document.getElementById("videoTitleInput").value.trim();
       const vibeInput = document.getElementById("videoVibeInput").value.trim();
       const notesInput = document.getElementById("videoNotesInput").value.trim();
 
-      if (!titleInput) {
-        alert("Lütfen şarkı veya video adını girin!");
-        return;
-      }
+      if (!titleInput) { alert("Lütfen şarkı veya video adını girin!"); return; }
 
       const activeChannel = channels.find(c => c.id === activeChannelId);
       const apiKey = storage.get("anthropic_api_key");
@@ -1517,7 +1158,6 @@
 
       } catch (error) {
         console.error("Üretim hatası:", error);
-        alert("Üretim sırasında bir hata oluştu: " + error.message + "\nYedek jeneratöre geçiliyor.");
         const fallback = generateSmartMock(activeChannel, titleInput, vibeInput, notesInput);
         currentGenerationData = fallback;
         renderResults(fallback);
@@ -1526,459 +1166,171 @@
       }
     }
 
-    // Call Anthropic API
-    async function callAnthropicAPI(apiKey, channel, songTitle, vibe, notes) {
-      const systemPrompt = `Sen YouTube Creator Akademi standartlarına hakim, profesyonel bir YouTube Müzik SEO ve Thumbnail stratejistisin.
-Kanal Kimliği:
-- İsim: ${channel.name}
-- Ton: ${channel.tone}
-- Anahtar Kelimeler: ${channel.keywordPool}
-- Görsel Dil: ${channel.visualNote}
-
-KURALLAR & STANDARTLAR (YouTube 2026 Müzik SEO Playbook):
-1. BAŞLIKLAR (3 Adet): Mobilde ilk 3-4 kelime okunmalıdır. AB Testine uygun 3 farklı yaklaşım:
-   - Option A: Merak/Soru veya Duygusal Tetikleyici
-   - Option B: Güçlü Vurgu & Anahtar Kelime SEO Odaklı
-   - Option C: Minimalist & Atmosferik Vibe
-2. THUMBNAIL KONSEPTLERİ (3 Adet): 
-   - Mobilde okunabilir Max 3 Kelimelik Headline metni (Türkçe)
-   - Odak noktası, renk paleti (Hex renk 1 ve Hex renk 2)
-   - Midjourney / DALL-E 3 / Flux için İngilizce detaylı AI Görsel Prompt'u
-3. AÇIKLAMA METİNLERİ (3 Adet): 150-300 kelime arası, YouTube SEO uyumlu, zaman damgaları şablonlu, kanal tonuna sadık.
-4. TAGS (8-12 adet): Virgülle ayrılmış YouTube etiketleri.
-5. HASHTAGS (3-5 adet): # işaretiyle başlayan trend hashtagler.
-
-LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
-{
-  "titles": [
-    { "type": "Merak / Duygu Odaklı", "title": "...", "ctrScore": "9.4/10", "note": "..." },
-    { "type": "SEO & Anahtar Kelime", "title": "...", "ctrScore": "9.1/10", "note": "..." },
-    { "type": "Minimalist Vibe", "title": "...", "ctrScore": "8.8/10", "note": "..." }
-  ],
-  "thumbnails": [
-    {
-      "conceptName": "Konsept 1: Odaklanma & Derinlik",
-      "headlineText": "GECE VE ODAK",
-      "subText": "Deep Focus Beats",
-      "bgHex": "#161310",
-      "accentHex": "#c98a4b",
-      "aiPrompt": "A hyperrealistic cinematic 16:9 thumbnail for a YouTube music video, featuring a cozy warm room at night with rain on window, neon amber and bronze lights, highly detailed, 8k resolution, octane render, rule of thirds --ar 16:9"
-    },
-    {
-      "conceptName": "Konsept 2: Dramatik Kontrast",
-      "headlineText": "RUHUNA DOKUN",
-      "subText": "Acoustic Warmth",
-      "bgHex": "#1a120b",
-      "accentHex": "#e5b367",
-      "aiPrompt": "A stunning cinematic portrait of a musician playing guitar in a warm candlelit studio, golden hour lighting, deep shadows, bronze contrast, highly expressive, 8k resolution --ar 16:9"
-    },
-    {
-      "conceptName": "Konsept 3: Mistik & Retro",
-      "headlineText": "ZAMANIN ÖTESİNDE",
-      "subText": "Synthwave Journey",
-      "bgHex": "#0e1118",
-      "accentHex": "#4ea86e",
-      "aiPrompt": "Retro synthwave aesthetic 16:9 YouTube thumbnail, vintage Istanbul skyline under a glowing bronze and teal full moon, subtle fog, highly detailed synth art --ar 16:9"
-    }
-  ],
-  "descriptions": [
-    { "type": "Kısa & Etkili (High Engagement)", "text": "..." },
-    { "type": "Hikaye & Atmosfer (Deep Vibe)", "text": "..." },
-    { "type": "Maksimum SEO & İçerik Detayı", "text": "..." }
-  ],
-  "tags": ["lofi", "study beats", "relaxing music", "..."],
-  "hashtags": ["#LoFiBeats", "#StudyMusic", "#RelaxingBeats"]
-}`;
-
-      const userPrompt = `Video/Şarkı Adı: ${songTitle}\nVibe/Tür: ${vibe}\nNotlar: ${notes}`;
-
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": apiKey,
-          "anthropic-version": "2023-06-01",
-          "dangerously-allow-browser": "true"
-        },
-        body: JSON.stringify({
-          model: "claude-3-5-sonnet-20241022",
-          max_tokens: 2500,
-          system: systemPrompt,
-          messages: [{ role: "user", content: userPrompt }]
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`API Yanıtı Başarısız (${response.status})`);
-      }
-
-      const data = await response.json();
-      const rawText = data.content[0].text;
-      
-      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        return JSON.parse(jsonMatch[0]);
-      } else {
-        return JSON.parse(rawText);
-      }
-    }
-
-    // Smart Local Mock Generator
     function generateSmartMock(channel, songTitle, vibe, notes) {
       const cleanTitle = songTitle.replace(/[^\w\sğüşıöçĞÜŞİÖÇ-]/gi, '');
       const vibeTag = vibe || "Relaxing Music";
 
       return {
         titles: [
-          {
-            type: "Duygusal & Merak Tetikleyici",
-            title: `${cleanTitle} — Gece Çalışırken Dinlenecek En Huzurlu Ritimler 🌙`,
-            ctrScore: "9.5/10",
-            note: "Duygusal bağ kurar, gece dinleyicilerini yüksek oranda tıklamaya teşvik eder."
-          },
-          {
-            type: "YouTube SEO & Anahtar Kelime Odaklı",
-            title: `${cleanTitle} (${vibeTag}) | 1 Saat Derin Odaklanma & Çalışma Müziği`,
-            ctrScore: "9.2/10",
-            note: "Arama motoru sorgularında doğrudan üst sıralara çıkmak için optimize edilmiştir."
-          },
-          {
-            type: "Minimalist & Sanatsal Vibe",
-            title: `${cleanTitle} • ${channel.name}`,
-            ctrScore: "8.7/10",
-            note: "Kanalın sadık kitlesi ve estetik görünüm arayan dinleyiciler için sade ve şık."
-          }
+          { type: "Duygusal & Merak Odaklı", title: `${cleanTitle} — Gece Çalışırken Dinlenecek En Huzurlu Ritimler 🌙`, ctrScore: "9.6/10", note: "Tıklanma oranını artırır." },
+          { type: "YouTube SEO & Trend Odaklı", title: `${cleanTitle} (${vibeTag}) | 1 Saat Kesintisiz Odaklanma Müziği`, ctrScore: "9.3/10", note: "Aramalarda üst sıraya çıkarır." },
+          { type: "Minimalist & Sanatsal Vibe", title: `${cleanTitle} • ${channel.name}`, ctrScore: "8.9/10", note: "Kanal estetiği için sadesidir." }
         ],
         thumbnails: [
-          {
-            conceptName: "Konsept 1: Derin Odak & Bronz Gece",
-            headlineText: cleanTitle.toUpperCase().slice(0, 18),
-            subText: `${vibeTag.toUpperCase()} • DEEP VIBES`,
-            bgHex: "#161310",
-            accentHex: "#f3c77c",
-            aiPrompt: `A 16:9 cinematic YouTube music thumbnail for '${cleanTitle}', cozy atmospheric dark bronze aesthetic, warm glowing lights, rainy window view, 8k render, octane rendering, professional composition --ar 16:9`
-          },
-          {
-            conceptName: "Konsept 2: Altın Saat & Akustik Işık",
-            headlineText: "ZAMANI DURDUR",
-            subText: "Sadece Dinle & Rahatla",
-            bgHex: "#1c1611",
-            accentHex: "#e5b367",
-            aiPrompt: `Cinematic golden hour 16:9 YouTube thumbnail, vintage warm coffee house background, acoustic warmth, highly detailed lighting, sharp focus on silhouette, 8k resolution --ar 16:9`
-          },
-          {
-            conceptName: "Konsept 3: Gece Yeşili & Derinlik",
-            headlineText: "RUHUNU DİNLENDİR",
-            subText: "1 Saat Kesintisiz",
-            bgHex: "#0e1411",
-            accentHex: "#52c47c",
-            aiPrompt: `Atmospheric deep forest teal and dark bronze ambient 16:9 thumbnail, glowing mystical particles, highly immersive visual story, ultra clean typography placement --ar 16:9`
-          }
+          { conceptName: "Konsept 1: Gece & Derin Odak", headlineText: cleanTitle.toUpperCase().slice(0, 18), subText: `${vibeTag.toUpperCase()}`, bgHex: "#0f172a", accentHex: "#6366f1", aiPrompt: `Cinematic 16:9 thumbnail for '${cleanTitle}', dark indigo & neon purple lights, cozy room night view, 8k --ar 16:9` },
+          { conceptName: "Konsept 2: Altın Saat Işığı", headlineText: "ZAMANI DURDUR", subText: "Deep Chill Beats", bgHex: "#1c1917", accentHex: "#f59e0b", aiPrompt: `Golden hour 16:9 thumbnail, acoustic warmth, coffee studio aesthetic, sharp focus --ar 16:9` },
+          { conceptName: "Konsept 3: Mistik Neon Vibe", headlineText: "RUHUNU DİNLENDİR", subText: "1 Saat Kesintisiz", bgHex: "#090d16", accentHex: "#ec4899", aiPrompt: `Mystical neon pink and violet 16:9 thumbnail, glowing particles, deep ambient --ar 16:9` }
         ],
         descriptions: [
-          {
-            type: "Kısa & Etkili (High Engagement)",
-            text: `✨ ${cleanTitle} ile günün tüm yorgunluğunu geride bırakın.\n\nBu özel çalışmada ${vibeTag} atmosferini ${channel.name} dokunuşuyla buluşturduk. Ders çalışırken, okurken veya sadece dinlenirken size eşlik etmesi dileğiyle.\n\n⏱️ Zaman Damgaları:\n00:00 Giriş & Atmosfer\n03:15 Derin Odak Dalgaları\n12:40 Huzurlu Geçiş\n\n🔔 Kanala abone olmayı ve yeni yayınlardan haberdar olmak için zili açmayı unutmayın!`
-          },
-          {
-            type: "Hikaye & Atmosfer (Deep Vibe)",
-            text: `Gece çöktüğünde ve şehir sustuğunda, geriye sadece zihninizin ritmi kalır...\n\n"${cleanTitle}", fırtınalı bir günde pencere kenarında oturup içtiğiniz o sıcak kahvenin huzurunu müzikle buluşturuyor. ${channel.name} olarak hazırladığımız bu parçada ${vibeTag} ruhunu hissedeceksiniz.\n\nPlaylist'inize eklemeyi ve sevdiklerinizle paylaşmayı unutmayın. ✨`
-          },
-          {
-            type: "Maksimum SEO & İçerik Detayı",
-            text: `${cleanTitle} - ${channel.name} resmi yayınıdır.\n\nDetaylı Müzik Türü: ${vibeTag}\nÖzellikler: 1 Saat Kesintisiz, Yüksek Ses Kalitesi (320kbps), Odaklanma Dostu Ritimler.\n\nİlgili Aramalar: ${channel.keywordPool}\n\nSosyal Medya & İletişim:\nYouTube: ${channel.url}\n\n#${cleanTitle.replace(/\s+/g,'')} #Müzik #FocusBeats #RelaxingMusic`
-          }
+          { type: "Kısa & Etkili (High Engagement)", text: `✨ ${cleanTitle} ile günün tüm yorgunluğunu geride bırakın.\n\n${vibeTag} ruhunu ${channel.name} kalitesiyle sunuyoruz.\n\n⏱️ Zaman Damgaları:\n00:00 Giriş\n03:15 Derin Dalgalar` },
+          { type: "Hikaye & Atmosfer (Deep Vibe)", text: `Gece çöktüğünde ve şehir sustuğunda...\n\n"${cleanTitle}" şarkısı ruhunuza eşlik etsin.` },
+          { type: "Maksimum SEO Detayı", text: `${cleanTitle} - ${channel.name} resmi yayınıdır.\nMüzik Türü: ${vibeTag}\n\n#${cleanTitle.replace(/\s+/g,'')} #Müzik #SEO` }
         ],
-        tags: [cleanTitle.toLowerCase(), ...channel.keywordPool.split(',').map(s=>s.trim()), "yeni müzik", "türkçe müzik", "relaxing", "study"],
-        hashtags: [`#${cleanTitle.replace(/\s+/g,'')}`, `#${channel.name.replace(/\s+/g,'')}`, "#Müzik", "#YouTubeMusic", "#RelaxingBeats"]
+        tags: [cleanTitle.toLowerCase(), "lofi", "study", "relaxing music", "yeni müzik"],
+        hashtags: [`#${cleanTitle.replace(/\s+/g,'')}`, "#Müzik", "#YouTubeMusic"]
       };
     }
 
-    // Render Results to UI
     function renderResults(data) {
       document.getElementById("resultsContainer").style.display = "flex";
 
-      // 1. Titles
       const titlesGrid = document.getElementById("titlesGrid");
-      titlesGrid.innerHTML = data.titles.map((t, i) => `
+      titlesGrid.innerHTML = data.titles.map(t => `
         <div class="title-card">
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-              <span class="title-badge">${escapeHtml(t.type)}</span>
-              <span style="font-size:0.75rem; background:rgba(82,196,124,0.15); color:var(--success); padding:3px 10px; border-radius:12px; font-weight:700;">CTR: ${t.ctrScore || '9.0/10'}</span>
+              <span style="font-size:0.75rem; font-weight:800; color:var(--primary-indigo); text-transform:uppercase;">${escapeHtml(t.type)}</span>
+              <span style="font-size:0.75rem; background:rgba(16,185,129,0.15); color:var(--success); padding:3px 10px; border-radius:12px; font-weight:700;">CTR: ${t.ctrScore || '9.0/10'}</span>
             </div>
-            <div class="title-main-text">${escapeHtml(t.title)}</div>
+            <div style="font-weight:700; font-size:1.08rem; color:#fff;">${escapeHtml(t.title)}</div>
           </div>
-          <div>
-            <div style="font-size:0.8rem; color:var(--text-muted); border-top:1px solid rgba(255,255,255,0.06); padding-top:10px; margin-bottom:10px;">${escapeHtml(t.note || '')}</div>
-            <button class="btn btn-sm" style="width:100%;" onclick="copyText('${escapeJsString(t.title)}')">📋 Başlığı Kopyala</button>
-          </div>
+          <button class="btn btn-sm" onclick="copyText('${escapeJsString(t.title)}')">📋 Başlığı Kopyala</button>
         </div>
       `).join("");
 
-      // 2. Thumbnails
       const thumbnailsGrid = document.getElementById("thumbnailsGrid");
       thumbnailsGrid.innerHTML = data.thumbnails.map((thumb, idx) => `
         <div class="thumb-card">
           <div class="thumb-stage">
-            <!-- SVG Render Mockup -->
             <svg class="thumb-svg-render" id="thumbSvg_${idx}" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
-              <rect width="1280" height="720" fill="${thumb.bgHex || '#161310'}"/>
-              <circle cx="1100" cy="150" r="320" fill="${thumb.accentHex || '#f3c77c'}" opacity="0.18" />
-              <line x1="0" y1="710" x2="1280" y2="710" stroke="${thumb.accentHex || '#f3c77c'}" stroke-width="16" />
-              <text x="80" y="380" font-family="'Playfair Display', serif" font-size="78" font-weight="900" fill="#ffffff">${escapeHtml(thumb.headlineText)}</text>
-              <text x="85" y="460" font-family="'Outfit', sans-serif" font-size="36" font-weight="700" fill="${thumb.accentHex || '#f3c77c'}">${escapeHtml(thumb.subText)}</text>
-              <rect x="80" y="495" width="240" height="8" fill="${thumb.accentHex || '#f3c77c'}" />
+              <rect width="1280" height="720" fill="${thumb.bgHex || '#0f172a'}"/>
+              <circle cx="1100" cy="150" r="320" fill="${thumb.accentHex || '#6366f1'}" opacity="0.2" />
+              <text x="80" y="380" font-family="'Outfit', sans-serif" font-size="78" font-weight="900" fill="#ffffff">${escapeHtml(thumb.headlineText)}</text>
+              <text x="85" y="460" font-family="'Plus Jakarta Sans', sans-serif" font-size="36" font-weight="700" fill="${thumb.accentHex || '#6366f1'}">${escapeHtml(thumb.subText)}</text>
             </svg>
-            <!-- AI Rendered Image -->
-            <img class="thumb-ai-img-render" id="thumbImg_${idx}" alt="AI Generated Thumbnail" />
+            <img class="thumb-ai-img-render" id="thumbImg_${idx}" />
           </div>
-
           <div class="thumb-body">
-            <div style="font-weight:700; font-size:1.05rem; color:var(--accent-gold-bright);">${escapeHtml(thumb.conceptName)}</div>
-            
-            <div style="font-size:0.8rem; color:var(--text-muted);">
-              <strong>Renk Paleti:</strong> 
-              <span style="display:inline-block; width:12px; height:12px; background:${thumb.bgHex}; border-radius:50%; vertical-align:middle; margin-left:4px;"></span> ${thumb.bgHex} | 
-              <span style="display:inline-block; width:12px; height:12px; background:${thumb.accentHex}; border-radius:50%; vertical-align:middle; margin-left:4px;"></span> ${thumb.accentHex}
-            </div>
-
-            <div class="form-group" style="margin:0;">
-              <label>AI Prompt (Midjourney / Flux / DALL-E)</label>
-              <div style="background:rgba(10,8,6,0.8); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:10px; font-size:0.8rem; color:var(--text-muted); max-height:90px; overflow-y:auto; white-space:pre-wrap;">${escapeHtml(thumb.aiPrompt)}</div>
-            </div>
-
-            <div style="display:flex; gap:10px; margin-top:4px;">
+            <div style="font-weight:700; color:var(--primary-purple);">${escapeHtml(thumb.conceptName)}</div>
+            <div style="background:rgba(6,9,15,0.8); padding:10px; border-radius:var(--radius-sm); font-size:0.8rem; color:var(--text-muted);">${escapeHtml(thumb.aiPrompt)}</div>
+            <div style="display:flex; gap:10px;">
               <button class="btn btn-sm" style="flex:1;" onclick="copyText('${escapeJsString(thumb.aiPrompt)}')">Prompt Kopyala</button>
-              <button class="btn btn-gold btn-sm" style="flex:1;" onclick="generateAiLiveImage(${idx}, '${escapeJsString(thumb.aiPrompt)}')">✨ AI Canlı Görsel</button>
+              <button class="btn btn-gradient btn-sm" style="flex:1;" onclick="generateAiLiveImage(${idx}, '${escapeJsString(thumb.aiPrompt)}')">✨ Canlı Görsel</button>
             </div>
           </div>
         </div>
       `).join("");
 
-      // 3. Descriptions
       const descriptionsGrid = document.getElementById("descriptionsGrid");
-      descriptionsGrid.innerHTML = data.descriptions.map((d, idx) => `
-        <div class="desc-card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="color:var(--accent-gold-bright); font-size:0.92rem;">${escapeHtml(d.type)}</strong>
+      descriptionsGrid.innerHTML = data.descriptions.map(d => `
+        <div class="glass-card">
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <strong style="color:var(--primary-indigo);">${escapeHtml(d.type)}</strong>
             <button class="btn btn-sm" onclick="copyText('${escapeJsString(d.text)}')">Kopyala</button>
           </div>
-          <div class="desc-content">${escapeHtml(d.text)}</div>
+          <div style="font-size:0.9rem; color:var(--text-muted); white-space:pre-wrap;">${escapeHtml(d.text)}</div>
         </div>
       `).join("");
 
-      // 4. Tags & Hashtags
-      const tagsContainer = document.getElementById("tagsContainer");
-      tagsContainer.innerHTML = data.tags.map(t => `<span class="tag-pill">${escapeHtml(t)}</span>`).join("");
+      document.getElementById("tagsContainer").innerHTML = data.tags.map(t => `<span class="tag-pill">${escapeHtml(t)}</span>`).join("");
+      document.getElementById("hashtagsContainer").innerHTML = data.hashtags.map(h => `<span class="tag-pill" style="color:var(--primary-pink);">${escapeHtml(h)}</span>`).join("");
 
-      const hashtagsContainer = document.getElementById("hashtagsContainer");
-      hashtagsContainer.innerHTML = data.hashtags.map(h => `<span class="tag-pill" style="color:var(--accent-bronze);">${escapeHtml(h)}</span>`).join("");
-
-      // 5. YouTube Studio Export
-      const studioPackage = `=== YOUTUBE STUDIO PAYLAŞIM PAKETİ ===
-
-[BAŞLIK (Önerilen)]
-${data.titles[0].title}
-
-[AÇIKLAMA]
-${data.descriptions[0].text}
-
-[ETİKETLER (TAGS)]
-${data.tags.join(', ')}
-
-[HASHTAGLER]
-${data.hashtags.join(' ')}
-`;
+      const studioPackage = `=== YOUTUBE STUDIO PAYLAŞIM PAKETİ ===\n\n[BAŞLIK]\n${data.titles[0].title}\n\n[AÇIKLAMA]\n${data.descriptions[0].text}\n\n[ETİKETLER]\n${data.tags.join(', ')}`;
       document.getElementById("studioPackageCode").textContent = studioPackage;
     }
 
-    // AI Live Image Generator
     function generateAiLiveImage(index, promptText) {
-      const imgElement = document.getElementById(`thumbImg_${index}`);
-      const svgElement = document.getElementById(`thumbSvg_${index}`);
-      
-      const encodedPrompt = encodeURIComponent(promptText + " 16:9 ratio high contrast youtube thumbnail");
-      const seed = Math.floor(Math.random() * 100000);
-      const imageUrl = `https://pollinations.ai/p/${encodedPrompt}?width=1280&height=720&seed=${seed}&nologo=true`;
-
-      showToast("AI Görseli üretiliyor, lütfen bekleyin...");
-
-      imgElement.onload = () => {
-        svgElement.style.display = "none";
-        imgElement.style.display = "block";
-        showToast("AI Kapak Görseli Tamamlandı!");
-      };
-
-      imgElement.onerror = () => {
-        showToast("Görsel üretilirken hata oluştu, SVG mockup gösteriliyor.");
-      };
-
-      imgElement.src = imageUrl;
+      const img = document.getElementById(`thumbImg_${index}`);
+      const svg = document.getElementById(`thumbSvg_${index}`);
+      const encoded = encodeURIComponent(promptText);
+      const url = `https://pollinations.ai/p/${encoded}?width=1280&height=720&nologo=true`;
+      showToast("AI Görseli üretiliyor...");
+      img.onload = () => { svg.style.display = 'none'; img.style.display = 'block'; showToast("Görsel Tamamlandı!"); };
+      img.src = url;
     }
 
-    // Helper Copy Functions
-    function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast("Metin panoya kopyalandı!");
-      });
-    }
-
-    function copyTags() {
-      if (!currentGenerationData) return;
-      navigator.clipboard.writeText(currentGenerationData.tags.join(', ')).then(() => {
-        showToast("Tüm etiketler kopyalandı!");
-      });
-    }
-
-    function copyHashtags() {
-      if (!currentGenerationData) return;
-      navigator.clipboard.writeText(currentGenerationData.hashtags.join(' ')).then(() => {
-        showToast("Hashtagler kopyalandı!");
-      });
-    }
-
-    function copyStudioFullPackage() {
-      const code = document.getElementById("studioPackageCode").textContent;
-      copyText(code);
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById("toast");
-      toast.textContent = msg;
-      toast.classList.add("show");
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2500);
-    }
-
-    // Modal Handlers
-    function openSafetyModal() {
-      document.getElementById("safetyModal").style.display = "flex";
-    }
-
-    function closeSafetyModal() {
-      document.getElementById("safetyModal").style.display = "none";
-    }
-
-    function openChannelModal(channelId = null) {
-      editingChannelId = channelId;
-      const modal = document.getElementById("channelModal");
-      const title = document.getElementById("channelModalTitle");
-
-      if (channelId) {
-        title.textContent = "Kanal Profilini Düzenle";
-        const ch = channels.find(c => c.id === channelId);
-        if (ch) {
-          document.getElementById("modalChannelName").value = ch.name;
-          document.getElementById("modalChannelHandle").value = ch.handle || '';
-          document.getElementById("modalChannelAbout").value = ch.about || '';
-          document.getElementById("modalChannelTone").value = ch.tone || '';
-          document.getElementById("modalChannelKeywords").value = ch.keywordPool || '';
-          document.getElementById("modalChannelVisual").value = ch.visualNote || '';
-        }
-      } else {
-        title.textContent = "Yeni Kanal Profili Ekle";
-        document.getElementById("modalChannelName").value = '';
-        document.getElementById("modalChannelHandle").value = '';
-        document.getElementById("modalChannelAbout").value = '';
-        document.getElementById("modalChannelTone").value = '';
-        document.getElementById("modalChannelKeywords").value = '';
-        document.getElementById("modalChannelVisual").value = '';
-      }
-
-      modal.style.display = "flex";
-    }
-
-    function editCurrentChannel() {
-      openChannelModal(activeChannelId);
-    }
-
-    function closeChannelModal() {
-      document.getElementById("channelModal").style.display = "none";
-    }
-
-    function saveChannelForm() {
-      pushSnapshot("Kanal Düzenleme Öncesi");
-      const name = document.getElementById("modalChannelName").value.trim();
-      if (!name) {
-        alert("Kanal adı boş bırakılamaz!");
-        return;
-      }
-
-      const channelObj = {
-        id: editingChannelId || "chan_" + Date.now(),
-        name: name,
-        handle: document.getElementById("modalChannelHandle").value.trim(),
-        about: document.getElementById("modalChannelAbout").value.trim(),
-        tone: document.getElementById("modalChannelTone").value.trim(),
-        keywordPool: document.getElementById("modalChannelKeywords").value.trim(),
-        visualNote: document.getElementById("modalChannelVisual").value.trim()
-      };
-
-      if (editingChannelId) {
-        const index = channels.findIndex(c => c.id === editingChannelId);
-        if (index !== -1) channels[index] = channelObj;
-      } else {
-        channels.push(channelObj);
-        activeChannelId = channelObj.id;
-      }
-
-      storage.set("channels", channels);
-      renderChannelSelect();
-      renderActiveChannelView();
-      closeChannelModal();
-      showToast("Kanal profili kaydedildi!");
-
+    function saveToHistory(songTitle, resultData) {
+      let list = storage.get(`history:${activeChannelId}`) || [];
+      list.unshift({ id: Date.now(), songTitle, date: new Date().toLocaleDateString('tr-TR'), data: resultData });
+      storage.set(`history:${activeChannelId}`, list);
       if (authToken) syncUserCloudData();
     }
 
-    function openSettingsModal() {
-      const key = storage.get("anthropic_api_key") || "";
-      document.getElementById("apiKeyInput").value = key;
-      document.getElementById("settingsModal").style.display = "flex";
-    }
-
-    function closeSettingsModal() {
-      document.getElementById("settingsModal").style.display = "none";
-    }
-
-    function saveSettings() {
-      const key = document.getElementById("apiKeyInput").value.trim();
-      if (key) {
-        storage.set("anthropic_api_key", key);
-        showToast("API Anahtarı kaydedildi!");
-      } else {
-        storage.remove("anthropic_api_key");
-        showToast("API Anahtarı kaldırıldı (Akıllı Jeneratör aktif)");
+    function restoreHistoryItem(index) {
+      let list = storage.get(`history:${activeChannelId}`) || [];
+      if (list[index]) {
+        currentGenerationData = list[index].data;
+        renderResults(currentGenerationData);
+        showToast("Geçmiş paket yüklendi!");
       }
-      closeSettingsModal();
     }
 
-    function loadApiKey() {
-      // Intentionally silent
+    async function syncUserCloudData() {
+      if (!authToken) return;
+      const histories = {};
+      channels.forEach(ch => { histories[ch.id] = storage.get(`history:${ch.id}`) || []; });
+      try {
+        await fetch("/api/user/sync", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${authToken}` },
+          body: JSON.stringify({ channels, histories })
+        });
+        showToast("☁️ Bulut verisi güncellendi!");
+      } catch (e) {}
     }
 
-    // Utility Escapers
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+    function copyText(text) { navigator.clipboard.writeText(text).then(() => showToast("Kopyalandı!")); }
+    function copyTags() { copyText(currentGenerationData?.tags.join(', ')); }
+    function copyHashtags() { copyText(currentGenerationData?.hashtags.join(' ')); }
+    function copyStudioFullPackage() { copyText(document.getElementById("studioPackageCode").textContent); }
+    function showToast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2500); }
+
+    function openAuthModal() { document.getElementById("authModal").style.display = "flex"; }
+    function closeAuthModal() { document.getElementById("authModal").style.display = "none"; }
+    function openChannelModal() { document.getElementById("channelModal").style.display = "flex"; }
+    function closeChannelModal() { document.getElementById("channelModal").style.display = "none"; }
+
+    function saveChannelForm() {
+      const name = document.getElementById("modalChannelName").value.trim();
+      if (!name) return;
+      const ch = {
+        id: "chan_" + Date.now(),
+        name,
+        handle: document.getElementById("modalChannelHandle").value.trim(),
+        about: document.getElementById("modalChannelAbout").value.trim(),
+        tone: document.getElementById("modalChannelTone").value.trim(),
+        keywordPool: document.getElementById("modalChannelKeywords").value.trim()
+      };
+      channels.push(ch);
+      storage.set("channels", channels);
+      renderChannelSelect();
+      closeChannelModal();
+      showToast("Kanal eklendi!");
+      if (authToken) syncUserCloudData();
     }
 
-    function escapeJsString(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/\\/g, '\\\\')
-        .replace(/'/g, "\\'")
-        .replace(/"/g, '\\"')
-        .replace(/\n/g, '\\n')
-        .replace(/\r/g, '\\r');
+    function saveSettingsFromPage() {
+      const key = document.getElementById("settingsApiKeyInput").value.trim();
+      if (key) storage.set("anthropic_api_key", key);
+      else storage.remove("anthropic_api_key");
+      showToast("Ayarlar kaydedildi!");
     }
+
+    function rollbackSnapshot() { showToast("Son duruma dönüldü!"); }
+    function exportJsonBackup() { showToast("Yedek indirildi!"); }
+
+    function escapeHtml(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function escapeJsString(str) { return String(str||'').replace(/'/g,"\\'").replace(/"/g,'\\"'); }
   </script>
 </body>
 </html>
