@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Paylaşım Destek | AI SEO & Kapak Stüdyosu</title>
+  <title>YouTube Paylaşım Destek | AI İçerik & SEO Stüdyosu</title>
   
   <!-- SEO & Meta -->
-  <meta name="description" content="YouTube Müzik ve İçerik Kanalları için AB Testine Uygun 3 Başlık, 3 Açıklama ve 3 Özel AI Thumbnail Prompt Jeneratörü." />
-  <meta name="theme-color" content="#0b0f19" />
+  <meta name="description" content="YouTube Müzik ve İçerik Kanalları için Basit, Hızlı ve AI Destekli AB Testi Başlık, SEO Açıklama ve Kapak Jeneratörü." />
+  <meta name="theme-color" content="#080c14" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 
   <!-- Google Fonts: Outfit, Plus Jakarta Sans, JetBrains Mono -->
@@ -19,32 +19,31 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
-    /* Ultra-Modern SaaS Aesthetics System */
+    /* Can Alıcı, Basit & Göz Alıcı Modern Tasarım Sistemi */
     :root {
-      --bg-dark: #070a12;
-      --bg-surface: #0f1524;
-      --bg-card: rgba(15, 21, 36, 0.85);
-      --bg-card-hover: rgba(22, 31, 52, 0.95);
+      --bg-dark: #060911;
+      --bg-surface: #0e1322;
+      --bg-card: rgba(14, 19, 34, 0.8);
+      --bg-card-hover: rgba(20, 27, 48, 0.9);
       
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(99, 102, 241, 0.4);
+      --border-glow: rgba(99, 102, 241, 0.35);
       
       --primary-indigo: #6366f1;
-      --primary-purple: #a855f7;
+      --primary-purple: #8b5cf6;
       --primary-pink: #ec4899;
-      --accent-amber: #f59e0b;
       
-      --text-main: #f8fafc;
+      --text-main: #ffffff;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
       
       --success: #10b981;
-      --radius-lg: 24px;
-      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
       --radius-sm: 10px;
       
-      --glass-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-      --indigo-glow: 0 0 40px rgba(99, 102, 241, 0.3);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+      --logo-glow: 0 0 25px rgba(99, 102, 241, 0.4);
     }
 
     * {
@@ -56,12 +55,11 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 85% 25%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.1) 0%, transparent 55%),
-        linear-gradient(180deg, #070a12 0%, #04060a 100%);
+        radial-gradient(circle at 20% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 45%),
+        linear-gradient(180deg, #060911 0%, #030509 100%);
       color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
@@ -69,18 +67,17 @@
     }
 
     .outfit-font { font-family: 'Outfit', sans-serif; }
-    code, pre { font-family: 'JetBrains Mono', monospace; }
 
     /* Header Nav */
     header {
-      background: rgba(7, 10, 18, 0.85);
+      background: rgba(6, 9, 17, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-subtle);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 16px 32px;
+      padding: 14px 32px;
     }
 
     .header-container {
@@ -92,33 +89,49 @@
       gap: 24px;
     }
 
-    .brand-group {
+    /* Custom Eye-Catching Logo Symbol */
+    .brand-logo-wrap {
       display: flex;
       align-items: center;
       gap: 14px;
       text-decoration: none;
     }
 
-    .brand-logo-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--radius-sm);
-      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
+    .custom-logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 900;
-      font-size: 1.2rem;
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      box-shadow: var(--logo-glow);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brand-logo-wrap:hover .custom-logo-icon {
+      transform: scale(1.06) rotate(-2deg);
+    }
+
+    .custom-logo-svg {
+      width: 22px;
+      height: 22px;
+      fill: #ffffff;
     }
 
     .brand-title {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: var(--text-main);
       margin: 0;
       line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title span {
+      background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .brand-sub {
@@ -131,10 +144,10 @@
     .nav-tabs {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(15, 21, 36, 0.8);
+      gap: 6px;
+      background: rgba(14, 19, 34, 0.8);
       border: 1px solid var(--border-subtle);
-      padding: 5px;
+      padding: 4px;
       border-radius: var(--radius-md);
     }
 
@@ -155,7 +168,7 @@
 
     .nav-tab-btn:hover {
       color: var(--text-main);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
     }
 
     .nav-tab-btn.active {
@@ -164,33 +177,26 @@
       box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
     /* Buttons System */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       background: rgba(255, 255, 255, 0.06);
       color: var(--text-main);
       border: 1px solid var(--border-subtle);
-      padding: 12px 22px;
+      padding: 10px 20px;
       border-radius: var(--radius-md);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.25s ease;
       text-decoration: none;
     }
 
     .btn:hover {
       background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.22);
       transform: translateY(-2px);
     }
 
@@ -199,18 +205,15 @@
       color: #ffffff;
       border: none;
       font-weight: 700;
-      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
     }
 
     .btn-gradient:hover {
-      box-shadow: 0 8px 32px rgba(168, 85, 247, 0.48);
+      box-shadow: 0 8px 28px rgba(139, 92, 246, 0.45);
       transform: translateY(-2px);
     }
 
-    .btn-sm {
-      padding: 6px 14px;
-      font-size: 0.82rem;
-    }
+    .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
 
     /* Layout Wrapper */
     .app-viewport {
@@ -239,15 +242,15 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 40px 24px;
-      max-width: 960px;
+      padding: 48px 24px;
+      max-width: 920px;
       margin: 0 auto;
     }
 
     .hero-badge {
       background: rgba(99, 102, 241, 0.15);
       border: 1px solid rgba(99, 102, 241, 0.35);
-      color: var(--primary-indigo);
+      color: #a5b4fc;
       font-weight: 700;
       font-size: 0.85rem;
       padding: 8px 20px;
@@ -263,9 +266,7 @@
       font-weight: 900;
       line-height: 1.15;
       margin-bottom: 18px;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #ffffff;
     }
 
     .hero-title span {
@@ -278,12 +279,12 @@
       font-size: 1.12rem;
       color: var(--text-muted);
       margin-bottom: 36px;
-      max-width: 720px;
+      max-width: 700px;
     }
 
     /* High-End Authentication Card */
     .pro-auth-card {
-      background: rgba(15, 21, 36, 0.92);
+      background: rgba(14, 19, 34, 0.92);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
       border: 1px solid var(--border-glow);
@@ -291,7 +292,7 @@
       padding: 36px;
       width: 100%;
       max-width: 480px;
-      box-shadow: var(--glass-shadow), var(--indigo-glow);
+      box-shadow: var(--glass-shadow);
       text-align: left;
       position: relative;
       overflow: hidden;
@@ -305,13 +306,12 @@
       background: linear-gradient(90deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
     }
 
-    /* Segmented Control Tabs */
     .segmented-control {
       display: flex;
-      background: rgba(6, 9, 16, 0.8);
+      background: rgba(6, 9, 17, 0.8);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 5px;
+      padding: 4px;
       margin-bottom: 24px;
     }
 
@@ -326,16 +326,15 @@
       font-size: 0.9rem;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
     }
 
     .segmented-btn.active {
       background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple));
       color: #ffffff;
-      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     }
 
-    /* Input Field Container with Left Icon */
     .input-field-wrapper {
       position: relative;
       margin-bottom: 18px;
@@ -349,12 +348,11 @@
       color: var(--text-dim);
       font-size: 1.1rem;
       pointer-events: none;
-      transition: color 0.2s;
     }
 
     .input-field-control {
       width: 100%;
-      background: rgba(6, 9, 16, 0.75);
+      background: rgba(6, 9, 17, 0.75);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 14px 16px 14px 48px;
@@ -366,15 +364,10 @@
 
     .input-field-control:focus {
       border-color: var(--primary-indigo);
-      background: rgba(10, 14, 24, 0.95);
+      background: rgba(10, 14, 26, 0.95);
       box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
     }
 
-    .input-field-control:focus + .input-field-icon {
-      color: var(--primary-indigo);
-    }
-
-    /* Official Google Button Styling */
     .google-custom-btn {
       width: 100%;
       background: #ffffff;
@@ -396,14 +389,11 @@
     .google-custom-btn:hover {
       background: #f8fafc;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
     }
 
-    /* Page Views Control */
     .page-view { display: none; }
     .page-view.active { display: block; }
 
-    /* Dashboard View Layout */
     .dashboard-grid {
       display: grid;
       grid-template-columns: 360px 1fr;
@@ -414,7 +404,6 @@
       .dashboard-grid { grid-template-columns: 1fr; }
     }
 
-    /* Form Elements */
     .form-group { margin-bottom: 18px; }
 
     .form-group label {
@@ -429,7 +418,7 @@
 
     .form-control {
       width: 100%;
-      background: rgba(6, 9, 16, 0.75);
+      background: rgba(6, 9, 17, 0.75);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 12px 16px;
@@ -441,15 +430,15 @@
 
     .form-control:focus {
       border-color: var(--primary-indigo);
-      background: rgba(10, 14, 24, 0.95);
+      background: rgba(10, 14, 26, 0.95);
       box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
     }
 
     textarea.form-control { resize: vertical; min-height: 100px; }
 
-    /* Generator Box */
+    /* Clean 1-Click Generator Box */
     .generator-card {
-      background: linear-gradient(180deg, rgba(20, 27, 45, 0.9) 0%, rgba(11, 15, 25, 0.95) 100%);
+      background: linear-gradient(180deg, rgba(18, 25, 45, 0.9) 0%, rgba(10, 14, 25, 0.95) 100%);
       border: 1px solid var(--border-glow);
       border-radius: var(--radius-lg);
       padding: 32px;
@@ -466,7 +455,6 @@
       background: linear-gradient(90deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
     }
 
-    /* Loading Box */
     .loading-box {
       display: none;
       text-align: center;
@@ -488,7 +476,6 @@
 
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* Output Results Sections */
     .results-wrapper { display: flex; flex-direction: column; gap: 32px; margin-top: 32px; }
 
     .section-head {
@@ -509,11 +496,10 @@
       gap: 10px;
     }
 
-    /* Titles Grid */
     .titles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
 
     .title-card {
-      background: rgba(17, 23, 38, 0.85);
+      background: rgba(14, 19, 34, 0.85);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 22px;
@@ -526,7 +512,6 @@
 
     .title-card:hover { border-color: var(--primary-indigo); transform: translateY(-3px); }
 
-    /* Thumbnails Grid */
     .thumbs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
 
     .thumb-card {
@@ -548,7 +533,6 @@
 
     .thumb-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
 
-    /* Tag Pills */
     .tags-flex { display: flex; flex-wrap: wrap; gap: 8px; }
     .tag-pill {
       background: rgba(99, 102, 241, 0.12);
@@ -560,7 +544,6 @@
       font-weight: 600;
     }
 
-    /* Toast */
     .toast {
       position: fixed;
       bottom: 30px;
@@ -578,7 +561,6 @@
     }
     .toast.show { transform: translateY(0); opacity: 1; }
 
-    /* Modals */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -607,11 +589,16 @@
   <!-- Translucent Top Header -->
   <header>
     <div class="header-container">
-      <a href="https://thendisch.com" class="brand-group">
-        <div class="brand-logo-icon">YT</div>
+      <a href="https://thendisch.com" class="brand-logo-wrap">
+        <!-- Striking Custom Play-Spark Logo Icon -->
+        <div class="custom-logo-icon">
+          <svg class="custom-logo-svg" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
         <div>
-          <h1 class="brand-title">YouTube Paylaşım Destek</h1>
-          <span class="brand-sub">thendisch.com/youtube • AI SEO & Kapak Stüdyosu</span>
+          <h1 class="brand-title">YouTube <span>Paylaşım Destek</span></h1>
+          <span class="brand-sub">thendisch.com/youtube • AI İçerik & SEO Stüdyosu</span>
         </div>
       </a>
 
@@ -660,10 +647,8 @@
 
         <!-- Official Real Google OAuth Sign-In Button -->
         <div style="margin-bottom:22px;">
-          <!-- Official Google Identity Services SDK Render Target -->
           <div id="googleSdkBtnContainer" style="display:none; width:100%;"></div>
 
-          <!-- Fallback Official Styled Google Button -->
           <button class="google-custom-btn" id="googleCustomBtn" onclick="triggerOfficialGoogleAuth()">
             <svg width="20" height="20" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
             Google Hesabı İle Tek Tıkla Bağlan
@@ -979,7 +964,6 @@
       initOfficialGoogleSDK();
     });
 
-    // Initialize Official Google Identity Services SDK
     function initOfficialGoogleSDK() {
       if (window.google && google.accounts && google.accounts.id) {
         google.accounts.id.initialize({
@@ -988,7 +972,6 @@
           auto_select: false
         });
 
-        // Render official button if element exists
         const btnContainer = document.getElementById("googleSdkBtnContainer");
         if (btnContainer) {
           btnContainer.style.display = "block";
@@ -1028,7 +1011,6 @@
       }
     }
 
-    // Official Google Auth Trigger (Uses Google One-Tap or Google Accounts Popup)
     function triggerOfficialGoogleAuth() {
       if (window.google && google.accounts && google.accounts.id) {
         google.accounts.id.prompt((notification) => {
@@ -1042,7 +1024,6 @@
     }
 
     async function performSeamlessGoogleLogin() {
-      // Seamless Google Account extraction
       try {
         const res = await fetch("/api/auth/google", {
           method: "POST",
@@ -1070,7 +1051,6 @@
       }
     }
 
-    // Page View Navigation
     function switchPageView(pageId) {
       if (!currentUser && pageId !== 'landing') {
         alert("Lütfen önce giriş yapın!");
@@ -1123,7 +1103,6 @@
       if (container) container.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Session Management
     async function checkCurrentSession() {
       if (!authToken) {
         renderGuestState();
@@ -1182,7 +1161,6 @@
       `;
     }
 
-    // High-End On-Page Authentication Methods
     async function performProLogin() {
       const email = document.getElementById("proLoginEmail").value.trim();
       const password = document.getElementById("proLoginPassword").value.trim();
@@ -1257,7 +1235,6 @@
       showToast("Oturum kapatıldı.");
     }
 
-    // Channels Page View
     function renderChannelsPage() {
       const grid = document.getElementById("channelsPageGrid");
       grid.innerHTML = channels.map(ch => `
@@ -1273,7 +1250,6 @@
       `).join("");
     }
 
-    // History Page View
     function renderHistoryPage() {
       const grid = document.getElementById("historyPageGrid");
       const historyList = storage.get(`history:${activeChannelId}`) || [];
@@ -1294,7 +1270,6 @@
       `).join("");
     }
 
-    // Channel Selection & Render
     function loadChannels() {
       const stored = storage.get("channels");
       channels = (stored && stored.length > 0) ? stored : SAMPLE_CHANNELS;
@@ -1328,7 +1303,6 @@
       `;
     }
 
-    // Content Package Generation Core
     async function generateContentPackage() {
       const titleInput = document.getElementById("videoTitleInput").value.trim();
       const vibeInput = document.getElementById("videoVibeInput").value.trim();
