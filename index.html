@@ -7,44 +7,43 @@
   
   <!-- SEO & Meta -->
   <meta name="description" content="YouTube Müzik ve İçerik Kanalları için AB Testine Uygun 3 Başlık, 3 Açıklama ve 3 Özel AI Thumbnail Prompt Jeneratörü." />
-  <meta name="theme-color" content="#12100e" />
+  <meta name="theme-color" content="#090807" />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Outfit, Playfair Display, Plus Jakarta Sans, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Google Identity Services SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
-    /* CSS Variables - Koyu Bronz & Altın Teması */
+    /* Premium Luxury Dark Aesthetics System */
     :root {
-      --bg-main: #0e0c0a;
-      --bg-surface: #161310;
-      --bg-card: #1c1712;
-      --bg-card-hover: #241e18;
-      --border-color: #2e261f;
-      --border-focus: #c98a4b;
+      --bg-dark: #070605;
+      --bg-surface: #0f0d0a;
+      --bg-card: rgba(22, 18, 14, 0.75);
+      --bg-card-hover: rgba(32, 26, 20, 0.85);
       
-      --accent-bronze: #c98a4b;
-      --accent-bronze-hover: #e2a362;
-      --accent-bronze-glow: rgba(201, 138, 75, 0.15);
-      --accent-gold: #e5b367;
+      --border-subtle: rgba(229, 179, 103, 0.12);
+      --border-glow: rgba(229, 179, 103, 0.35);
       
-      --text-primary: #f5ebd9;
-      --text-secondary: #a89c8d;
-      --text-muted: #756a5c;
+      --accent-gold: #f3c77c;
+      --accent-gold-bright: #ffd993;
+      --accent-bronze: #d49553;
+      --accent-bronze-dark: #8c5825;
       
-      --success-color: #4ea86e;
-      --tag-bg: #272018;
+      --text-main: #fcf8f2;
+      --text-muted: #b0a394;
+      --text-dim: #736758;
       
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
+      --success: #52c47c;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
       
-      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 25px rgba(201, 138, 75, 0.2);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+      --gold-glow: 0 0 35px rgba(229, 179, 103, 0.22);
     }
 
     * {
@@ -54,9 +53,13 @@
     }
 
     body {
-      background-color: var(--bg-main);
-      color: var(--text-primary);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(212, 149, 83, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(243, 199, 124, 0.05) 0%, transparent 45%),
+        linear-gradient(180deg, #090807 0%, #050403 100%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
@@ -64,286 +67,318 @@
     }
 
     /* Headings Typography */
-    h1, h2, h3, h4, .serif-text {
+    h1, h2, h3, .serif-font {
       font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
 
-    code, pre, .mono {
+    .outfit-font {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    code, pre {
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Header */
+    /* Floating Translucent Header */
     header {
-      background: rgba(22, 19, 16, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
+      background: rgba(15, 13, 10, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 12px 24px;
+      padding: 16px 32px;
     }
 
     .header-container {
-      max-width: 1400px;
+      max-width: 1540px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 24px;
     }
 
-    .logo-area {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       text-decoration: none;
-      color: var(--text-primary);
     }
 
-    .logo-badge {
-      background: linear-gradient(135deg, var(--accent-bronze), var(--accent-gold));
-      color: #0e0c0a;
+    .brand-badge {
+      background: linear-gradient(135deg, #f3c77c 0%, #d49553 100%);
+      color: #080705;
+      font-family: 'Outfit', sans-serif;
       font-weight: 800;
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
       font-size: 0.85rem;
-      letter-spacing: 0.05em;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.08em;
+      box-shadow: 0 4px 16px rgba(212, 149, 83, 0.35);
     }
 
-    .logo-title {
-      font-size: 1.25rem;
-      color: var(--text-primary);
+    .brand-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
       margin: 0;
+      line-height: 1.2;
     }
 
-    .logo-sub {
-      font-size: 0.75rem;
+    .brand-sub {
+      font-size: 0.78rem;
       color: var(--text-muted);
-      display: block;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 500;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
-    /* Buttons & Selects */
+    /* Buttons System */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      padding: 8px 16px;
+      background: rgba(30, 24, 18, 0.8);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 18px;
       border-radius: var(--radius-md);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       text-decoration: none;
     }
 
     .btn:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--accent-bronze);
+      background: rgba(45, 36, 27, 0.9);
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-bronze), #b0753b);
-      color: #0e0c0a;
+    .btn-gold {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-bronze) 100%);
+      color: #070605;
       border: none;
       font-weight: 700;
-      box-shadow: 0 4px 14px rgba(201, 138, 75, 0.3);
+      box-shadow: 0 6px 20px rgba(212, 149, 83, 0.3);
     }
 
-    .btn-primary:hover {
-      background: linear-gradient(135deg, var(--accent-bronze-hover), var(--accent-bronze));
-      box-shadow: var(--shadow-glow);
-      transform: translateY(-1px);
+    .btn-gold:hover {
+      background: linear-gradient(135deg, var(--accent-gold-bright) 0%, var(--accent-gold) 100%);
+      box-shadow: var(--gold-glow);
+      transform: translateY(-2px);
     }
 
     .btn-sm {
-      padding: 5px 10px;
+      padding: 6px 12px;
       font-size: 0.8rem;
     }
 
     .channel-select {
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      padding: 8px 16px;
+      background: rgba(22, 18, 14, 0.9);
+      color: var(--accent-gold-bright);
+      border: 1px solid var(--border-subtle);
+      padding: 9px 16px;
       border-radius: var(--radius-md);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
+      font-weight: 600;
       outline: none;
       cursor: pointer;
-      min-width: 200px;
+      min-width: 220px;
+      transition: border-color 0.2s;
     }
 
-    .channel-select:focus {
-      border-color: var(--accent-bronze);
+    .channel-select:focus, .channel-select:hover {
+      border-color: var(--accent-gold);
     }
 
-    /* Layout Containers */
-    .app-container {
-      max-width: 1400px;
+    /* Main Container Grid */
+    .workspace-wrapper {
+      max-width: 1540px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 32px;
       width: 100%;
       flex: 1;
       display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 24px;
+      grid-template-columns: 380px 1fr;
+      gap: 32px;
     }
 
-    @media (max-width: 1024px) {
-      .app-container {
+    @media (max-width: 1100px) {
+      .workspace-wrapper {
         grid-template-columns: 1fr;
       }
     }
 
-    /* Sidebar / Identity Panel */
-    .sidebar-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .card-title {
-      font-size: 1.1rem;
-      margin-bottom: 14px;
-      color: var(--accent-gold);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .form-control {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 10px 14px;
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-control:focus {
-      border-color: var(--accent-bronze);
-      box-shadow: 0 0 0 3px var(--accent-bronze-glow);
-    }
-
-    textarea.form-control {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    /* Main Area */
-    .main-panel {
+    /* Sidebar Area */
+    .sidebar {
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
 
-    /* Generator Input Header */
-    .generator-box {
-      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-card) 100%);
-      border: 1px solid var(--border-color);
+    /* Glass Cards */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       padding: 24px;
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--glass-shadow);
+      transition: border-color 0.3s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(243, 199, 124, 0.25);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(10, 8, 6, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-gold);
+      background: rgba(15, 12, 9, 0.9);
+      box-shadow: 0 0 0 4px rgba(212, 149, 83, 0.15);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 95px;
+    }
+
+    /* Workspace Main Panel */
+    .main-workspace {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Notice Banner */
+    .hero-notice {
+      background: linear-gradient(90deg, rgba(212, 149, 83, 0.12) 0%, rgba(243, 199, 124, 0.05) 100%);
+      border: 1px solid rgba(229, 179, 103, 0.2);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .hero-notice strong {
+      color: var(--accent-gold);
+    }
+
+    /* Primary Generator Box */
+    .generator-card {
+      background: linear-gradient(180deg, rgba(26, 21, 16, 0.85) 0%, rgba(16, 13, 10, 0.95) 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--glass-shadow), var(--gold-glow);
       position: relative;
       overflow: hidden;
     }
 
-    .generator-box::before {
+    .generator-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-bronze), var(--accent-gold), var(--accent-bronze));
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-bronze), var(--accent-gold-bright), var(--accent-bronze));
     }
 
-    .input-grid {
+    .generator-title {
+      font-size: 1.6rem;
+      color: var(--accent-gold-bright);
+      margin-bottom: 20px;
+    }
+
+    .input-grid-2 {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 16px;
+      gap: 20px;
     }
 
     @media (max-width: 768px) {
-      .input-grid {
+      .input-grid-2 {
         grid-template-columns: 1fr;
       }
     }
 
-    /* Rules Banner */
-    .yt-rules-badge {
-      background: rgba(201, 138, 75, 0.08);
-      border: 1px solid rgba(201, 138, 75, 0.2);
-      border-radius: var(--radius-md);
-      padding: 12px 16px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .yt-rules-badge strong {
-      color: var(--accent-gold);
-    }
-
-    /* Loading Indicator */
-    .loading-state {
+    /* Loading Spinner */
+    .loading-box {
       display: none;
       text-align: center;
-      padding: 40px 20px;
-      background: var(--bg-surface);
-      border: 1px dashed var(--accent-bronze);
+      padding: 48px;
+      background: var(--bg-card);
+      border: 1px dashed var(--accent-gold);
       border-radius: var(--radius-lg);
     }
 
     .spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid var(--border-color);
-      border-top-color: var(--accent-bronze);
+      width: 52px;
+      height: 52px;
+      border: 4px solid rgba(229, 179, 103, 0.15);
+      border-top-color: var(--accent-gold);
       border-radius: 50%;
       animation: spin 1s infinite linear;
-      margin: 0 auto 16px;
+      margin: 0 auto 20px;
     }
 
     @keyframes spin {
@@ -351,169 +386,149 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Output Results Layout */
-    .results-container {
+    /* Output Results Sections */
+    .results-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 32px;
     }
 
-    .section-header {
+    .section-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 10px;
-      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
     }
 
-    .section-title {
-      font-size: 1.3rem;
+    .section-head-title {
+      font-size: 1.35rem;
       color: var(--accent-gold);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    /* Title Cards (3 A/B Options) */
+    /* Titles Grid */
     .titles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 16px;
-    }
-
-    .title-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .title-card:hover {
-      border-color: var(--accent-bronze);
-      transform: translateY(-2px);
-    }
-
-    .title-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--accent-bronze);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .title-text {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      line-height: 1.4;
-    }
-
-    .title-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 8px;
-    }
-
-    /* Thumbnail Cards (3 Visual Concepts + AI Prompt) */
-    .thumbnails-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 20px;
     }
 
+    .title-card {
+      background: rgba(22, 18, 14, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: all 0.25s ease;
+    }
+
+    .title-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .title-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--accent-bronze);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .title-main-text {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.45;
+    }
+
+    /* Thumbnails Grid */
+    .thumbs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
     .thumb-card {
       background: var(--bg-surface);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      box-shadow: var(--glass-shadow);
+      transition: transform 0.25s ease;
     }
 
-    .thumb-preview-box {
+    .thumb-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-gold);
+    }
+
+    .thumb-stage {
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #000;
       position: relative;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .thumb-svg {
+    .thumb-svg-render {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .thumb-ai-img {
+    .thumb-ai-img-render {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: none;
     }
 
-    .thumb-content {
-      padding: 16px;
+    .thumb-body {
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       flex: 1;
     }
 
-    .thumb-headline {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
-
-    .prompt-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 10px;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      max-height: 100px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-
-    /* Description Tabs & Box */
+    /* Descriptions Grid */
     .desc-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 16px;
+      gap: 20px;
     }
 
     .desc-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: rgba(22, 18, 14, 0.85);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 16px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .desc-text {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
+    .desc-content {
+      font-size: 0.9rem;
+      color: var(--text-muted);
       white-space: pre-wrap;
-      max-height: 220px;
+      max-height: 240px;
       overflow-y: auto;
-      padding-right: 6px;
+      line-height: 1.6;
     }
 
-    /* Tags & Hashtags */
+    /* Tag Pills */
     .tags-flex {
       display: flex;
       flex-wrap: wrap;
@@ -521,33 +536,69 @@
     }
 
     .tag-pill {
-      background: var(--tag-bg);
-      border: 1px solid var(--border-color);
+      background: rgba(38, 30, 22, 0.8);
+      border: 1px solid var(--border-subtle);
       color: var(--accent-gold);
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 20px;
       font-size: 0.82rem;
+      font-weight: 500;
     }
 
-    /* YouTube Studio Export Panel */
-    .export-panel {
-      background: linear-gradient(135deg, #1d1813 0%, #15110d 100%);
-      border: 1px solid var(--accent-bronze);
-      border-radius: var(--radius-lg);
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-bronze));
+      color: #070605;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 3000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Modals */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
       padding: 24px;
-      box-shadow: var(--shadow-glow);
     }
 
-    /* Auth Tabs */
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 540px;
+      padding: 32px;
+      box-shadow: var(--glass-shadow);
+    }
+
     .auth-tabs {
       display: flex;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 20px;
     }
 
     .auth-tab {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
       text-align: center;
       background: transparent;
       border: none;
@@ -559,80 +610,35 @@
 
     .auth-tab.active {
       color: var(--accent-gold);
-      border-bottom-color: var(--accent-bronze);
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: var(--accent-bronze);
-      color: #0e0c0a;
-      font-weight: 700;
-      padding: 12px 24px;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-soft);
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(6px);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      width: 100%;
-      max-width: 520px;
-      padding: 24px;
-      box-shadow: var(--shadow-soft);
+      border-bottom-color: var(--accent-gold);
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Translucent Header Navigation -->
   <header>
     <div class="header-container">
-      <a href="https://thendisch.com" class="logo-area">
-        <div class="logo-badge">YT DESTEK</div>
+      <a href="https://thendisch.com" class="brand-group">
+        <div class="brand-badge">YT DESTEK</div>
         <div>
-          <h1 class="logo-title">YouTube Paylaşım Destek</h1>
-          <span class="logo-sub">thendisch.com/youtube • Google OAuth & Çoklu Kullanıcı</span>
+          <h1 class="brand-title">YouTube Paylaşım Destek</h1>
+          <span class="brand-sub">thendisch.com/youtube • Profesyonel SEO & AI Kapak Stüdyosu</span>
         </div>
       </a>
 
       <div class="header-actions">
-        <!-- Channel Select Dropdown -->
+        <!-- Active Channel Switcher -->
         <select id="channelSelect" class="channel-select" onchange="switchChannel(this.value)">
-          <!-- Options dynamically loaded -->
+          <!-- Loaded via JS -->
         </select>
         
         <button class="btn btn-sm" onclick="openChannelModal()">+ Kanal Ekle</button>
         <button class="btn btn-sm" style="border-color:var(--accent-gold); color:var(--accent-gold);" onclick="openSafetyModal()">🛡️ Hafıza & Depo</button>
         
-        <!-- Dynamic User Auth Header Button -->
+        <!-- Multi-User Auth Header Pill -->
         <div id="userHeaderArea">
-          <button class="btn btn-primary btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>
+          <button class="btn btn-gold btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>
         </div>
 
         <button class="btn btn-sm" onclick="openSettingsModal()">⚙️ Ayarlar</button>
@@ -640,15 +646,16 @@
     </div>
   </header>
 
-  <!-- App Container -->
-  <div class="app-container">
+  <!-- Workspace Grid Layout -->
+  <div class="workspace-wrapper">
     
-    <!-- Sidebar: Active Channel Identity & History -->
-    <aside class="sidebar-panel">
-      <!-- Channel Info Card -->
-      <div class="card">
-        <div class="card-title">
-          <span>Kanal Kimliği</span>
+    <!-- Left Sidebar: Active Channel & History -->
+    <aside class="sidebar">
+      
+      <!-- Channel Identity Card -->
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">Kanal Kimliği Profile</h3>
           <button class="btn btn-sm" onclick="editCurrentChannel()">Düzenle</button>
         </div>
         <div id="channelIdentityView">
@@ -657,34 +664,35 @@
       </div>
 
       <!-- History Card -->
-      <div class="card">
-        <div class="card-title">
-          <span>Son Üretim Geçmişi</span>
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">Son Üretim Geçmişi</h3>
           <span id="historyCountBadge" style="font-size:0.8rem; color:var(--text-muted);">0 / 12</span>
         </div>
-        <div id="historyList" style="display:flex; flex-direction:column; gap:8px; max-height: 320px; overflow-y:auto;">
-          <div style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding:10px;">
+        <div id="historyList" style="display:flex; flex-direction:column; gap:10px; max-height: 340px; overflow-y:auto;">
+          <div style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding:12px;">
             Henüz yapılmış üretim yok.
           </div>
         </div>
       </div>
+
     </aside>
 
-    <!-- Main Workspace -->
-    <main class="main-panel">
+    <!-- Main Workspace Area -->
+    <main class="main-workspace">
 
-      <!-- YouTube Official Guidelines Badge -->
-      <div class="yt-rules-badge">
-        <span>🎬 <strong>Multi-Tenant SaaS Platformu:</strong> Google ile tek tıkla giriş yapın, kendi kanal profillerinizi ve geçmişinizi tüm cihazlarınızdan kesintisiz yönetin.</span>
+      <!-- Notice Banner -->
+      <div class="hero-notice">
+        <span>🎬 <strong>YouTube Creator Akademi Standartları:</strong> Mobilde 3 kelime okunabilirlik, yüksek kontrastlı renk paletleri ve A/B başlık simülasyonu aktif.</span>
       </div>
 
-      <!-- Generator Input Card -->
-      <div class="generator-box">
-        <h2 class="serif-text" style="font-size: 1.4rem; color: var(--accent-gold); margin-bottom: 16px;">
+      <!-- Main Input Generator Box -->
+      <div class="generator-card">
+        <h2 class="serif-font generator-title">
           Yeni Şarkı / Video Paylaşım Paketi Üret
         </h2>
         
-        <div class="input-grid">
+        <div class="input-grid-2">
           <div class="form-group">
             <label>Şarkı / Eser Adı & Sanatçı</label>
             <input type="text" id="videoTitleInput" class="form-control" placeholder="Örn: Gece Yürüyüşü - Lo-Fi Chill Beats" />
@@ -701,49 +709,49 @@
           <textarea id="videoNotesInput" class="form-control" placeholder="Örn: Gece çalışırken dinlemelik ritimler, synth soloları, derin baslar."></textarea>
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-          <span style="font-size: 0.8rem; color: var(--text-muted);">Tek tıkla: 3 Başlık + 3 Açıklama + 3 AI Kapak Prompt'u + Etiketler</span>
-          <button class="btn btn-primary" onclick="generateContentPackage()">🚀 Üretimi Başlat</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 12px;">
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Paket İçeriği: 3 AB Başlık + 3 SEO Açıklama + 3 AI Kapak Prompt'u + Etiketler</span>
+          <button class="btn btn-gold" style="padding: 12px 28px; font-size: 1rem;" onclick="generateContentPackage()">🚀 Üretimi Başlat</button>
         </div>
       </div>
 
-      <!-- Loading State -->
-      <div id="loadingState" class="loading-state">
+      <!-- Loading State Indicator -->
+      <div id="loadingState" class="loading-box">
         <div class="spinner"></div>
-        <h3 class="serif-text" style="color:var(--accent-gold);">YouTube SEO ve Kapak Görselleri Hazırlanıyor...</h3>
-        <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:6px;">Claude 3.5 & YouTube Creator Akademi kuralları işleniyor.</p>
+        <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem;">YouTube SEO ve AI Kapaklar Hazırlanıyor...</h3>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin-top:8px;">Claude 3.5 & YouTube Creator Akademi kuralları işleniyor.</p>
       </div>
 
-      <!-- Output Results Section -->
-      <div id="resultsContainer" class="results-container" style="display: none;">
+      <!-- Generated Results Wrapper -->
+      <div id="resultsContainer" class="results-wrapper" style="display: none;">
 
-        <!-- 1. Titles Section (3 A/B Test Variations) -->
+        <!-- 1. Titles Section -->
         <section>
-          <div class="section-header">
-            <h3 class="section-title">📌 3 Alternatif AB Test Başlığı</h3>
-            <span style="font-size:0.8rem; color:var(--text-muted);">En Yüksek CTR (Tıklanma) Oranı Uyumlu</span>
+          <div class="section-head">
+            <h3 class="section-head-title serif-font">📌 3 Alternatif AB Test Başlığı</h3>
+            <span style="font-size:0.82rem; color:var(--text-muted);">En Yüksek CTR (Tıklanma) Oranı Uyumlu</span>
           </div>
           <div id="titlesGrid" class="titles-grid">
             <!-- Dynamically populated -->
           </div>
         </section>
 
-        <!-- 2. Thumbnail Section (3 Concepts + AI Prompts + SVG/Image Live Mockups) -->
+        <!-- 2. Thumbnail Section -->
         <section>
-          <div class="section-header">
-            <h3 class="section-title">🎨 3 Özel AI Kapak Fotoğrafı Konsepti & Prompt'u</h3>
-            <span style="font-size:0.8rem; color:var(--text-muted);">Midjourney v6, DALL-E 3 & Flux Uyumlu</span>
+          <div class="section-head">
+            <h3 class="section-head-title serif-font">🎨 3 Özel AI Kapak Görseli Konsepti & Prompt'u</h3>
+            <span style="font-size:0.82rem; color:var(--text-muted);">Midjourney v6, DALL-E 3 & Flux Uyumlu</span>
           </div>
-          <div id="thumbnailsGrid" class="thumbnails-grid">
+          <div id="thumbnailsGrid" class="thumbs-grid">
             <!-- Dynamically populated -->
           </div>
         </section>
 
-        <!-- 3. Descriptions Section (3 Variations) -->
+        <!-- 3. Descriptions Section -->
         <section>
-          <div class="section-header">
-            <h3 class="section-title">📝 3 Alternatif Video Açıklama Metni</h3>
-            <span style="font-size:0.8rem; color:var(--text-muted);">150-300 Kelime SEO & Zaman Damgaları Uyumlu</span>
+          <div class="section-head">
+            <h3 class="section-head-title serif-font">📝 3 Alternatif Video Açıklama Metni</h3>
+            <span style="font-size:0.82rem; color:var(--text-muted);">SEO & Zaman Damgaları Uyumlu</span>
           </div>
           <div id="descriptionsGrid" class="desc-grid">
             <!-- Dynamically populated -->
@@ -751,36 +759,36 @@
         </section>
 
         <!-- 4. Tags & Hashtags -->
-        <section style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <div class="card">
-            <div class="card-title">
-              <span>🏷️ YouTube Etiketleri (Tags)</span>
+        <section style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <div class="glass-card">
+            <div class="card-header">
+              <h3 class="card-title" style="font-size:1rem;">🏷️ YouTube Etiketleri (Tags)</h3>
               <button class="btn btn-sm" onclick="copyTags()">Kopyala</button>
             </div>
             <div id="tagsContainer" class="tags-flex"></div>
           </div>
 
-          <div class="card">
-            <div class="card-title">
-              <span>#️⃣ Hashtag'ler</span>
+          <div class="glass-card">
+            <div class="card-header">
+              <h3 class="card-title" style="font-size:1rem;">#️⃣ Hashtag'ler</h3>
               <button class="btn btn-sm" onclick="copyHashtags()">Kopyala</button>
             </div>
             <div id="hashtagsContainer" class="tags-flex"></div>
           </div>
         </section>
 
-        <!-- 5. YouTube Studio Single-Click Export Panel -->
-        <section class="export-panel">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-            <h3 class="serif-text" style="color:var(--accent-gold); font-size:1.2rem;">
+        <!-- 5. Single-Click Studio Export -->
+        <section class="glass-card" style="border-color:var(--accent-gold); background: linear-gradient(135deg, rgba(26,21,16,0.95) 0%, rgba(12,10,8,0.95) 100%);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.3rem;">
               📋 YouTube Studio Taslak Aktarım Paketi
             </h3>
-            <button class="btn btn-primary btn-sm" onclick="copyStudioFullPackage()">Tek Tıkla Tümünü Kopyala</button>
+            <button class="btn btn-gold btn-sm" onclick="copyStudioFullPackage()">Tek Tıkla Tümünü Kopyala</button>
           </div>
-          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">
             YouTube Studio yükleme ekranındaki Başlık, Açıklama ve Etiket alanlarına doğrudan yapıştırabileceğiniz eksiksiz metin şablonu.
           </p>
-          <pre id="studioPackageCode" class="prompt-box" style="max-height: 250px; background:#120f0c; border-color:var(--accent-bronze);"></pre>
+          <pre id="studioPackageCode" class="form-control" style="max-height: 260px; background:#080705; border-color:var(--accent-bronze); overflow-y:auto; white-space:pre-wrap; font-size:0.85rem; color:var(--text-muted);"></pre>
         </section>
 
       </div>
@@ -792,32 +800,25 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast">Kopyalandı!</div>
 
-  <!-- Modal: Multi-User Authentication (Email + Password + Google OAuth) -->
+  <!-- Modal: Auth -->
   <div id="authModal" class="modal-overlay">
-    <div class="modal-content">
-      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:12px;">👤 Kullanıcı Hesabı & Giriş Yap</h3>
+    <div class="modal-box">
+      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:14px;">👤 Kullanıcı Hesabı & Giriş Yap</h3>
       
-      <!-- Auth Tabs -->
       <div class="auth-tabs">
         <button class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">Giriş Yap</button>
         <button class="auth-tab" id="tabRegisterBtn" onclick="switchAuthTab('register')">Hesap Oluştur</button>
       </div>
 
-      <!-- Google Sign-In Container -->
-      <div style="margin-bottom:18px; text-align:center;">
-        <div id="g_id_onload"
-             data-client_id="1048291829102-mockclientid.apps.googleusercontent.com"
-             data-callback="handleGoogleSignIn"
-             data-auto_prompt="false">
-        </div>
-        <button class="btn" style="width:100%; padding:10px; background:#ffffff; color:#333333; font-weight:700; border:none;" onclick="triggerGoogleSignInMock()">
+      <div style="margin-bottom:20px; text-align:center;">
+        <button class="btn" style="width:100%; padding:12px; background:#ffffff; color:#222222; font-weight:700; border:none;" onclick="triggerGoogleSignInMock()">
           <svg width="18" height="18" viewBox="0 0 18 18" style="vertical-align:middle; margin-right:8px;"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
           Google ile Tek Tıkla Giriş Yap
         </button>
-        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">— veya E-posta ile devam edin —</div>
+        <div style="font-size:0.78rem; color:var(--text-muted); margin-top:12px;">— veya E-posta ile devam edin —</div>
       </div>
 
-      <!-- Login Form -->
+      <!-- Login Section -->
       <div id="loginFormSection">
         <div class="form-group">
           <label>E-posta Adresi</label>
@@ -829,13 +830,13 @@
           <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" />
         </div>
 
-        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+        <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
           <button class="btn" onclick="closeAuthModal()">İptal</button>
-          <button class="btn btn-primary" onclick="performEmailLogin()">Giriş Yap</button>
+          <button class="btn btn-gold" onclick="performEmailLogin()">Giriş Yap</button>
         </div>
       </div>
 
-      <!-- Register Form -->
+      <!-- Register Section -->
       <div id="registerFormSection" style="display:none;">
         <div class="form-group">
           <label>Ad Soyad</label>
@@ -848,64 +849,55 @@
         </div>
 
         <div class="form-group">
-          <label>Şifre (Maksimum Güvenlik)</label>
-          <input type="password" id="regPassword" class="form-control" placeholder="En az 6 karakter" />
+          <label>Şifre (En az 6 karakter)</label>
+          <input type="password" id="regPassword" class="form-control" placeholder="••••••••" />
         </div>
 
-        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+        <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
           <button class="btn" onclick="closeAuthModal()">İptal</button>
-          <button class="btn btn-primary" onclick="performEmailRegister()">Kayıt Ol ve Giriş Yap</button>
+          <button class="btn btn-gold" onclick="performEmailRegister()">Kayıt Ol ve Giriş Yap</button>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Modal: Safety & Memory Module (Güvenlik & Hafıza) -->
+  <!-- Modal: Safety & Memory -->
   <div id="safetyModal" class="modal-overlay">
-    <div class="modal-content">
-      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🛡️ Hafıza & Bulut Deposu</h3>
+    <div class="modal-box">
+      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:16px;">🛡️ Hafıza & Bulut Deposu</h3>
       
-      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
-        Hesabınıza özel bulut yedeklemesi, geri alma (rollback) ve JSON dışa aktarım kontrolleri.
-      </p>
-
-      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
-        
-        <!-- Undo Action -->
-        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:24px;">
+        <div style="background:rgba(15,12,9,0.8); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <strong style="color:var(--text-primary); font-size:0.9rem;">↩️ Son İşleme Geri Dön (Rollback)</strong>
+            <strong style="color:var(--text-main); font-size:0.92rem;">↩️ Son İşleme Geri Dön (Rollback)</strong>
             <div style="font-size:0.78rem; color:var(--text-muted);">Yanlışlıkla silinen veya değiştirilen son duruma anında geri dönün.</div>
           </div>
           <button class="btn btn-sm" onclick="rollbackSnapshot()">Geri Al</button>
         </div>
 
-        <!-- Cloud Sync -->
-        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+        <div style="background:rgba(15,12,9,0.8); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <strong style="color:var(--text-primary); font-size:0.9rem;">☁️ Bulut Hesabınla Senkronize Et</strong>
+            <strong style="color:var(--text-main); font-size:0.92rem;">☁️ Bulut Hesabınla Senkronize Et</strong>
             <div style="font-size:0.78rem; color:var(--text-muted);">Kanal profillerini ve geçmişi bulut hesabına kaydet veya yükle.</div>
           </div>
-          <div style="display:flex; gap:6px;">
+          <div style="display:flex; gap:8px;">
             <button class="btn btn-sm" onclick="syncUserCloudData()">Buluta Kaydet</button>
-            <button class="btn btn-sm btn-primary" onclick="loadUserCloudData()">Buluttan Çek</button>
+            <button class="btn btn-gold btn-sm" onclick="loadUserCloudData()">Buluttan Çek</button>
           </div>
         </div>
 
-        <!-- JSON File Backup & Restore -->
-        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+        <div style="background:rgba(15,12,9,0.8); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <strong style="color:var(--text-primary); font-size:0.9rem;">📦 Yerel JSON Dosya Yedeği</strong>
+            <strong style="color:var(--text-main); font-size:0.92rem;">📦 Yerel JSON Dosya Yedeği</strong>
             <div style="font-size:0.78rem; color:var(--text-muted);">Yedek dosyasını bilgisayarınıza indirin veya geri yükleyin.</div>
           </div>
-          <div style="display:flex; gap:6px;">
+          <div style="display:flex; gap:8px;">
             <button class="btn btn-sm" onclick="exportJsonBackup()">İndir (JSON)</button>
             <button class="btn btn-sm" onclick="document.getElementById('importJsonFile').click()">Yükle (JSON)</button>
             <input type="file" id="importJsonFile" accept=".json" style="display:none;" onchange="importJsonBackup(event)" />
           </div>
         </div>
-
       </div>
 
       <div style="display:flex; justify-content:flex-end;">
@@ -914,10 +906,10 @@
     </div>
   </div>
 
-  <!-- Modal: Channel Add / Edit -->
+  <!-- Modal: Channel Profile -->
   <div id="channelModal" class="modal-overlay">
-    <div class="modal-content">
-      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;" id="channelModalTitle">Kanal Profili Ekle</h3>
+    <div class="modal-box">
+      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:18px;" id="channelModalTitle">Kanal Profili Ekle</h3>
       
       <div class="form-group">
         <label>Kanal Adı</label>
@@ -949,20 +941,20 @@
         <input type="text" id="modalChannelVisual" class="form-control" placeholder="Örn: Retro neonestetik, vintage Türk motifleri, koyu sepia tonları" />
       </div>
 
-      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
         <button class="btn" onclick="closeChannelModal()">İptal</button>
-        <button class="btn btn-primary" onclick="saveChannelForm()">Kaydet</button>
+        <button class="btn btn-gold" onclick="saveChannelForm()">Kaydet</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Settings / API Key -->
+  <!-- Modal: Settings -->
   <div id="settingsModal" class="modal-overlay">
-    <div class="modal-content">
-      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">⚙️ Anthropic Claude API Ayarları</h3>
+    <div class="modal-box">
+      <h3 class="serif-font" style="color:var(--accent-gold-bright); font-size:1.4rem; margin-bottom:16px;">⚙️ Anthropic Claude API Ayarları</h3>
       
-      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">
-        Kendi Anthropic Claude API anahtarınızı (sk-ant-...) girerek doğrudan `claude-3-5-sonnet` / `claude-sonnet-4-6` modellerini kullanabilirsiniz. Anahtar sadece sizin tarayıcınızın local storage alanında saklanır.
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">
+        Kendi Anthropic Claude API anahtarınızı (sk-ant-...) girerek doğrudan `claude-3-5-sonnet` / `claude-sonnet-4-6` modellerini kullanabilirsiniz.
       </p>
 
       <div class="form-group">
@@ -970,17 +962,17 @@
         <input type="password" id="apiKeyInput" class="form-control" placeholder="sk-ant-api03-..." />
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
-        <span style="font-size:0.75rem; color:var(--text-muted);">API Key girmeden de akıllı jeneratör kullanılabilir.</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px;">
+        <span style="font-size:0.78rem; color:var(--text-dim);">API Key girmeden de akıllı jeneratör kullanılabilir.</span>
         <div style="display:flex; gap:10px;">
           <button class="btn" onclick="closeSettingsModal()">Kapat</button>
-          <button class="btn btn-primary" onclick="saveSettings()">Kaydet</button>
+          <button class="btn btn-gold" onclick="saveSettings()">Kaydet</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript Logic Engine -->
   <script>
     // Storage Abstraction
     const storage = {
@@ -1014,7 +1006,7 @@
     let currentUser = null;
     let authToken = storage.get("yt_auth_token") || null;
 
-    // Sample Default Channels for Onboarding
+    // Sample Default Channels
     const SAMPLE_CHANNELS = [
       {
         id: "chan_lofi_01",
@@ -1222,28 +1214,6 @@
       }
     }
 
-    function handleGoogleSignIn(response) {
-      if (response && response.credential) {
-        fetch("/api/auth/google", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ credential: response.credential })
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            authToken = data.token;
-            storage.set("yt_auth_token", authToken);
-            currentUser = data.user;
-            renderUserHeader(currentUser);
-            showToast(`Google ile giriş başarılı!`);
-            closeAuthModal();
-            checkCurrentSession();
-          }
-        });
-      }
-    }
-
     function logoutUser() {
       authToken = null;
       currentUser = null;
@@ -1256,19 +1226,19 @@
       const area = document.getElementById("userHeaderArea");
       const initials = user.name ? user.name.slice(0, 2).toUpperCase() : 'US';
       area.innerHTML = `
-        <div style="display:flex; align-items:center; gap:8px;">
-          <div style="width:32px; height:32px; border-radius:50%; background:var(--accent-bronze); color:#0e0c0a; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:0.8rem;">
+        <div style="display:flex; align-items:center; gap:10px; background:rgba(30,24,18,0.8); border:1px solid var(--border-subtle); padding:4px 12px; border-radius:var(--radius-md);">
+          <div style="width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg, var(--accent-gold), var(--accent-bronze)); color:#070605; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:0.78rem;">
             ${initials}
           </div>
-          <span style="font-size:0.85rem; font-weight:600; color:var(--accent-gold); max-width:110px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(user.name)}</span>
-          <button class="btn btn-sm" onclick="logoutUser()" title="Çıkış Yap">🚪</button>
+          <span style="font-size:0.85rem; font-weight:700; color:var(--accent-gold-bright); max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(user.name)}</span>
+          <button class="btn btn-sm" style="padding:2px 6px; border:none; background:transparent;" onclick="logoutUser()" title="Çıkış Yap">🚪</button>
         </div>
       `;
     }
 
     function renderGuestHeader() {
       const area = document.getElementById("userHeaderArea");
-      area.innerHTML = `<button class="btn btn-primary btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>`;
+      area.innerHTML = `<button class="btn btn-gold btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>`;
     }
 
     // Cloud Data Sync
@@ -1361,7 +1331,7 @@
       });
 
       const backupObj = {
-        version: "2.0-multi-user-saas",
+        version: "2.1-luxury-ui",
         exportDate: new Date().toISOString(),
         channels: channels,
         histories: allHistories
@@ -1447,18 +1417,18 @@
       if (!channel) return;
 
       container.innerHTML = `
-        <div style="font-weight:700; font-size:1.1rem; color:var(--text-primary); mb-1">${escapeHtml(channel.name)}</div>
-        <div style="font-size:0.82rem; color:var(--accent-bronze); margin-bottom:10px;">${escapeHtml(channel.handle || '')}</div>
-        <div style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:12px;">${escapeHtml(channel.about)}</div>
+        <div style="font-weight:800; font-size:1.15rem; color:var(--text-main); margin-bottom:4px;">${escapeHtml(channel.name)}</div>
+        <div style="font-size:0.85rem; color:var(--accent-gold); font-weight:600; margin-bottom:12px;">${escapeHtml(channel.handle || '')}</div>
+        <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">${escapeHtml(channel.about)}</div>
         
-        <div style="font-size:0.8rem; margin-bottom:6px;">
-          <strong style="color:var(--accent-gold);">Ton:</strong> ${escapeHtml(channel.tone)}
+        <div style="font-size:0.82rem; margin-bottom:8px; line-height:1.5;">
+          <strong style="color:var(--accent-gold-bright);">İletişim Tonu:</strong> ${escapeHtml(channel.tone)}
         </div>
-        <div style="font-size:0.8rem; margin-bottom:6px;">
-          <strong style="color:var(--accent-gold);">Anahtar Kelimeler:</strong> ${escapeHtml(channel.keywordPool)}
+        <div style="font-size:0.82rem; margin-bottom:8px; line-height:1.5;">
+          <strong style="color:var(--accent-gold-bright);">Anahtar Kelimeler:</strong> ${escapeHtml(channel.keywordPool)}
         </div>
-        <div style="font-size:0.8rem;">
-          <strong style="color:var(--accent-gold);">Görsel Stil:</strong> ${escapeHtml(channel.visualNote)}
+        <div style="font-size:0.82rem; line-height:1.5;">
+          <strong style="color:var(--accent-gold-bright);">Görsel Stil:</strong> ${escapeHtml(channel.visualNote)}
         </div>
       `;
     }
@@ -1472,16 +1442,16 @@
       badge.textContent = `${historyList.length} / 12`;
 
       if (historyList.length === 0) {
-        container.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding:10px;">Henüz yapılmış üretim yok.</div>`;
+        container.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding:12px;">Henüz yapılmış üretim yok.</div>`;
         return;
       }
 
       container.innerHTML = historyList.map((item, idx) => `
-        <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:10px; cursor:pointer;" onclick="restoreHistoryItem(${idx})">
-          <div style="font-weight:600; font-size:0.85rem; color:var(--accent-gold); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(item.songTitle)}</div>
-          <div style="font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-top:4px;">
+        <div style="background:rgba(26,21,16,0.9); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:12px; cursor:pointer; transition:border-color 0.2s;" onclick="restoreHistoryItem(${idx})">
+          <div style="font-weight:700; font-size:0.88rem; color:var(--accent-gold-bright); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(item.songTitle)}</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-top:6px;">
             <span>${item.date}</span>
-            <span>3 Başlık + 3 Kapak</span>
+            <span style="color:var(--accent-bronze);">3 Başlık + 3 Kapak</span>
           </div>
         </div>
       `).join("");
@@ -1511,7 +1481,7 @@
       if (historyList[index]) {
         currentGenerationData = historyList[index].data;
         renderResults(currentGenerationData);
-        showToast("Geçmiş üretim başarıyla yüklendi!");
+        showToast("Geçmiş üretim yüklendi!");
       }
     }
 
@@ -1653,7 +1623,7 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
       }
     }
 
-    // Smart Local Mock Generator (API-keyless immediate testing)
+    // Smart Local Mock Generator
     function generateSmartMock(channel, songTitle, vibe, notes) {
       const cleanTitle = songTitle.replace(/[^\w\sğüşıöçĞÜŞİÖÇ-]/gi, '');
       const vibeTag = vibe || "Relaxing Music";
@@ -1664,7 +1634,7 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
             type: "Duygusal & Merak Tetikleyici",
             title: `${cleanTitle} — Gece Çalışırken Dinlenecek En Huzurlu Ritimler 🌙`,
             ctrScore: "9.5/10",
-            note: "Duygusal bağ kurar, gece dinleyicilerini yüksek oranda tıkamaya teşvik eder."
+            note: "Duygusal bağ kurar, gece dinleyicilerini yüksek oranda tıklamaya teşvik eder."
           },
           {
             type: "YouTube SEO & Anahtar Kelime Odaklı",
@@ -1685,7 +1655,7 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
             headlineText: cleanTitle.toUpperCase().slice(0, 18),
             subText: `${vibeTag.toUpperCase()} • DEEP VIBES`,
             bgHex: "#161310",
-            accentHex: "#c98a4b",
+            accentHex: "#f3c77c",
             aiPrompt: `A 16:9 cinematic YouTube music thumbnail for '${cleanTitle}', cozy atmospheric dark bronze aesthetic, warm glowing lights, rainy window view, 8k render, octane rendering, professional composition --ar 16:9`
           },
           {
@@ -1701,7 +1671,7 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
             headlineText: "RUHUNU DİNLENDİR",
             subText: "1 Saat Kesintisiz",
             bgHex: "#0e1411",
-            accentHex: "#4ea86e",
+            accentHex: "#52c47c",
             aiPrompt: `Atmospheric deep forest teal and dark bronze ambient 16:9 thumbnail, glowing mystical particles, highly immersive visual story, ultra clean typography placement --ar 16:9`
           }
         ],
@@ -1733,15 +1703,15 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
       titlesGrid.innerHTML = data.titles.map((t, i) => `
         <div class="title-card">
           <div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-              <span class="title-tag">${escapeHtml(t.type)}</span>
-              <span style="font-size:0.75rem; background:rgba(78,168,110,0.15); color:var(--success-color); padding:2px 8px; border-radius:12px; font-weight:700;">CTR: ${t.ctrScore || '9.0/10'}</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span class="title-badge">${escapeHtml(t.type)}</span>
+              <span style="font-size:0.75rem; background:rgba(82,196,124,0.15); color:var(--success); padding:3px 10px; border-radius:12px; font-weight:700;">CTR: ${t.ctrScore || '9.0/10'}</span>
             </div>
-            <div class="title-text">${escapeHtml(t.title)}</div>
+            <div class="title-main-text">${escapeHtml(t.title)}</div>
           </div>
           <div>
-            <div class="title-meta">${escapeHtml(t.note || '')}</div>
-            <button class="btn btn-sm" style="width:100%; margin-top:10px;" onclick="copyText('${escapeJsString(t.title)}')">📋 Başlığı Kopyala</button>
+            <div style="font-size:0.8rem; color:var(--text-muted); border-top:1px solid rgba(255,255,255,0.06); padding-top:10px; margin-bottom:10px;">${escapeHtml(t.note || '')}</div>
+            <button class="btn btn-sm" style="width:100%;" onclick="copyText('${escapeJsString(t.title)}')">📋 Başlığı Kopyala</button>
           </div>
         </div>
       `).join("");
@@ -1750,37 +1720,37 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
       const thumbnailsGrid = document.getElementById("thumbnailsGrid");
       thumbnailsGrid.innerHTML = data.thumbnails.map((thumb, idx) => `
         <div class="thumb-card">
-          <div class="thumb-preview-box">
+          <div class="thumb-stage">
             <!-- SVG Render Mockup -->
-            <svg class="thumb-svg" id="thumbSvg_${idx}" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+            <svg class="thumb-svg-render" id="thumbSvg_${idx}" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
               <rect width="1280" height="720" fill="${thumb.bgHex || '#161310'}"/>
-              <circle cx="1100" cy="150" r="300" fill="${thumb.accentHex || '#c98a4b'}" opacity="0.2" />
-              <line x1="0" y1="710" x2="1280" y2="710" stroke="${thumb.accentHex || '#c98a4b'}" stroke-width="16" />
-              <text x="80" y="380" font-family="'Playfair Display', serif" font-size="76" font-weight="900" fill="#ffffff">${escapeHtml(thumb.headlineText)}</text>
-              <text x="85" y="460" font-family="'Plus Jakarta Sans', sans-serif" font-size="36" font-weight="700" fill="${thumb.accentHex || '#c98a4b'}">${escapeHtml(thumb.subText)}</text>
-              <rect x="80" y="495" width="240" height="8" fill="${thumb.accentHex || '#c98a4b'}" />
+              <circle cx="1100" cy="150" r="320" fill="${thumb.accentHex || '#f3c77c'}" opacity="0.18" />
+              <line x1="0" y1="710" x2="1280" y2="710" stroke="${thumb.accentHex || '#f3c77c'}" stroke-width="16" />
+              <text x="80" y="380" font-family="'Playfair Display', serif" font-size="78" font-weight="900" fill="#ffffff">${escapeHtml(thumb.headlineText)}</text>
+              <text x="85" y="460" font-family="'Outfit', sans-serif" font-size="36" font-weight="700" fill="${thumb.accentHex || '#f3c77c'}">${escapeHtml(thumb.subText)}</text>
+              <rect x="80" y="495" width="240" height="8" fill="${thumb.accentHex || '#f3c77c'}" />
             </svg>
             <!-- AI Rendered Image -->
-            <img class="thumb-ai-img" id="thumbImg_${idx}" alt="AI Generated Thumbnail" />
+            <img class="thumb-ai-img-render" id="thumbImg_${idx}" alt="AI Generated Thumbnail" />
           </div>
 
-          <div class="thumb-content">
-            <div class="thumb-headline">${escapeHtml(thumb.conceptName)}</div>
+          <div class="thumb-body">
+            <div style="font-weight:700; font-size:1.05rem; color:var(--accent-gold-bright);">${escapeHtml(thumb.conceptName)}</div>
             
             <div style="font-size:0.8rem; color:var(--text-muted);">
               <strong>Renk Paleti:</strong> 
-              <span style="display:inline-block; width:12px; height:12px; background:${thumb.bgHex}; border-radius:50%; vertical-align:middle;"></span> ${thumb.bgHex} | 
-              <span style="display:inline-block; width:12px; height:12px; background:${thumb.accentHex}; border-radius:50%; vertical-align:middle;"></span> ${thumb.accentHex}
+              <span style="display:inline-block; width:12px; height:12px; background:${thumb.bgHex}; border-radius:50%; vertical-align:middle; margin-left:4px;"></span> ${thumb.bgHex} | 
+              <span style="display:inline-block; width:12px; height:12px; background:${thumb.accentHex}; border-radius:50%; vertical-align:middle; margin-left:4px;"></span> ${thumb.accentHex}
             </div>
 
             <div class="form-group" style="margin:0;">
               <label>AI Prompt (Midjourney / Flux / DALL-E)</label>
-              <div class="prompt-box">${escapeHtml(thumb.aiPrompt)}</div>
+              <div style="background:rgba(10,8,6,0.8); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:10px; font-size:0.8rem; color:var(--text-muted); max-height:90px; overflow-y:auto; white-space:pre-wrap;">${escapeHtml(thumb.aiPrompt)}</div>
             </div>
 
-            <div style="display:flex; gap:8px;">
+            <div style="display:flex; gap:10px; margin-top:4px;">
               <button class="btn btn-sm" style="flex:1;" onclick="copyText('${escapeJsString(thumb.aiPrompt)}')">Prompt Kopyala</button>
-              <button class="btn btn-primary btn-sm" style="flex:1;" onclick="generateAiLiveImage(${idx}, '${escapeJsString(thumb.aiPrompt)}')">✨ AI Canlı Görsel</button>
+              <button class="btn btn-gold btn-sm" style="flex:1;" onclick="generateAiLiveImage(${idx}, '${escapeJsString(thumb.aiPrompt)}')">✨ AI Canlı Görsel</button>
             </div>
           </div>
         </div>
@@ -1791,10 +1761,10 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
       descriptionsGrid.innerHTML = data.descriptions.map((d, idx) => `
         <div class="desc-card">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="color:var(--accent-gold); font-size:0.9rem;">${escapeHtml(d.type)}</strong>
+            <strong style="color:var(--accent-gold-bright); font-size:0.92rem;">${escapeHtml(d.type)}</strong>
             <button class="btn btn-sm" onclick="copyText('${escapeJsString(d.text)}')">Kopyala</button>
           </div>
-          <div class="desc-text">${escapeHtml(d.text)}</div>
+          <div class="desc-content">${escapeHtml(d.text)}</div>
         </div>
       `).join("");
 
@@ -1805,7 +1775,7 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
       const hashtagsContainer = document.getElementById("hashtagsContainer");
       hashtagsContainer.innerHTML = data.hashtags.map(h => `<span class="tag-pill" style="color:var(--accent-bronze);">${escapeHtml(h)}</span>`).join("");
 
-      // 5. YouTube Studio Single-Click Export
+      // 5. YouTube Studio Export
       const studioPackage = `=== YOUTUBE STUDIO PAYLAŞIM PAKETİ ===
 
 [BAŞLIK (Önerilen)]
@@ -1823,7 +1793,7 @@ ${data.hashtags.join(' ')}
       document.getElementById("studioPackageCode").textContent = studioPackage;
     }
 
-    // AI Live Image Generator via Pollinations AI API
+    // AI Live Image Generator
     function generateAiLiveImage(index, promptText) {
       const imgElement = document.getElementById(`thumbImg_${index}`);
       const svgElement = document.getElementById(`thumbSvg_${index}`);
@@ -1841,7 +1811,7 @@ ${data.hashtags.join(' ')}
       };
 
       imgElement.onerror = () => {
-        showToast("Görsel üretilirken hata oluştu, SVG versiyon gösterildiği gibidir.");
+        showToast("Görsel üretilirken hata oluştu, SVG mockup gösteriliyor.");
       };
 
       imgElement.src = imageUrl;
@@ -1857,7 +1827,7 @@ ${data.hashtags.join(' ')}
     function copyTags() {
       if (!currentGenerationData) return;
       navigator.clipboard.writeText(currentGenerationData.tags.join(', ')).then(() => {
-        showToast("Tüm etiketler virgülle ayrılmış kopyalandı!");
+        showToast("Tüm etiketler kopyalandı!");
       });
     }
 
