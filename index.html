@@ -858,23 +858,12 @@
       <div class="glass-card" style="max-width:680px; margin:0 auto;">
         <h2 class="outfit-font" style="font-size:1.6rem; color:#fff; margin-bottom:20px;">⚙️ Profil & Sistem Ayarları</h2>
 
-        <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); padding:18px; border-radius:var(--radius-md); margin-bottom:24px;">
-          <h4 class="outfit-font" style="color:var(--primary-indigo); font-size:1.1rem; margin-bottom:8px;">🔑 Anthropic Claude API Key</h4>
-          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">Kendi Claude API anahtarınızı girerek sınırsız gelişmiş üretim yapabilirsiniz.</p>
-          <input type="password" id="settingsApiKeyInput" class="form-control" placeholder="sk-ant-api03-..." style="margin-bottom:10px;" />
+        <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); padding:24px; border-radius:var(--radius-md);">
+          <h4 class="outfit-font" style="color:var(--primary-indigo); font-size:1.15rem; margin-bottom:8px;">🔑 Anthropic Claude API Key (Opsiyonel)</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">Kendi Claude API anahtarınızı girerek sınırsız özel içerik üretimi yapabilirsiniz.</p>
+          <input type="password" id="settingsApiKeyInput" class="form-control" placeholder="sk-ant-api03-..." style="margin-bottom:14px;" />
           <button class="btn btn-gradient btn-sm" onclick="saveSettingsFromPage()">API Anahtarını Kaydet</button>
         </div>
-
-        <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); padding:18px; border-radius:var(--radius-md);">
-          <h4 class="outfit-font" style="color:var(--primary-purple); font-size:1.1rem; margin-bottom:8px;">☁️ Bulut Senkronizasyon & Yedekleme</h4>
-          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">Tüm verilerinizi bulut hesabınıza manuel kaydedin veya JSON olarak indirin.</p>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn btn-sm" onclick="syncUserCloudData()">Buluta Kaydet</button>
-            <button class="btn btn-sm" onclick="exportJsonBackup()">İndir (JSON Yedeği)</button>
-            <button class="btn btn-sm" onclick="rollbackSnapshot()">↩️ Son İşleme Geri Dön (Rollback)</button>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -1431,7 +1420,6 @@
           headers: { "Content-Type": "application/json", "Authorization": `Bearer ${authToken}` },
           body: JSON.stringify({ channels, histories })
         });
-        showToast("☁️ Bulut verisi güncellendi!");
       } catch (e) {}
     }
 
@@ -1469,9 +1457,6 @@
       else storage.remove("anthropic_api_key");
       showToast("Ayarlar kaydedildi!");
     }
-
-    function rollbackSnapshot() { showToast("Son duruma dönüldü!"); }
-    function exportJsonBackup() { showToast("Yedek indirildi!"); }
 
     function escapeHtml(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
     function escapeJsString(str) { return String(str||'').replace(/'/g,"\\'").replace(/"/g,'\\"'); }
