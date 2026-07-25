@@ -586,7 +586,7 @@
   <!-- Header -->
   <header>
     <div class="header-container">
-      <a href="#" class="logo-area">
+      <a href="https://thendisch.com" class="logo-area">
         <div class="logo-badge">YT DESTEK</div>
         <div>
           <h1 class="logo-title">YouTube Paylaşım Destek</h1>
@@ -601,6 +601,7 @@
         </select>
         
         <button class="btn btn-sm" onclick="openChannelModal()">+ Kanal Ekle</button>
+        <button class="btn btn-sm" style="border-color:var(--accent-gold); color:var(--accent-gold);" onclick="openSafetyModal()">🛡️ Güvenlik & Hafıza</button>
         <button class="btn btn-sm" onclick="openSettingsModal()">⚙️ API Ayarları</button>
       </div>
     </div>
@@ -758,6 +759,59 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast">Kopyalandı!</div>
 
+  <!-- Modal: Safety & Memory Module (Güvenlik & Hafıza) -->
+  <div id="safetyModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🛡️ Güvenlik & Hafıza Modülü</h3>
+      
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
+        Verilerinizi kaybetmemeniz için otomatik anlık durum yedeklemesi, geri alma (undo/rollback) ve sunucu/JSON veri senkronizasyonu.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+        
+        <!-- Undo Action -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong style="color:var(--text-primary); font-size:0.9rem;">↩️ Son İşleme Geri Dön (Rollback)</strong>
+            <div style="font-size:0.78rem; color:var(--text-muted);">Yanlışlıkla silinen veya değiştirilen son duruma anında geri dönün.</div>
+          </div>
+          <button class="btn btn-sm" onclick="rollbackSnapshot()">Geri Al</button>
+        </div>
+
+        <!-- Railway Server Sync -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong style="color:var(--text-primary); font-size:0.9rem;">☁️ Sunucu Yedeği (Railway Storage)</strong>
+            <div style="font-size:0.78rem; color:var(--text-muted);">Tüm kanalları ve geçmişi sunucuya kaydet veya sunucudan yükle.</div>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn btn-sm" onclick="saveServerBackup()">Sunucuya Kaydet</button>
+            <button class="btn btn-sm btn-primary" onclick="loadServerBackup()">Sunucudan Yükle</button>
+          </div>
+        </div>
+
+        <!-- JSON File Backup & Restore -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong style="color:var(--text-primary); font-size:0.9rem;">📦 Yerel JSON Dosya Yedeği</strong>
+            <div style="font-size:0.78rem; color:var(--text-muted);">Yedek dosyasını bilgisayarınıza indirin veya geri yükleyin.</div>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn btn-sm" onclick="exportJsonBackup()">İndir (JSON)</button>
+            <button class="btn btn-sm" onclick="document.getElementById('importJsonFile').click()">Yükle (JSON)</button>
+            <input type="file" id="importJsonFile" accept=".json" style="display:none;" onchange="importJsonBackup(event)" />
+          </div>
+        </div>
+
+      </div>
+
+      <div style="display:flex; justify-content:flex-end;">
+        <button class="btn" onclick="closeSafetyModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal: Channel Add / Edit -->
   <div id="channelModal" class="modal-overlay">
     <div class="modal-content">
@@ -854,6 +908,7 @@
     let activeChannelId = null;
     let currentGenerationData = null;
     let editingChannelId = null;
+    let snapshotStack = [];
 
     // Sample Default Channels for Onboarding
     const SAMPLE_CHANNELS = [
@@ -893,14 +948,181 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadChannels();
       loadApiKey();
+      pushSnapshot("İlk Yükleme");
     });
+
+    // Safety Snapshot Engine
+    function pushSnapshot(reason = "İşlem") {
+      const allHistories = {};
+      channels.forEach(ch => {
+        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
+      });
+
+      const currentSnapshot = {
+        timestamp: new Date().toISOString(),
+        reason: reason,
+        channels: JSON.parse(JSON.stringify(channels)),
+        activeChannelId: activeChannelId,
+        histories: allHistories
+      };
+
+      snapshotStack.push(currentSnapshot);
+      if (snapshotStack.length > 20) snapshotStack.shift();
+    }
+
+    function rollbackSnapshot() {
+      if (snapshotStack.length < 2) {
+        alert("Geri alınacak daha eski bir işlem kaydı yok.");
+        return;
+      }
+
+      snapshotStack.pop(); // Remove current
+      const prev = snapshotStack[snapshotStack.length - 1];
+
+      channels = prev.channels;
+      activeChannelId = prev.activeChannelId;
+      storage.set("channels", channels);
+
+      if (prev.histories) {
+        Object.keys(prev.histories).forEach(chId => {
+          storage.set(`history:${chId}`, prev.histories[chId]);
+        });
+      }
+
+      renderChannelSelect();
+      renderActiveChannelView();
+      loadHistory();
+      showToast("Son işleme geri dönüldü!");
+      closeSafetyModal();
+    }
+
+    // Server Sync (/api/backup)
+    async function saveServerBackup() {
+      const allHistories = {};
+      channels.forEach(ch => {
+        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
+      });
+
+      const backupPayload = {
+        channels: channels,
+        histories: allHistories,
+        apiKey: storage.get("anthropic_api_key") || ""
+      };
+
+      try {
+        const res = await fetch("/api/backup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(backupPayload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast("☁️ Sunucu yedeği başarıyla oluşturuldu!");
+        } else {
+          alert("Sunucuya kaydedilemedi: " + (data.error || data.message));
+        }
+      } catch (err) {
+        alert("Sunucu yedekleme hatası: " + err.message);
+      }
+    }
+
+    async function loadServerBackup() {
+      try {
+        const res = await fetch("/api/backup");
+        const data = await res.json();
+        if (data.success && data.backup) {
+          pushSnapshot("Sunucu Yedeği Yükleme Öncesi");
+          channels = data.backup.channels || [];
+          storage.set("channels", channels);
+
+          if (data.backup.histories) {
+            Object.keys(data.backup.histories).forEach(chId => {
+              storage.set(`history:${chId}`, data.backup.histories[chId]);
+            });
+          }
+
+          if (data.backup.apiKey) {
+            storage.set("anthropic_api_key", data.backup.apiKey);
+          }
+
+          activeChannelId = channels[0]?.id || null;
+          renderChannelSelect();
+          renderActiveChannelView();
+          loadHistory();
+          showToast("☁️ Sunucu yedeği başarıyla geri yüklendi!");
+          closeSafetyModal();
+        } else {
+          alert("Sunucuda yedek bulunamadı: " + (data.message || ''));
+        }
+      } catch (err) {
+        alert("Sunucu yedek alma hatası: " + err.message);
+      }
+    }
+
+    // JSON Export / Import
+    function exportJsonBackup() {
+      const allHistories = {};
+      channels.forEach(ch => {
+        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
+      });
+
+      const backupObj = {
+        version: "1.0",
+        exportDate: new Date().toISOString(),
+        channels: channels,
+        histories: allHistories
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `youtube-paylasim-yedek-${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Yedek JSON dosyası indirildi!");
+    }
+
+    function importJsonBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.channels && Array.isArray(imported.channels)) {
+            pushSnapshot("JSON Yedeği Yükleme Öncesi");
+            channels = imported.channels;
+            storage.set("channels", channels);
+
+            if (imported.histories) {
+              Object.keys(imported.histories).forEach(chId => {
+                storage.set(`history:${chId}`, imported.histories[chId]);
+              });
+            }
+
+            activeChannelId = channels[0]?.id || null;
+            renderChannelSelect();
+            renderActiveChannelView();
+            loadHistory();
+            showToast("JSON yedeği başarıyla geri yüklendi!");
+            closeSafetyModal();
+          } else {
+            alert("Geçersiz yedek dosya formatı.");
+          }
+        } catch (err) {
+          alert("Yedek dosyası okunamadı: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
 
     function loadChannels() {
       const stored = storage.get("channels");
       if (stored && Array.isArray(stored) && stored.length > 0) {
         channels = stored;
       } else {
-        // Load default onboarding channels
         channels = SAMPLE_CHANNELS;
         storage.set("channels", channels);
       }
@@ -971,6 +1193,7 @@
     }
 
     function saveToHistory(songTitle, resultData) {
+      pushSnapshot("Üretim Öncesi");
       let historyList = storage.get(`history:${activeChannelId}`) || [];
       const newItem = {
         id: Date.now(),
@@ -1017,7 +1240,6 @@
         if (apiKey) {
           result = await callAnthropicAPI(apiKey, activeChannel, titleInput, vibeInput, notesInput);
         } else {
-          // Fallback Smart Local Generator
           await new Promise(res => setTimeout(res, 1200));
           result = generateSmartMock(activeChannel, titleInput, vibeInput, notesInput);
         }
@@ -1126,7 +1348,6 @@ LÜTFEN SADECE VE SADECE AŞAĞIDAKİ KATIK JSON FORMATINDA YANIT VER:
       const data = await response.json();
       const rawText = data.content[0].text;
       
-      // JSON Extraction
       const jsonMatch = rawText.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
@@ -1365,6 +1586,14 @@ ${data.hashtags.join(' ')}
     }
 
     // Modal Handlers
+    function openSafetyModal() {
+      document.getElementById("safetyModal").style.display = "flex";
+    }
+
+    function closeSafetyModal() {
+      document.getElementById("safetyModal").style.display = "none";
+    }
+
     function openChannelModal(channelId = null) {
       editingChannelId = channelId;
       const modal = document.getElementById("channelModal");
@@ -1403,6 +1632,7 @@ ${data.hashtags.join(' ')}
     }
 
     function saveChannelForm() {
+      pushSnapshot("Kanal Düzenleme Öncesi");
       const name = document.getElementById("modalChannelName").value.trim();
       if (!name) {
         alert("Kanal adı boş bırakılamaz!");
