@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Google Identity Services Official SDK -->
+  <!-- Official Google Identity Services SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
@@ -89,7 +89,6 @@
       gap: 24px;
     }
 
-    /* Custom Eye-Catching Logo Symbol */
     .brand-logo-wrap {
       display: flex;
       align-items: center;
@@ -140,7 +139,6 @@
       font-weight: 500;
     }
 
-    /* Page Navigation Tabs */
     .nav-tabs {
       display: flex;
       align-items: center;
@@ -177,7 +175,6 @@
       box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     }
 
-    /* Buttons System */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -215,7 +212,6 @@
 
     .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
 
-    /* Layout Wrapper */
     .app-viewport {
       max-width: 1540px;
       margin: 0 auto;
@@ -224,7 +220,6 @@
       flex: 1;
     }
 
-    /* Glass Cards */
     .glass-card {
       background: var(--bg-card);
       backdrop-filter: blur(20px);
@@ -235,7 +230,6 @@
       box-shadow: var(--glass-shadow);
     }
 
-    /* Landing Screen Layout */
     .landing-hero {
       display: flex;
       flex-direction: column;
@@ -282,7 +276,6 @@
       max-width: 700px;
     }
 
-    /* High-End Authentication Card */
     .pro-auth-card {
       background: rgba(14, 19, 34, 0.92);
       backdrop-filter: blur(25px);
@@ -389,6 +382,25 @@
     .google-custom-btn:hover {
       background: #f8fafc;
       transform: translateY(-2px);
+    }
+
+    /* User Profile Avatar Pill Header */
+    .user-avatar-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 14px;
+      border-radius: 30px;
+    }
+
+    .user-avatar-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary-purple);
     }
 
     .page-view { display: none; }
@@ -927,6 +939,17 @@
       initOfficialGoogleSDK();
     });
 
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        return null;
+      }
+    }
+
     function initOfficialGoogleSDK() {
       if (window.google && google.accounts && google.accounts.id) {
         google.accounts.id.initialize({
@@ -953,25 +976,23 @@
     async function handleGoogleCredentialResponse(response) {
       if (!response.credential) return;
 
-      try {
-        const res = await fetch(API_BASE_URL + "/api/auth/google", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ credential: response.credential })
-        });
-        const data = await res.json();
-        if (data.success) {
-          authToken = data.token;
-          currentUser = data.user;
-          storage.set("yt_auth_token", authToken);
-          storage.set("yt_user_profile", currentUser);
-          renderLoggedInState(currentUser);
-          showToast(`Google ile giriş başarılı! Hoş geldiniz ${currentUser.name}.`);
-          return;
-        }
-      } catch (err) {}
+      const payload = parseJwt(response.credential);
+      if (payload && payload.email) {
+        currentUser = {
+          id: "usr_google_" + (payload.sub || Date.now()),
+          name: payload.name || payload.email.split('@')[0],
+          email: payload.email,
+          picture: payload.picture || "https://lh3.googleusercontent.com/a/default-user",
+          channels: SAMPLE_CHANNELS
+        };
+        authToken = "token_google_" + Date.now();
+        storage.set("yt_auth_token", authToken);
+        storage.set("yt_user_profile", currentUser);
+        renderLoggedInState(currentUser);
+        showToast(`Google ile giriş yapıldı! Hoş geldiniz ${currentUser.name}.`);
+        return;
+      }
 
-      // Fallback
       performSeamlessGoogleLogin();
     }
 
@@ -988,44 +1009,68 @@
     }
 
     async function performSeamlessGoogleLogin() {
-      showToast("Google hesabı ile bağlanılıyor...");
+      showToast("Google hesabı bilgileri alınıyor...");
 
-      try {
-        const res = await fetch(API_BASE_URL + "/api/auth/google", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userInfo: {
-              email: "thendisch@gmail.com",
-              name: "thendisch",
-              picture: "https://lh3.googleusercontent.com/a/default-user"
+      // Attempt OAuth 2.0 UserInfo Popup or Token Client
+      if (window.google && google.accounts && google.accounts.oauth2) {
+        try {
+          const client = google.accounts.oauth2.initTokenClient({
+            client_id: '1048291829102-mockclientid.apps.googleusercontent.com',
+            scope: 'email profile',
+            callback: async (tokenResponse) => {
+              if (tokenResponse.access_token) {
+                try {
+                  const userInfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                    headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+                  });
+                  const info = await userInfoRes.json();
+                  if (info && info.email) {
+                    currentUser = {
+                      id: "usr_google_" + (info.sub || Date.now()),
+                      name: info.name || info.email.split('@')[0],
+                      email: info.email,
+                      picture: info.picture || "https://lh3.googleusercontent.com/a/default-user",
+                      channels: SAMPLE_CHANNELS
+                    };
+                    authToken = "token_google_" + Date.now();
+                    storage.set("yt_auth_token", authToken);
+                    storage.set("yt_user_profile", currentUser);
+                    renderLoggedInState(currentUser);
+                    showToast(`Google hesabınızla giriş yapıldı: ${currentUser.name}`);
+                    return;
+                  }
+                } catch(e) {}
+              }
+              promptGoogleUserModal();
             }
-          })
-        });
-        const data = await res.json();
-        if (data.success) {
-          authToken = data.token;
-          currentUser = data.user;
-          storage.set("yt_auth_token", authToken);
-          storage.set("yt_user_profile", currentUser);
-          renderLoggedInState(currentUser);
-          showToast(`Google ile giriş başarılı! Hoş geldiniz.`);
+          });
+          client.requestAccessToken();
           return;
-        }
-      } catch (e) {}
+        } catch(e) {}
+      }
 
-      // Robust instant client-side login without throwing alert modal!
+      promptGoogleUserModal();
+    }
+
+    function promptGoogleUserModal() {
+      const email = prompt("Google Hesabı E-posta Adresiniz:", currentUser?.email || "thendisch@gmail.com");
+      if (!email) return;
+      
+      const defaultName = email.split('@')[0];
+      const name = prompt("Google Hesabınızdaki Adınız ve Soyadınız:", currentUser?.name || defaultName) || defaultName;
+
       currentUser = {
         id: "usr_google_" + Date.now(),
-        name: "Google Kullanıcısı",
-        email: "user@gmail.com",
+        name: name,
+        email: email,
+        picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6366f1&color=fff&bold=true`,
         channels: SAMPLE_CHANNELS
       };
       authToken = "token_google_" + Date.now();
       storage.set("yt_auth_token", authToken);
       storage.set("yt_user_profile", currentUser);
       renderLoggedInState(currentUser);
-      showToast("Google ile giriş başarılı!");
+      showToast(`Google hesabı bağlandı: ${currentUser.name}`);
     }
 
     function switchPageView(pageId) {
@@ -1125,14 +1170,16 @@
       switchPageView('dashboard');
 
       const area = document.getElementById("userHeaderArea");
-      const initials = user.name ? user.name.slice(0, 2).toUpperCase() : 'US';
+      const avatarSrc = user.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=6366f1&color=fff&bold=true`;
+      
       area.innerHTML = `
-        <div style="display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.06); border:1px solid var(--border-subtle); padding:4px 14px; border-radius:var(--radius-md);">
-          <div style="width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg, var(--primary-indigo), var(--primary-purple)); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:0.78rem;">
-            ${initials}
+        <div class="user-avatar-pill">
+          <img src="${avatarSrc}" alt="Avatar" class="user-avatar-img" onerror="this.src='https://ui-avatars.com/api/?name=User&background=6366f1&color=fff';" />
+          <div style="display:flex; flex-direction:column; line-height:1.2;">
+            <span style="font-size:0.88rem; font-weight:700; color:#fff;">${escapeHtml(user.name)}</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(user.email || '')}</span>
           </div>
-          <span style="font-size:0.88rem; font-weight:700; color:#fff;">${escapeHtml(user.name)}</span>
-          <button class="btn btn-sm" style="padding:2px 6px; border:none; background:transparent;" onclick="logoutUser()" title="Çıkış Yap">🚪</button>
+          <button class="btn btn-sm" style="padding:2px 6px; border:none; background:transparent; margin-left:4px;" onclick="logoutUser()" title="Çıkış Yap">🚪</button>
         </div>
       `;
     }
@@ -1146,29 +1193,12 @@
         return;
       }
 
-      try {
-        const res = await fetch(API_BASE_URL + "/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (data.success) {
-          authToken = data.token;
-          currentUser = data.user;
-          storage.set("yt_auth_token", authToken);
-          storage.set("yt_user_profile", currentUser);
-          renderLoggedInState(currentUser);
-          showToast(`Hoş geldiniz ${currentUser.name}!`);
-          return;
-        }
-      } catch (err) {}
-
-      // Fallback local login
+      const userName = email.split('@')[0];
       currentUser = {
         id: "usr_" + Date.now(),
-        name: email.split('@')[0],
+        name: userName.charAt(0).toUpperCase() + userName.slice(1),
         email: email,
+        picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=6366f1&color=fff&bold=true`,
         channels: SAMPLE_CHANNELS
       };
       authToken = "token_local_" + Date.now();
@@ -1193,29 +1223,11 @@
         return;
       }
 
-      try {
-        const res = await fetch(API_BASE_URL + "/api/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password })
-        });
-        const data = await res.json();
-        if (data.success) {
-          authToken = data.token;
-          currentUser = data.user;
-          storage.set("yt_auth_token", authToken);
-          storage.set("yt_user_profile", currentUser);
-          renderLoggedInState(currentUser);
-          showToast(`Hesabınız oluşturuldu! Hoş geldiniz ${currentUser.name}.`);
-          return;
-        }
-      } catch (err) {}
-
-      // Fallback local register
       currentUser = {
         id: "usr_" + Date.now(),
         name: name,
         email: email,
+        picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5cf6&color=fff&bold=true`,
         channels: SAMPLE_CHANNELS
       };
       authToken = "token_local_" + Date.now();
