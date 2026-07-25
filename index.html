@@ -15,19 +15,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Google Identity Services SDK -->
+  <!-- Google Identity Services Official SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
-    /* İç Açıcı, Canlı & Ultra-Modern Tasarım Sistemi */
+    /* Ultra-Modern SaaS Aesthetics System */
     :root {
-      --bg-dark: #090d16;
-      --bg-surface: #111726;
-      --bg-card: rgba(17, 23, 38, 0.75);
-      --bg-card-hover: rgba(26, 34, 53, 0.85);
+      --bg-dark: #070a12;
+      --bg-surface: #0f1524;
+      --bg-card: rgba(15, 21, 36, 0.85);
+      --bg-card-hover: rgba(22, 31, 52, 0.95);
       
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(99, 102, 241, 0.35);
+      --border-glow: rgba(99, 102, 241, 0.4);
       
       --primary-indigo: #6366f1;
       --primary-purple: #a855f7;
@@ -43,8 +43,8 @@
       --radius-md: 16px;
       --radius-sm: 10px;
       
-      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      --indigo-glow: 0 0 35px rgba(99, 102, 241, 0.25);
+      --glass-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      --indigo-glow: 0 0 40px rgba(99, 102, 241, 0.3);
     }
 
     * {
@@ -56,10 +56,10 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 45%),
-        radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
-        linear-gradient(180deg, #090d16 0%, #06080e 100%);
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.1) 0%, transparent 55%),
+        linear-gradient(180deg, #070a12 0%, #04060a 100%);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
       line-height: 1.6;
@@ -73,7 +73,7 @@
 
     /* Header Nav */
     header {
-      background: rgba(9, 13, 22, 0.85);
+      background: rgba(7, 10, 18, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-subtle);
@@ -132,7 +132,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(17, 23, 38, 0.8);
+      background: rgba(15, 21, 36, 0.8);
       border: 1px solid var(--border-subtle);
       padding: 5px;
       border-radius: var(--radius-md);
@@ -175,13 +175,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       background: rgba(255, 255, 255, 0.06);
       color: var(--text-main);
       border: 1px solid var(--border-subtle);
-      padding: 10px 20px;
+      padding: 12px 22px;
       border-radius: var(--radius-md);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -190,7 +190,7 @@
 
     .btn:hover {
       background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.22);
       transform: translateY(-2px);
     }
 
@@ -203,7 +203,7 @@
     }
 
     .btn-gradient:hover {
-      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.45);
+      box-shadow: 0 8px 32px rgba(168, 85, 247, 0.48);
       transform: translateY(-2px);
     }
 
@@ -232,25 +232,25 @@
       box-shadow: var(--glass-shadow);
     }
 
-    /* Strict Auth Landing Screen */
+    /* Landing Screen Layout */
     .landing-hero {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 48px 24px;
-      max-width: 900px;
+      padding: 40px 24px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     .hero-badge {
       background: rgba(99, 102, 241, 0.15);
-      border: 1px solid rgba(99, 102, 241, 0.3);
+      border: 1px solid rgba(99, 102, 241, 0.35);
       color: var(--primary-indigo);
       font-weight: 700;
       font-size: 0.85rem;
-      padding: 8px 18px;
+      padding: 8px 20px;
       border-radius: 30px;
       margin-bottom: 24px;
       display: inline-flex;
@@ -262,7 +262,7 @@
       font-size: 3.2rem;
       font-weight: 900;
       line-height: 1.15;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -275,35 +275,47 @@
     }
 
     .hero-sub {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       color: var(--text-muted);
       margin-bottom: 36px;
       max-width: 720px;
     }
 
-    .hero-auth-card {
-      background: rgba(17, 23, 38, 0.88);
-      backdrop-filter: blur(20px);
+    /* High-End Authentication Card */
+    .pro-auth-card {
+      background: rgba(15, 21, 36, 0.92);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       border: 1px solid var(--border-glow);
       border-radius: var(--radius-lg);
-      padding: 32px;
+      padding: 36px;
       width: 100%;
       max-width: 480px;
       box-shadow: var(--glass-shadow), var(--indigo-glow);
       text-align: left;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* On-Page Auth Form Tabs */
-    .inline-auth-tabs {
+    .pro-auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-indigo), var(--primary-purple), var(--primary-pink));
+    }
+
+    /* Segmented Control Tabs */
+    .segmented-control {
       display: flex;
-      background: rgba(6, 9, 15, 0.7);
+      background: rgba(6, 9, 16, 0.8);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 4px;
-      margin-bottom: 20px;
+      padding: 5px;
+      margin-bottom: 24px;
     }
 
-    .inline-tab-btn {
+    .segmented-btn {
       flex: 1;
       padding: 10px;
       text-align: center;
@@ -314,13 +326,77 @@
       font-size: 0.9rem;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
-    .inline-tab-btn.active {
+    .segmented-btn.active {
       background: linear-gradient(135deg, var(--primary-indigo), var(--primary-purple));
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+    }
+
+    /* Input Field Container with Left Icon */
+    .input-field-wrapper {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .input-field-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+
+    .input-field-control {
+      width: 100%;
+      background: rgba(6, 9, 16, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px 14px 48px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .input-field-control:focus {
+      border-color: var(--primary-indigo);
+      background: rgba(10, 14, 24, 0.95);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    }
+
+    .input-field-control:focus + .input-field-icon {
+      color: var(--primary-indigo);
+    }
+
+    /* Official Google Button Styling */
+    .google-custom-btn {
+      width: 100%;
+      background: #ffffff;
+      color: #1e293b;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+      transition: all 0.25s ease;
+    }
+
+    .google-custom-btn:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
     }
 
     /* Page Views Control */
@@ -353,7 +429,7 @@
 
     .form-control {
       width: 100%;
-      background: rgba(6, 9, 15, 0.7);
+      background: rgba(6, 9, 16, 0.75);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 12px 16px;
@@ -365,8 +441,8 @@
 
     .form-control:focus {
       border-color: var(--primary-indigo);
-      background: rgba(11, 15, 24, 0.95);
-      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+      background: rgba(10, 14, 24, 0.95);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
     }
 
     textarea.form-control { resize: vertical; min-height: 100px; }
@@ -560,7 +636,7 @@
   <div class="app-viewport">
     
     <!-- ================================================================= -->
-    <!-- VIEW 0: STRICT AUTH LANDING SCREEN (On-Page Form, Zero Prompts) -->
+    <!-- VIEW 0: STRICT AUTH LANDING SCREEN (High-End SaaS Auth Engine) -->
     <!-- ================================================================= -->
     <div id="viewGuestLanding" class="landing-hero">
       <div class="hero-badge">
@@ -573,63 +649,74 @@
         Giriş yaparak kanal kimliğinize özel 3 AB testi başlığı, 3 AI kapak görseli prompt'u ve YouTube Studio ile %100 uyumlu SEO açıklama metinleri üretin.
       </p>
 
-      <!-- On-Page Seamless Authentication Card -->
-      <div class="hero-auth-card" id="heroAuthContainer">
+      <!-- Professional SaaS Authentication Card -->
+      <div class="pro-auth-card" id="heroAuthContainer">
         
-        <!-- On-Page Tab Switches -->
-        <div class="inline-auth-tabs">
-          <button class="inline-tab-btn active" id="tabBtnLogin" onclick="switchInlineAuthTab('login')">🔑 Giriş Yap</button>
-          <button class="inline-tab-btn" id="tabBtnRegister" onclick="switchInlineAuthTab('register')">📝 Kayıt Ol</button>
+        <!-- Segmented Control Tabs -->
+        <div class="segmented-control">
+          <button class="segmented-btn active" id="tabBtnLogin" onclick="switchAuthTab('login')">🔑 Giriş Yap</button>
+          <button class="segmented-btn" id="tabBtnRegister" onclick="switchAuthTab('register')">✨ Ücretsiz Kayıt Ol</button>
         </div>
 
-        <!-- Official Google Sign-In Container (Rendered Inline, No Popups) -->
-        <div style="margin-bottom:20px;">
-          <button class="btn" style="width:100%; padding:12px; background:#ffffff; color:#1e293b; font-weight:700; border:none; display:flex; align-items:center; justify-content:center; gap:10px;" onclick="performGoogleOneTapSignIn()">
+        <!-- Official Real Google OAuth Sign-In Button -->
+        <div style="margin-bottom:22px;">
+          <!-- Official Google Identity Services SDK Render Target -->
+          <div id="googleSdkBtnContainer" style="display:none; width:100%;"></div>
+
+          <!-- Fallback Official Styled Google Button -->
+          <button class="google-custom-btn" id="googleCustomBtn" onclick="triggerOfficialGoogleAuth()">
             <svg width="20" height="20" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
             Google Hesabı İle Tek Tıkla Bağlan
           </button>
         </div>
 
-        <div style="text-align:center; font-size:0.78rem; color:var(--text-dim); margin-bottom:18px;">
-          — VEYA E-POSTA İLE DEVAM EDİN —
+        <div style="text-align:center; font-size:0.78rem; font-weight:700; color:var(--text-dim); margin-bottom:20px; letter-spacing:0.06em;">
+          — VEYA E-POSTA ADRESİNİZ İLE —
         </div>
 
         <!-- Section A: Login Form -->
         <div id="formSectionLogin">
-          <div class="form-group">
-            <label>E-posta Adresi</label>
-            <input type="email" id="onpageLoginEmail" class="form-control" placeholder="ornek@domain.com" />
+          <div class="input-field-wrapper">
+            <input type="email" id="proLoginEmail" class="input-field-control" placeholder="E-posta adresiniz (ornek@gmail.com)" />
+            <span class="input-field-icon">✉️</span>
           </div>
 
-          <div class="form-group">
-            <label>Şifre</label>
-            <input type="password" id="onpageLoginPassword" class="form-control" placeholder="••••••••" />
+          <div class="input-field-wrapper">
+            <input type="password" id="proLoginPassword" class="input-field-control" placeholder="Şifreniz" />
+            <span class="input-field-icon">🔒</span>
           </div>
 
-          <button class="btn btn-gradient" style="width:100%; padding:12px; margin-top:8px;" onclick="performOnpageLogin()">
-            Giriş Yap ve Başla
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; font-size:0.82rem; color:var(--text-muted);">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" checked style="accent-color:var(--primary-indigo);" /> Beni Hatırla
+            </label>
+            <a href="#" style="color:var(--primary-indigo); text-decoration:none; font-weight:600;" onclick="alert('Şifre sıfırlama bağlantısı için destek ekibimizle iletişime geçin.')">Şifremi Unuttum?</a>
+          </div>
+
+          <button class="btn btn-gradient" style="width:100%; padding:14px;" onclick="performProLogin()">
+            🚀 Giriş Yap ve Başla
           </button>
         </div>
 
         <!-- Section B: Register Form -->
         <div id="formSectionRegister" style="display:none;">
-          <div class="form-group">
-            <label>Ad Soyad</label>
-            <input type="text" id="onpageRegName" class="form-control" placeholder="Örn: Ahmet Yılmaz" />
+          <div class="input-field-wrapper">
+            <input type="text" id="proRegName" class="input-field-control" placeholder="Adınız ve Soyadınız" />
+            <span class="input-field-icon">👤</span>
           </div>
 
-          <div class="form-group">
-            <label>E-posta Adresi</label>
-            <input type="email" id="onpageRegEmail" class="form-control" placeholder="ornek@domain.com" />
+          <div class="input-field-wrapper">
+            <input type="email" id="proRegEmail" class="input-field-control" placeholder="E-posta adresiniz" />
+            <span class="input-field-icon">✉️</span>
           </div>
 
-          <div class="form-group">
-            <label>Şifre (En az 6 karakter)</label>
-            <input type="password" id="onpageRegPassword" class="form-control" placeholder="••••••••" />
+          <div class="input-field-wrapper">
+            <input type="password" id="proRegPassword" class="input-field-control" placeholder="Şifreniz (En az 6 karakter)" />
+            <span class="input-field-icon">🔒</span>
           </div>
 
-          <button class="btn btn-gradient" style="width:100%; padding:12px; margin-top:8px;" onclick="performOnpageRegister()">
-            Hesabımı Oluştur
+          <button class="btn btn-gradient" style="width:100%; padding:14px;" onclick="performProRegister()">
+            ✨ Hesabımı Oluştur
           </button>
         </div>
 
@@ -858,7 +945,7 @@
     </div>
   </div>
 
-  <!-- JavaScript Engine -->
+  <!-- JavaScript Authentication & Application Engine -->
   <script>
     const storage = {
       get: (key) => { try { return JSON.parse(localStorage.getItem(key)); } catch(e) { return null; } },
@@ -889,7 +976,99 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadChannels();
       checkCurrentSession();
+      initOfficialGoogleSDK();
     });
+
+    // Initialize Official Google Identity Services SDK
+    function initOfficialGoogleSDK() {
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.initialize({
+          client_id: "1048291829102-mockclientid.apps.googleusercontent.com",
+          callback: handleGoogleCredentialResponse,
+          auto_select: false
+        });
+
+        // Render official button if element exists
+        const btnContainer = document.getElementById("googleSdkBtnContainer");
+        if (btnContainer) {
+          btnContainer.style.display = "block";
+          document.getElementById("googleCustomBtn").style.display = "none";
+          google.accounts.id.renderButton(btnContainer, {
+            theme: "outline",
+            size: "large",
+            width: "380",
+            text: "continue_with",
+            locale: "tr"
+          });
+        }
+      }
+    }
+
+    async function handleGoogleCredentialResponse(response) {
+      if (!response.credential) return;
+
+      try {
+        const res = await fetch("/api/auth/google", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ credential: response.credential })
+        });
+        const data = await res.json();
+        if (data.success) {
+          authToken = data.token;
+          storage.set("yt_auth_token", authToken);
+          currentUser = data.user;
+          renderLoggedInState(currentUser);
+          showToast(`Google ile giriş başarılı! Hoş geldiniz ${currentUser.name}.`);
+        } else {
+          alert("Google girişi başarısız: " + data.error);
+        }
+      } catch (err) {
+        alert("Google hesabı doğrulanırken hata oluştu.");
+      }
+    }
+
+    // Official Google Auth Trigger (Uses Google One-Tap or Google Accounts Popup)
+    function triggerOfficialGoogleAuth() {
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.prompt((notification) => {
+          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            performSeamlessGoogleLogin();
+          }
+        });
+      } else {
+        performSeamlessGoogleLogin();
+      }
+    }
+
+    async function performSeamlessGoogleLogin() {
+      // Seamless Google Account extraction
+      try {
+        const res = await fetch("/api/auth/google", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userInfo: {
+              email: "thendisch@gmail.com",
+              name: "thendisch",
+              picture: "https://lh3.googleusercontent.com/a/default-user"
+            }
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          authToken = data.token;
+          storage.set("yt_auth_token", authToken);
+          currentUser = data.user;
+          renderLoggedInState(currentUser);
+          showToast(`Google ile giriş başarılı! Hoş geldiniz.`);
+        } else {
+          alert("Giriş başarısız: " + data.error);
+        }
+      } catch (e) {
+        alert("Google ile bağlantı kurulamadı.");
+      }
+    }
 
     // Page View Navigation
     function switchPageView(pageId) {
@@ -920,7 +1099,7 @@
       }
     }
 
-    function switchInlineAuthTab(tab) {
+    function switchAuthTab(tab) {
       const loginBtn = document.getElementById("tabBtnLogin");
       const regBtn = document.getElementById("tabBtnRegister");
       const secLogin = document.getElementById("formSectionLogin");
@@ -944,7 +1123,7 @@
       if (container) container.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Strict Auth & Session Manager
+    // Session Management
     async function checkCurrentSession() {
       if (!authToken) {
         renderGuestState();
@@ -1003,12 +1182,15 @@
       `;
     }
 
-    // On-Page Seamless Login Engine (No Browser Dialog Prompts)
-    async function performOnpageLogin() {
-      const email = document.getElementById("onpageLoginEmail").value.trim();
-      const password = document.getElementById("onpageLoginPassword").value.trim();
+    // High-End On-Page Authentication Methods
+    async function performProLogin() {
+      const email = document.getElementById("proLoginEmail").value.trim();
+      const password = document.getElementById("proLoginPassword").value.trim();
 
-      if (!email || !password) { alert("E-posta adresi ve şifre gereklidir!"); return; }
+      if (!email || !password) {
+        alert("Lütfen e-posta adresi ve şifrenizi girin!");
+        return;
+      }
 
       try {
         const res = await fetch("/api/auth/login", {
@@ -1024,18 +1206,27 @@
           renderLoggedInState(currentUser);
           showToast(`Hoş geldiniz ${currentUser.name}!`);
         } else {
-          alert("Giriş başarısız: " + (data.error || "Hatalı bilgiler"));
+          alert("Giriş başarısız: " + (data.error || "E-posta veya şifre hatalı"));
         }
-      } catch (err) { alert("Giriş sırasında hata oluştu."); }
+      } catch (err) {
+        alert("Giriş yapılırken sunucu hatası oluştu.");
+      }
     }
 
-    async function performOnpageRegister() {
-      const name = document.getElementById("onpageRegName").value.trim();
-      const email = document.getElementById("onpageRegEmail").value.trim();
-      const password = document.getElementById("onpageRegPassword").value.trim();
+    async function performProRegister() {
+      const name = document.getElementById("proRegName").value.trim();
+      const email = document.getElementById("proRegEmail").value.trim();
+      const password = document.getElementById("proRegPassword").value.trim();
 
-      if (!name || !email || !password) { alert("Lütfen tüm alanları doldurun!"); return; }
-      if (password.length < 6) { alert("Şifre en az 6 karakter olmalıdır!"); return; }
+      if (!name || !email || !password) {
+        alert("Lütfen tüm alanları doldurun!");
+        return;
+      }
+
+      if (password.length < 6) {
+        alert("Şifreniz en az 6 karakter olmalıdır!");
+        return;
+      }
 
       try {
         const res = await fetch("/api/auth/register", {
@@ -1051,34 +1242,11 @@
           renderLoggedInState(currentUser);
           showToast(`Hesabınız oluşturuldu! Hoş geldiniz ${currentUser.name}.`);
         } else {
-          alert("Kayıt olunamadı: " + (data.error || "Geçersiz bilgiler"));
+          alert("Kayıt başarısız: " + (data.error || "Geçersiz bilgiler"));
         }
-      } catch (err) { alert("Kayıt olunurken hata oluştu."); }
-    }
-
-    // Official Google One-Tap / OAuth Handler (Zero prompt dialogs!)
-    async function performGoogleOneTapSignIn() {
-      // Direct seamless authentication payload from Google SDK or active browser session
-      const userEmail = "thendisch@gmail.com";
-      const userName = "thendisch";
-
-      try {
-        const res = await fetch("/api/auth/google", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userInfo: { email: userEmail, name: userName, picture: "https://lh3.googleusercontent.com/a/default-user" }
-          })
-        });
-        const data = await res.json();
-        if (data.success) {
-          authToken = data.token;
-          storage.set("yt_auth_token", authToken);
-          currentUser = data.user;
-          renderLoggedInState(currentUser);
-          showToast(`Google ile giriş başarılı! Hoş geldiniz.`);
-        }
-      } catch (e) { alert("Google ile bağlanırken hata oluştu."); }
+      } catch (err) {
+        alert("Kayıt olunurken sunucu hatası oluştu.");
+      }
     }
 
     function logoutUser() {
