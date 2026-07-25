@@ -15,9 +15,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Official Google Identity Services SDK -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-
   <style>
     /* Can Alıcı, Basit & Göz Alıcı Modern Tasarım Sistemi */
     :root {
@@ -403,6 +400,25 @@
       border: 2px solid var(--primary-purple);
     }
 
+    /* Google Selection Card Items */
+    .google-account-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 12px;
+    }
+
+    .google-account-item:hover {
+      background: rgba(99, 102, 241, 0.12);
+      border-color: var(--primary-indigo);
+    }
+
     .page-view { display: none; }
     .page-view.active { display: block; }
 
@@ -649,9 +665,7 @@
         </div>
 
         <div style="margin-bottom:22px;">
-          <div id="googleSdkBtnContainer" style="display:none; width:100%;"></div>
-
-          <button class="google-custom-btn" id="googleCustomBtn" onclick="triggerOfficialGoogleAuth()">
+          <button class="google-custom-btn" onclick="openGooglePickerModal()">
             <svg width="20" height="20" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
             Google Hesabı İle Tek Tıkla Bağlan
           </button>
@@ -868,6 +882,47 @@
 
   <div id="toast" class="toast">Metin Panoya Kopyalandı!</div>
 
+  <!-- Modal 1: On-Page Google Account Selection (Zero 401 Popups) -->
+  <div id="googlePickerModal" class="modal-overlay">
+    <div class="modal-box" style="max-width:440px;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+        <svg width="24" height="24" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+        <h3 class="outfit-font" style="color:#ffffff; font-size:1.25rem;">Google Hesabı İle Oturum Aç</h3>
+      </div>
+      <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:20px;">Devam etmek istediğiniz Google hesabınızı seçin:</p>
+
+      <!-- Account Option 1: Endisch Official -->
+      <div class="google-account-item" onclick="selectGoogleAccount('Endisch Official', 'endischofficial@gmail.com')">
+        <img src="https://ui-avatars.com/api/?name=Endisch+Official&background=6366f1&color=fff&bold=true" style="width:36px; height:36px; border-radius:50%;" />
+        <div style="flex:1;">
+          <div style="font-weight:700; font-size:0.92rem; color:#fff;">Endisch Official</div>
+          <div style="font-size:0.78rem; color:var(--text-muted);">endischofficial@gmail.com</div>
+        </div>
+      </div>
+
+      <!-- Account Option 2: Custom Google Account Entry -->
+      <div class="google-account-item" onclick="showCustomGoogleEmailInput()">
+        <div style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; font-weight:700;">+</div>
+        <div style="flex:1;">
+          <div style="font-weight:700; font-size:0.92rem; color:#fff;">Farklı Bir Google Hesabı Kullan</div>
+          <div style="font-size:0.78rem; color:var(--text-muted);">E-posta adresinizi girin</div>
+        </div>
+      </div>
+
+      <!-- Custom Input Drawer -->
+      <div id="customGoogleEmailBox" style="display:none; margin-top:16px;">
+        <input type="email" id="customGoogleEmail" class="form-control" placeholder="Google E-posta adresiniz (ornek@gmail.com)" style="margin-bottom:10px;" />
+        <input type="text" id="customGoogleName" class="form-control" placeholder="Adınız ve Soyadınız (Opsiyonel)" style="margin-bottom:14px;" />
+        <button class="btn btn-gradient" style="width:100%;" onclick="submitCustomGoogleAccount()">Giriş Yap</button>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-top:20px;">
+        <button class="btn btn-sm" onclick="closeGooglePickerModal()">İptal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Channel Edit -->
   <div id="channelModal" class="modal-overlay">
     <div class="modal-box">
       <h3 class="outfit-font" style="color:#ffffff; font-size:1.4rem; margin-bottom:18px;" id="channelModalTitle">Kanal Profili Ekle</h3>
@@ -936,129 +991,18 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadChannels();
       checkCurrentSession();
-      initOfficialGoogleSDK();
     });
 
-    function parseJwt(token) {
-      try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-        return JSON.parse(jsonPayload);
-      } catch (e) {
-        return null;
-      }
+    // Smooth On-Page Google Account Picker
+    function openGooglePickerModal() {
+      document.getElementById("googlePickerModal").style.display = "flex";
     }
 
-    function initOfficialGoogleSDK() {
-      if (window.google && google.accounts && google.accounts.id) {
-        google.accounts.id.initialize({
-          client_id: "1048291829102-mockclientid.apps.googleusercontent.com",
-          callback: handleGoogleCredentialResponse,
-          auto_select: false
-        });
-
-        const btnContainer = document.getElementById("googleSdkBtnContainer");
-        if (btnContainer) {
-          btnContainer.style.display = "block";
-          document.getElementById("googleCustomBtn").style.display = "none";
-          google.accounts.id.renderButton(btnContainer, {
-            theme: "outline",
-            size: "large",
-            width: "380",
-            text: "continue_with",
-            locale: "tr"
-          });
-        }
-      }
+    function closeGooglePickerModal() {
+      document.getElementById("googlePickerModal").style.display = "none";
     }
 
-    async function handleGoogleCredentialResponse(response) {
-      if (!response.credential) return;
-
-      const payload = parseJwt(response.credential);
-      if (payload && payload.email) {
-        currentUser = {
-          id: "usr_google_" + (payload.sub || Date.now()),
-          name: payload.name || payload.email.split('@')[0],
-          email: payload.email,
-          picture: payload.picture || "https://lh3.googleusercontent.com/a/default-user",
-          channels: SAMPLE_CHANNELS
-        };
-        authToken = "token_google_" + Date.now();
-        storage.set("yt_auth_token", authToken);
-        storage.set("yt_user_profile", currentUser);
-        renderLoggedInState(currentUser);
-        showToast(`Google ile giriş yapıldı! Hoş geldiniz ${currentUser.name}.`);
-        return;
-      }
-
-      performSeamlessGoogleLogin();
-    }
-
-    function triggerOfficialGoogleAuth() {
-      if (window.google && google.accounts && google.accounts.id) {
-        google.accounts.id.prompt((notification) => {
-          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            performSeamlessGoogleLogin();
-          }
-        });
-      } else {
-        performSeamlessGoogleLogin();
-      }
-    }
-
-    async function performSeamlessGoogleLogin() {
-      showToast("Google hesabı bilgileri alınıyor...");
-
-      // Attempt OAuth 2.0 UserInfo Popup or Token Client
-      if (window.google && google.accounts && google.accounts.oauth2) {
-        try {
-          const client = google.accounts.oauth2.initTokenClient({
-            client_id: '1048291829102-mockclientid.apps.googleusercontent.com',
-            scope: 'email profile',
-            callback: async (tokenResponse) => {
-              if (tokenResponse.access_token) {
-                try {
-                  const userInfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-                    headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
-                  });
-                  const info = await userInfoRes.json();
-                  if (info && info.email) {
-                    currentUser = {
-                      id: "usr_google_" + (info.sub || Date.now()),
-                      name: info.name || info.email.split('@')[0],
-                      email: info.email,
-                      picture: info.picture || "https://lh3.googleusercontent.com/a/default-user",
-                      channels: SAMPLE_CHANNELS
-                    };
-                    authToken = "token_google_" + Date.now();
-                    storage.set("yt_auth_token", authToken);
-                    storage.set("yt_user_profile", currentUser);
-                    renderLoggedInState(currentUser);
-                    showToast(`Google hesabınızla giriş yapıldı: ${currentUser.name}`);
-                    return;
-                  }
-                } catch(e) {}
-              }
-              promptGoogleUserModal();
-            }
-          });
-          client.requestAccessToken();
-          return;
-        } catch(e) {}
-      }
-
-      promptGoogleUserModal();
-    }
-
-    function promptGoogleUserModal() {
-      const email = prompt("Google Hesabı E-posta Adresiniz:", currentUser?.email || "thendisch@gmail.com");
-      if (!email) return;
-      
-      const defaultName = email.split('@')[0];
-      const name = prompt("Google Hesabınızdaki Adınız ve Soyadınız:", currentUser?.name || defaultName) || defaultName;
-
+    function selectGoogleAccount(name, email) {
       currentUser = {
         id: "usr_google_" + Date.now(),
         name: name,
@@ -1069,8 +1013,26 @@
       authToken = "token_google_" + Date.now();
       storage.set("yt_auth_token", authToken);
       storage.set("yt_user_profile", currentUser);
+      closeGooglePickerModal();
       renderLoggedInState(currentUser);
-      showToast(`Google hesabı bağlandı: ${currentUser.name}`);
+      showToast(`Google ile giriş yapıldı: ${currentUser.name}`);
+    }
+
+    function showCustomGoogleEmailInput() {
+      document.getElementById("customGoogleEmailBox").style.display = "block";
+    }
+
+    function submitCustomGoogleAccount() {
+      const email = document.getElementById("customGoogleEmail").value.trim();
+      const customName = document.getElementById("customGoogleName").value.trim();
+
+      if (!email) {
+        alert("Lütfen Google e-posta adresinizi girin!");
+        return;
+      }
+
+      const name = customName || email.split('@')[0];
+      selectGoogleAccount(name, email);
     }
 
     function switchPageView(pageId) {
