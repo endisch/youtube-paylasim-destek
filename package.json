@@ -1,7 +1,7 @@
 {
   "name": "youtube-paylasim-destek",
-  "version": "1.1.0",
-  "description": "YouTube Müzik ve İçerik Kanalları için Güvenlik Korumalı AB Testine Uygun Başlık, Açıklama ve AI Kapak Motoru",
+  "version": "2.0.0",
+  "description": "YouTube Müzik ve İçerik Kanalları için Çoklu Kullanıcı Destekli, Google OAuth ve AB Testine Uygun İçerik Üretim Platformu",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,6 +10,7 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "express": "^4.19.2",
+    "google-auth-library": "^9.15.0",
     "helmet": "^8.2.0",
     "jsonwebtoken": "^9.0.3"
   },

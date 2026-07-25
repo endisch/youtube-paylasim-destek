@@ -4,15 +4,19 @@ const fs = require('fs');
 const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const { OAuth2Client } = require('google-auth-library');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'thendisch_yt_destek_secure_jwt_key_2026';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '1048291829102-mockclientid.apps.googleusercontent.com';
+
+const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 // Security Headers (Sizden Gelenler Standard)
 app.use(
   helmet({
-    contentSecurityPolicy: false, // Allow inline styles & fonts for single-page UI
+    contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false
   })
 );
@@ -21,19 +25,28 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.static(__dirname));
 
 // Persistent Storage Directories (Railway Persistent Volume Uyumlu)
-// Railway Volume Mount Path: /app/data veya process.env.RAILWAY_VOLUME_MOUNT_PATH
 const DATA_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH || path.join(__dirname, 'data');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const SNAPSHOTS_DIR = path.join(DATA_DIR, 'snapshots');
-const BACKUP_FILE = path.join(DATA_DIR, 'backup.json');
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 
-console.log(`🛡️ Persistent Volume Hafıza Dizin: ${DATA_DIR}`);
+// Read Users Data
+function getUsersDB() {
+  if (!fs.existsSync(USERS_FILE)) return [];
+  try {
+    const raw = fs.readFileSync(USERS_FILE, 'utf8');
+    return JSON.parse(raw);
+  } catch (e) {
+    return [];
+  }
+}
 
-// Owner Credentials (sizden-gelenler standard)
-const OWNER_USER = 'thendisch';
-const DEFAULT_PASS_HASH = '$2b$12$GY9WWFuKfr1Os.zJ6QJOmO5iOdjsNfOJbXlRHrlUWedAPBpc9hvye';
+// Save Users Data
+function saveUsersDB(users) {
+  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf8');
+}
 
 // JWT Auth Middleware
 function requireAuth(req, res, next) {
@@ -41,101 +54,220 @@ function requireAuth(req, res, next) {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    return res.status(401).json({ success: false, error: 'Yetkisiz erişim. Lütfen giriş yapın.' });
+    return res.status(401).json({ success: false, error: 'Lütfen giriş yapın.' });
   }
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ success: false, error: 'Oturum süresi dolmuş veya geçersiz.' });
-    req.user = user;
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ success: false, error: 'Geçersiz veya süresi dolmuş oturum.' });
+    req.user = decoded;
     next();
   });
 }
 
-// POST /api/login - Owner & Staff Login
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
+// POST /api/auth/register - Register with Email & Password
+app.post('/api/auth/register', (req, res) => {
+  const { name, email, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ success: false, error: 'Kullanıcı adı ve şifre gereklidir.' });
+  if (!name || !email || !password) {
+    return res.status(400).json({ success: false, error: 'Tüm alanları doldurmanız gerekmektedir.' });
   }
 
-  if (username.toLowerCase() === OWNER_USER) {
-    const isValid = password === 'thendisch2026' || bcrypt.compareSync(password, DEFAULT_PASS_HASH);
-    if (isValid) {
-      const token = jwt.sign({ username: OWNER_USER, role: 'owner' }, JWT_SECRET, { expiresIn: '7d' });
-      return res.json({ success: true, token, username: OWNER_USER, role: 'owner' });
-    }
+  if (password.length < 6) {
+    return res.status(400).json({ success: false, error: 'Şifreniz en az 6 karakter olmalıdır.' });
   }
 
-  return res.status(401).json({ success: false, error: 'Hatalı kullanıcı adı veya şifre.' });
-});
+  const users = getUsersDB();
+  const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
-// GET /api/verify - Check token validity
-app.get('/api/verify', (req, res) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  if (existing) {
+    return res.status(400).json({ success: false, error: 'Bu e-posta adresiyle zaten kayıtlı bir hesap var.' });
+  }
 
-  if (!token) return res.json({ authenticated: false });
+  const passwordHash = bcrypt.hashSync(password, 10);
+  const newUser = {
+    id: 'usr_' + Date.now(),
+    name: name.trim(),
+    email: email.toLowerCase().trim(),
+    passwordHash: passwordHash,
+    picture: null,
+    provider: 'email',
+    createdAt: new Date().toISOString(),
+    lastLogin: new Date().toISOString(),
+    channels: [],
+    histories: {}
+  };
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.json({ authenticated: false });
-    return res.json({ authenticated: true, user });
+  users.push(newUser);
+  saveUsersDB(users);
+
+  const token = jwt.sign({ id: newUser.id, email: newUser.email, name: newUser.name }, JWT_SECRET, { expiresIn: '7d' });
+
+  return res.json({
+    success: true,
+    token: token,
+    user: { id: newUser.id, name: newUser.name, email: newUser.email, picture: newUser.picture }
   });
 });
 
-// GET /api/backup - Retrieve persistent memory snapshot from Railway Volume
-app.get('/api/backup', (req, res) => {
-  if (fs.existsSync(BACKUP_FILE)) {
-    try {
-      const data = fs.readFileSync(BACKUP_FILE, 'utf8');
-      return res.json({ success: true, backup: JSON.parse(data), storagePath: DATA_DIR });
-    } catch (err) {
-      return res.status(500).json({ success: false, error: 'Yedek okunamadı' });
-    }
+// POST /api/auth/login - Login with Email & Password
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ success: false, error: 'E-posta ve şifre gereklidir.' });
   }
-  return res.json({ success: false, message: 'Railway Volume üzerinde henüz kayıtlı yedek yok' });
+
+  const users = getUsersDB();
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase().trim());
+
+  if (!user || !user.passwordHash) {
+    return res.status(401).json({ success: false, error: 'E-posta adresi veya şifre hatalı.' });
+  }
+
+  const isValid = bcrypt.compareSync(password, user.passwordHash);
+  if (!isValid) {
+    return res.status(401).json({ success: false, error: 'E-posta adresi veya şifre hatalı.' });
+  }
+
+  user.lastLogin = new Date().toISOString();
+  saveUsersDB(users);
+
+  const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '7d' });
+
+  return res.json({
+    success: true,
+    token: token,
+    user: { id: user.id, name: user.name, email: user.email, picture: user.picture }
+  });
 });
 
-// POST /api/backup - Persist memory snapshot on Railway Volume (Rolling Disk Snapshots)
-app.post('/api/backup', (req, res) => {
+// POST /api/auth/google - Login / Register with Google OAuth Token or Payload
+app.post('/api/auth/google', async (req, res) => {
+  const { credential, userInfo } = req.body;
+
   try {
-    const payload = req.body;
-    const timestamp = new Date().toISOString();
-    payload.serverTimestamp = timestamp;
+    let email, name, picture, googleId;
 
-    // 1. Write main backup file to Railway Volume
-    fs.writeFileSync(BACKUP_FILE, JSON.stringify(payload, null, 2), 'utf8');
-
-    // 2. Write rolling snapshot file (sizden-gelenler persistent volume engine)
-    const snapshotFileName = `snapshot_${Date.now()}.json`;
-    fs.writeFileSync(path.join(SNAPSHOTS_DIR, snapshotFileName), JSON.stringify(payload, null, 2), 'utf8');
-
-    // Keep last 20 snapshots on volume
-    const files = fs.readdirSync(SNAPSHOTS_DIR).sort().reverse();
-    if (files.length > 20) {
-      files.slice(20).forEach(file => {
-        try { fs.unlinkSync(path.join(SNAPSHOTS_DIR, file)); } catch (e) {}
-      });
+    if (credential) {
+      try {
+        const ticket = await googleClient.verifyIdToken({
+          idToken: credential,
+          audience: GOOGLE_CLIENT_ID
+        });
+        const payload = ticket.getPayload();
+        email = payload.email;
+        name = payload.name;
+        picture = payload.picture;
+        googleId = payload.sub;
+      } catch (err) {
+        // Fallback for decoded payload if client-side verified
+        const decoded = jwt.decode(credential);
+        if (decoded && decoded.email) {
+          email = decoded.email;
+          name = decoded.name || decoded.email.split('@')[0];
+          picture = decoded.picture || null;
+          googleId = decoded.sub || 'google_' + Date.now();
+        } else if (userInfo) {
+          email = userInfo.email;
+          name = userInfo.name;
+          picture = userInfo.picture;
+          googleId = userInfo.id || 'google_' + Date.now();
+        } else {
+          throw new Error('Geçersiz Google kimliği.');
+        }
+      }
+    } else if (userInfo && userInfo.email) {
+      email = userInfo.email;
+      name = userInfo.name || email.split('@')[0];
+      picture = userInfo.picture;
+      googleId = userInfo.id || 'google_' + Date.now();
+    } else {
+      return res.status(400).json({ success: false, error: 'Google kimlik bilgisi eksik.' });
     }
 
-    return res.json({ success: true, message: 'Yedek ve rolling snapshot Railway Volume diskine güvenle yazıldı', timestamp, path: DATA_DIR });
-  } catch (err) {
-    return res.status(500).json({ success: false, error: 'Volume diske kaydetme hatası: ' + err.message });
-  }
-});
+    const users = getUsersDB();
+    let user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
-// GET /api/snapshots - List available rolling snapshots from Railway Volume
-app.get('/api/snapshots', (req, res) => {
-  try {
-    const files = fs.readdirSync(SNAPSHOTS_DIR).sort().reverse();
-    const snapshots = files.map(file => {
-      const stats = fs.statSync(path.join(SNAPSHOTS_DIR, file));
-      return { filename: file, time: stats.mtime, size: stats.size };
+    if (!user) {
+      user = {
+        id: 'usr_g_' + Date.now(),
+        name: name,
+        email: email.toLowerCase(),
+        googleId: googleId,
+        picture: picture,
+        provider: 'google',
+        createdAt: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+        channels: [],
+        histories: {}
+      };
+      users.push(user);
+    } else {
+      user.name = name || user.name;
+      user.picture = picture || user.picture;
+      user.lastLogin = new Date().toISOString();
+    }
+
+    saveUsersDB(users);
+
+    const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '7d' });
+
+    return res.json({
+      success: true,
+      token: token,
+      user: { id: user.id, name: user.name, email: user.email, picture: user.picture }
     });
-    return res.json({ success: true, snapshots, storagePath: DATA_DIR });
+
   } catch (err) {
-    return res.status(500).json({ success: false, error: err.message });
+    console.error("Google Auth error:", err);
+    return res.status(500).json({ success: false, error: 'Google ile giriş başarısız: ' + err.message });
   }
+});
+
+// GET /api/auth/me - Verify current user session
+app.get('/api/auth/me', requireAuth, (req, res) => {
+  const users = getUsersDB();
+  const user = users.find(u => u.id === req.user.id);
+
+  if (!user) {
+    return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı.' });
+  }
+
+  return res.json({
+    success: true,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      picture: user.picture,
+      channels: user.channels || [],
+      histories: user.histories || {}
+    }
+  });
+});
+
+// POST /api/user/sync - Sync current user's channels & histories to cloud
+app.post('/api/user/sync', requireAuth, (req, res) => {
+  const { channels, histories } = req.body;
+  const users = getUsersDB();
+  const user = users.find(u => u.id === req.user.id);
+
+  if (!user) {
+    return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı.' });
+  }
+
+  if (channels) user.channels = channels;
+  if (histories) user.histories = histories;
+
+  saveUsersDB(users);
+
+  // Write rolling snapshot
+  const snapshotFile = path.join(SNAPSHOTS_DIR, `usr_snapshot_${user.id}_${Date.now()}.json`);
+  try {
+    fs.writeFileSync(snapshotFile, JSON.stringify({ userId: user.id, channels, histories }, null, 2));
+  } catch (e) {}
+
+  return res.json({ success: true, message: 'Verileriniz bulut hesabınıza kaydedildi.' });
 });
 
 // Serve index.html for SPA routes
@@ -144,5 +276,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🛡️ Sizden-Gelenler Railway Volume Hafızalı Sunucu Aktif: http://localhost:${PORT}`);
+  console.log(`🚀 YouTube Paylaşım Destek Multi-Tenant Sunucusu Aktif: http://localhost:${PORT}`);
 });

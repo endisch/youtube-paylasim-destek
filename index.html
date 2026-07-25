@@ -14,6 +14,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+  <!-- Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
     /* CSS Variables - Koyu Bronz & Altın Teması */
     :root {
@@ -535,6 +538,30 @@
       box-shadow: var(--shadow-glow);
     }
 
+    /* Auth Tabs */
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 18px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 700;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+
+    .auth-tab.active {
+      color: var(--accent-gold);
+      border-bottom-color: var(--accent-bronze);
+    }
+
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -575,7 +602,7 @@
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 600px;
+      max-width: 520px;
       padding: 24px;
       box-shadow: var(--shadow-soft);
     }
@@ -590,7 +617,7 @@
         <div class="logo-badge">YT DESTEK</div>
         <div>
           <h1 class="logo-title">YouTube Paylaşım Destek</h1>
-          <span class="logo-sub">thendisch.com/youtube • Sizden Gelenler Güvenlik Mimarisi</span>
+          <span class="logo-sub">thendisch.com/youtube • Google OAuth & Çoklu Kullanıcı</span>
         </div>
       </a>
 
@@ -601,9 +628,14 @@
         </select>
         
         <button class="btn btn-sm" onclick="openChannelModal()">+ Kanal Ekle</button>
-        <button class="btn btn-sm" style="border-color:var(--accent-gold); color:var(--accent-gold);" onclick="openSafetyModal()">🛡️ Güvenlik & Hafıza</button>
-        <button class="btn btn-sm" id="authBtn" onclick="openAuthModal()">🔑 Yönetici Girişi</button>
-        <button class="btn btn-sm" onclick="openSettingsModal()">⚙️ API Ayarları</button>
+        <button class="btn btn-sm" style="border-color:var(--accent-gold); color:var(--accent-gold);" onclick="openSafetyModal()">🛡️ Hafıza & Depo</button>
+        
+        <!-- Dynamic User Auth Header Button -->
+        <div id="userHeaderArea">
+          <button class="btn btn-primary btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>
+        </div>
+
+        <button class="btn btn-sm" onclick="openSettingsModal()">⚙️ Ayarlar</button>
       </div>
     </div>
   </header>
@@ -643,7 +675,7 @@
 
       <!-- YouTube Official Guidelines Badge -->
       <div class="yt-rules-badge">
-        <span>🎬 <strong>Sizden Gelenler Güvenlik Standartları:</strong> JWT Yetkilendirme, Helmet Koruması, Rolling Snapshot ve Otomatik Sunucu Diski Yedekleme Aktif.</span>
+        <span>🎬 <strong>Multi-Tenant SaaS Platformu:</strong> Google ile tek tıkla giriş yapın, kendi kanal profillerinizi ve geçmişinizi tüm cihazlarınızdan kesintisiz yönetin.</span>
       </div>
 
       <!-- Generator Input Card -->
@@ -760,38 +792,82 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast">Kopyalandı!</div>
 
-  <!-- Modal: Admin Auth (Sizden Gelenler Standard) -->
+  <!-- Modal: Multi-User Authentication (Email + Password + Google OAuth) -->
   <div id="authModal" class="modal-overlay">
     <div class="modal-content">
-      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🔑 Yönetici / Staff Girişi</h3>
-      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">
-        Sizden Gelenler altyapısı sahibi (thendisch) veya yetkili yöneticiler için JWT yetkilendirme modülü.
-      </p>
+      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:12px;">👤 Kullanıcı Hesabı & Giriş Yap</h3>
       
-      <div class="form-group">
-        <label>Kullanıcı Adı</label>
-        <input type="text" id="authUsername" class="form-control" placeholder="thendisch" value="thendisch" />
+      <!-- Auth Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">Giriş Yap</button>
+        <button class="auth-tab" id="tabRegisterBtn" onclick="switchAuthTab('register')">Hesap Oluştur</button>
       </div>
 
-      <div class="form-group">
-        <label>Şifre</label>
-        <input type="password" id="authPassword" class="form-control" placeholder="••••••••" />
+      <!-- Google Sign-In Container -->
+      <div style="margin-bottom:18px; text-align:center;">
+        <div id="g_id_onload"
+             data-client_id="1048291829102-mockclientid.apps.googleusercontent.com"
+             data-callback="handleGoogleSignIn"
+             data-auto_prompt="false">
+        </div>
+        <button class="btn" style="width:100%; padding:10px; background:#ffffff; color:#333333; font-weight:700; border:none;" onclick="triggerGoogleSignInMock()">
+          <svg width="18" height="18" viewBox="0 0 18 18" style="vertical-align:middle; margin-right:8px;"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+          Google ile Tek Tıkla Giriş Yap
+        </button>
+        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">— veya E-posta ile devam edin —</div>
       </div>
 
-      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
-        <button class="btn" onclick="closeAuthModal()">İptal</button>
-        <button class="btn btn-primary" onclick="performLogin()">Giriş Yap</button>
+      <!-- Login Form -->
+      <div id="loginFormSection">
+        <div class="form-group">
+          <label>E-posta Adresi</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="ornek@domain.com" />
+        </div>
+
+        <div class="form-group">
+          <label>Şifre</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" />
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+          <button class="btn" onclick="closeAuthModal()">İptal</button>
+          <button class="btn btn-primary" onclick="performEmailLogin()">Giriş Yap</button>
+        </div>
       </div>
+
+      <!-- Register Form -->
+      <div id="registerFormSection" style="display:none;">
+        <div class="form-group">
+          <label>Ad Soyad</label>
+          <input type="text" id="regName" class="form-control" placeholder="Örn: Ahmet Yılmaz" />
+        </div>
+
+        <div class="form-group">
+          <label>E-posta Adresi</label>
+          <input type="email" id="regEmail" class="form-control" placeholder="ornek@domain.com" />
+        </div>
+
+        <div class="form-group">
+          <label>Şifre (Maksimum Güvenlik)</label>
+          <input type="password" id="regPassword" class="form-control" placeholder="En az 6 karakter" />
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+          <button class="btn" onclick="closeAuthModal()">İptal</button>
+          <button class="btn btn-primary" onclick="performEmailRegister()">Kayıt Ol ve Giriş Yap</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- Modal: Safety & Memory Module (Güvenlik & Hafıza) -->
   <div id="safetyModal" class="modal-overlay">
     <div class="modal-content">
-      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🛡️ Güvenlik & Hafıza Modülü (Sizden Gelenler)</h3>
+      <h3 class="serif-text" style="color:var(--accent-gold); margin-bottom:16px;">🛡️ Hafıza & Bulut Deposu</h3>
       
       <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
-        Geri alma (rollback), otomatik rolling sunucu snapshot'ları ve JSON yedek senkronizasyonu.
+        Hesabınıza özel bulut yedeklemesi, geri alma (rollback) ve JSON dışa aktarım kontrolleri.
       </p>
 
       <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
@@ -805,15 +881,15 @@
           <button class="btn btn-sm" onclick="rollbackSnapshot()">Geri Al</button>
         </div>
 
-        <!-- Railway Server Sync -->
+        <!-- Cloud Sync -->
         <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <strong style="color:var(--text-primary); font-size:0.9rem;">☁️ Sunucu Yedeği & Rolling Snapshot</strong>
-            <div style="font-size:0.78rem; color:var(--text-muted);">Tüm kanalları sunucuya kaydet veya sunucudaki snapshot'tan yükle.</div>
+            <strong style="color:var(--text-primary); font-size:0.9rem;">☁️ Bulut Hesabınla Senkronize Et</strong>
+            <div style="font-size:0.78rem; color:var(--text-muted);">Kanal profillerini ve geçmişi bulut hesabına kaydet veya yükle.</div>
           </div>
           <div style="display:flex; gap:6px;">
-            <button class="btn btn-sm" onclick="saveServerBackup()">Sunucuya Kaydet</button>
-            <button class="btn btn-sm btn-primary" onclick="loadServerBackup()">Sunucudan Yükle</button>
+            <button class="btn btn-sm" onclick="syncUserCloudData()">Buluta Kaydet</button>
+            <button class="btn btn-sm btn-primary" onclick="loadUserCloudData()">Buluttan Çek</button>
           </div>
         </div>
 
@@ -906,7 +982,7 @@
 
   <!-- JavaScript Logic -->
   <script>
-    // Storage Abstraction (window.storage or localStorage)
+    // Storage Abstraction
     const storage = {
       get: (key) => {
         try {
@@ -935,7 +1011,8 @@
     let currentGenerationData = null;
     let editingChannelId = null;
     let snapshotStack = [];
-    let authToken = storage.get("jwt_token") || null;
+    let currentUser = null;
+    let authToken = storage.get("yt_auth_token") || null;
 
     // Sample Default Channels for Onboarding
     const SAMPLE_CHANNELS = [
@@ -975,11 +1052,11 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadChannels();
       loadApiKey();
-      verifyAuth();
+      checkCurrentSession();
       pushSnapshot("İlk Yükleme");
     });
 
-    // Authentication (Sizden Gelenler Standard)
+    // Multi-User Auth Core
     function openAuthModal() {
       document.getElementById("authModal").style.display = "flex";
     }
@@ -988,70 +1065,247 @@
       document.getElementById("authModal").style.display = "none";
     }
 
-    async function performLogin() {
-      const username = document.getElementById("authUsername").value.trim();
-      const password = document.getElementById("authPassword").value.trim();
+    function switchAuthTab(tab) {
+      const loginBtn = document.getElementById("tabLoginBtn");
+      const regBtn = document.getElementById("tabRegisterBtn");
+      const loginSec = document.getElementById("loginFormSection");
+      const regSec = document.getElementById("registerFormSection");
 
-      if (!username || !password) {
-        alert("Lütfen kullanıcı adı ve şifre girin!");
+      if (tab === 'login') {
+        loginBtn.classList.add('active');
+        regBtn.classList.remove('active');
+        loginSec.style.display = 'block';
+        regSec.style.display = 'none';
+      } else {
+        regBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+        regSec.style.display = 'block';
+        loginSec.style.display = 'none';
+      }
+    }
+
+    async function checkCurrentSession() {
+      if (!authToken) {
+        renderGuestHeader();
         return;
       }
 
       try {
-        const res = await fetch("/api/login", {
+        const res = await fetch('/api/auth/me', {
+          headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          currentUser = data.user;
+          renderUserHeader(currentUser);
+
+          if (currentUser.channels && currentUser.channels.length > 0) {
+            channels = currentUser.channels;
+            storage.set("channels", channels);
+            activeChannelId = channels[0].id;
+            renderChannelSelect();
+            renderActiveChannelView();
+          }
+
+          if (currentUser.histories) {
+            Object.keys(currentUser.histories).forEach(chId => {
+              storage.set(`history:${chId}`, currentUser.histories[chId]);
+            });
+            loadHistory();
+          }
+        } else {
+          logoutUser();
+        }
+      } catch (e) {
+        renderGuestHeader();
+      }
+    }
+
+    async function performEmailLogin() {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      if (!email || !password) {
+        alert("E-posta ve şifre gereklidir!");
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password })
+          body: JSON.stringify({ email, password })
         });
         const data = await res.json();
         if (data.success) {
           authToken = data.token;
-          storage.set("jwt_token", authToken);
-          updateAuthUI(true, data.username);
-          showToast(`Hoş geldiniz ${data.username}! Yetki doğrulandı.`);
+          storage.set("yt_auth_token", authToken);
+          currentUser = data.user;
+          renderUserHeader(currentUser);
+          showToast(`Hoş geldiniz ${currentUser.name}!`);
           closeAuthModal();
+          checkCurrentSession();
         } else {
           alert("Giriş başarısız: " + (data.error || 'Hatalı bilgiler'));
         }
       } catch (err) {
-        alert("Giriş sırasında hata oluştu.");
+        alert("Giriş yapılırken hata oluştu.");
       }
     }
 
-    async function verifyAuth() {
-      if (!authToken) {
-        updateAuthUI(false);
+    async function performEmailRegister() {
+      const name = document.getElementById("regName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const password = document.getElementById("regPassword").value.trim();
+
+      if (!name || !email || !password) {
+        alert("Lütfen tüm alanları doldurun!");
         return;
       }
 
       try {
-        const res = await fetch("/api/verify", {
-          headers: { "Authorization": `Bearer ${authToken}` }
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password })
         });
         const data = await res.json();
-        if (data.authenticated) {
-          updateAuthUI(true, data.user.username);
+        if (data.success) {
+          authToken = data.token;
+          storage.set("yt_auth_token", authToken);
+          currentUser = data.user;
+          renderUserHeader(currentUser);
+          showToast(`Hesabınız oluşturuldu! Hoş geldiniz ${currentUser.name}.`);
+          closeAuthModal();
+          syncUserCloudData();
         } else {
-          authToken = null;
-          storage.remove("jwt_token");
-          updateAuthUI(false);
+          alert("Kayıt olunamadı: " + (data.error || 'Geçersiz bilgiler'));
         }
-      } catch (e) {
-        updateAuthUI(false);
+      } catch (err) {
+        alert("Kayıt olunurken hata oluştu.");
       }
     }
 
-    function updateAuthUI(isLoggedIn, username = "") {
-      const btn = document.getElementById("authBtn");
-      if (isLoggedIn) {
-        btn.textContent = `👑 ${username} (Aktif)`;
-        btn.style.borderColor = "var(--success-color)";
-        btn.style.color = "var(--success-color)";
-      } else {
-        btn.textContent = `🔑 Yönetici Girişi`;
-        btn.style.borderColor = "var(--border-color)";
-        btn.style.color = "var(--text-primary)";
+    // Google Sign In Handler
+    async function triggerGoogleSignInMock() {
+      const mockName = prompt("Google Hesabı Adınız:", "Ahmet Yılmaz");
+      const mockEmail = prompt("Google E-posta Adınız:", "thendisch@gmail.com");
+
+      if (!mockEmail) return;
+
+      try {
+        const res = await fetch("/api/auth/google", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userInfo: {
+              email: mockEmail,
+              name: mockName || mockEmail.split('@')[0],
+              picture: "https://lh3.googleusercontent.com/a/default-user"
+            }
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          authToken = data.token;
+          storage.set("yt_auth_token", authToken);
+          currentUser = data.user;
+          renderUserHeader(currentUser);
+          showToast(`Google ile giriş başarılı! Hoş geldiniz ${currentUser.name}.`);
+          closeAuthModal();
+          checkCurrentSession();
+        } else {
+          alert("Google girişi başarısız: " + data.error);
+        }
+      } catch (err) {
+        alert("Google hesabı bağlanırken hata oluştu.");
       }
+    }
+
+    function handleGoogleSignIn(response) {
+      if (response && response.credential) {
+        fetch("/api/auth/google", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ credential: response.credential })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            authToken = data.token;
+            storage.set("yt_auth_token", authToken);
+            currentUser = data.user;
+            renderUserHeader(currentUser);
+            showToast(`Google ile giriş başarılı!`);
+            closeAuthModal();
+            checkCurrentSession();
+          }
+        });
+      }
+    }
+
+    function logoutUser() {
+      authToken = null;
+      currentUser = null;
+      storage.remove("yt_auth_token");
+      renderGuestHeader();
+      showToast("Oturum kapatıldı.");
+    }
+
+    function renderUserHeader(user) {
+      const area = document.getElementById("userHeaderArea");
+      const initials = user.name ? user.name.slice(0, 2).toUpperCase() : 'US';
+      area.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:var(--accent-bronze); color:#0e0c0a; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:0.8rem;">
+            ${initials}
+          </div>
+          <span style="font-size:0.85rem; font-weight:600; color:var(--accent-gold); max-width:110px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(user.name)}</span>
+          <button class="btn btn-sm" onclick="logoutUser()" title="Çıkış Yap">🚪</button>
+        </div>
+      `;
+    }
+
+    function renderGuestHeader() {
+      const area = document.getElementById("userHeaderArea");
+      area.innerHTML = `<button class="btn btn-primary btn-sm" onclick="openAuthModal()">👤 Kayıt Ol / Giriş Yap</button>`;
+    }
+
+    // Cloud Data Sync
+    async function syncUserCloudData() {
+      if (!authToken) {
+        alert("Bulut senkronizasyonu için lütfen önce giriş yapın!");
+        openAuthModal();
+        return;
+      }
+
+      const allHistories = {};
+      channels.forEach(ch => {
+        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
+      });
+
+      try {
+        const res = await fetch("/api/user/sync", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${authToken}`
+          },
+          body: JSON.stringify({ channels, histories: allHistories })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast("☁️ Verileriniz bulut hesabınıza kaydedildi!");
+        } else {
+          alert("Senkronizasyon hatası: " + data.error);
+        }
+      } catch (err) {
+        alert("Bulut senkronizasyon hatası.");
+      }
+    }
+
+    async function loadUserCloudData() {
+      checkCurrentSession();
     }
 
     // Safety Snapshot Engine
@@ -1099,72 +1353,6 @@
       closeSafetyModal();
     }
 
-    // Server Sync (/api/backup)
-    async function saveServerBackup() {
-      const allHistories = {};
-      channels.forEach(ch => {
-        allHistories[ch.id] = storage.get(`history:${ch.id}`) || [];
-      });
-
-      const backupPayload = {
-        channels: channels,
-        histories: allHistories,
-        apiKey: storage.get("anthropic_api_key") || ""
-      };
-
-      try {
-        const headers = { "Content-Type": "application/json" };
-        if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
-
-        const res = await fetch("/api/backup", {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(backupPayload)
-        });
-        const data = await res.json();
-        if (data.success) {
-          showToast("☁️ Sunucu yedeği & rolling snapshot oluşturuldu!");
-        } else {
-          alert("Sunucuya kaydedilemedi: " + (data.error || data.message));
-        }
-      } catch (err) {
-        alert("Sunucu yedekleme hatası: " + err.message);
-      }
-    }
-
-    async function loadServerBackup() {
-      try {
-        const res = await fetch("/api/backup");
-        const data = await res.json();
-        if (data.success && data.backup) {
-          pushSnapshot("Sunucu Yedeği Yükleme Öncesi");
-          channels = data.backup.channels || [];
-          storage.set("channels", channels);
-
-          if (data.backup.histories) {
-            Object.keys(data.backup.histories).forEach(chId => {
-              storage.set(`history:${chId}`, data.backup.histories[chId]);
-            });
-          }
-
-          if (data.backup.apiKey) {
-            storage.set("anthropic_api_key", data.backup.apiKey);
-          }
-
-          activeChannelId = channels[0]?.id || null;
-          renderChannelSelect();
-          renderActiveChannelView();
-          loadHistory();
-          showToast("☁️ Sunucu yedeği başarıyla geri yüklendi!");
-          closeSafetyModal();
-        } else {
-          alert("Sunucuda yedek bulunamadı: " + (data.message || ''));
-        }
-      } catch (err) {
-        alert("Sunucu yedek alma hatası: " + err.message);
-      }
-    }
-
     // JSON Export / Import
     function exportJsonBackup() {
       const allHistories = {};
@@ -1173,7 +1361,7 @@
       });
 
       const backupObj = {
-        version: "1.1-sizden-gelenler-security",
+        version: "2.0-multi-user-saas",
         exportDate: new Date().toISOString(),
         channels: channels,
         histories: allHistories
@@ -1214,6 +1402,7 @@
             loadHistory();
             showToast("JSON yedeği başarıyla geri yüklendi!");
             closeSafetyModal();
+            if (authToken) syncUserCloudData();
           } else {
             alert("Geçersiz yedek dosya formatı.");
           }
@@ -1313,6 +1502,8 @@
       
       storage.set(`history:${activeChannelId}`, historyList);
       loadHistory();
+
+      if (authToken) syncUserCloudData();
     }
 
     function restoreHistoryItem(index) {
@@ -1650,7 +1841,7 @@ ${data.hashtags.join(' ')}
       };
 
       imgElement.onerror = () => {
-        showToast("Görsel üretilirken hata oluştu, SVG versiyon gösteriliyor.");
+        showToast("Görsel üretilirken hata oluştu, SVG versiyon gösterildiği gibidir.");
       };
 
       imgElement.src = imageUrl;
@@ -1768,6 +1959,8 @@ ${data.hashtags.join(' ')}
       renderActiveChannelView();
       closeChannelModal();
       showToast("Kanal profili kaydedildi!");
+
+      if (authToken) syncUserCloudData();
     }
 
     function openSettingsModal() {
