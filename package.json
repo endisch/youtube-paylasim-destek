@@ -1,0 +1,16 @@
+{
+  "name": "youtube-paylasim-destek",
+  "version": "1.0.0",
+  "description": "YouTube Müzik ve İçerik Kanalları için AB Testine Uygun 3 Başlık, 3 Açıklama ve 3 AI Thumbnail Prompt Jeneratörü (thendisch.com/youtube)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
